@@ -1,14 +1,21 @@
-import { Button } from "@/components/ui/button"
-import { BannerCarousel } from "@/components/home/BannerCarousel"
+import { BannerCarousel } from "@/components/home/BannerCarousel";
+import DisplayProduct from "@/components/home/DisplayProduct";
 
 export default function Home() {
-  return(
+  return (
     <div>
       {/* Banner Carousel */}
-      <BannerCarousel/>
+      <BannerCarousel />
 
-      <h1 className="font-bold text-3xl flex justify-center items-center">Hello world</h1>
-      <Button>Click me</Button>
+      {/* Display Product */}
+      <div>
+        <h1 className="text-2xl font-semibold text-center mt-12 mb-8 text-gray-800">
+            Filter Your Needs By Category
+        </h1>
+        <div className="mb-12">
+          <DisplayProduct />
+        </div>
+      </div>
     </div>
-  )
+  );
 }
