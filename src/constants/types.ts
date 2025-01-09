@@ -1,4 +1,4 @@
-// Define Product interface
+// Product interface
 export interface Product {
     id: number;
     name: string;
@@ -8,11 +8,19 @@ export interface Product {
     category: number;
   }
   
-  // Define CartItem interface
-  export interface CartItem {
+  // User Profile interface
+  export interface UserProfile {
     id: number;
-    name: string;
-    price: number;
-    stock: number;
-  }
+    user: {
+      id: number;
+      username: string;
+      email: string;
+      first_name: string;
+      last_name: string;
+    };
+    image: string;
+    balance: string;
+    contact_info: string;
+    shopping_preferences: string;
+  }  
   

@@ -48,6 +48,8 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory}) => {
     }
   }, [selectedCategory, products]);
 
+
+   // Add to Cart
   const handleAddToCart = async (product: Product) => {
     if (!userId) {
       toast.error("User not logged in.");
@@ -59,7 +61,7 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory}) => {
         "https://easygrocery-server.onrender.com/api/user_profile/cart/",
         {
           user: userId,
-          product: product.id,
+          product: product,
           quantity: 1, // Default quantity
         },
         {
@@ -77,6 +79,7 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory}) => {
     }
   };
 
+  // Add to Wishlist
   const handleAddToWishlist = async (product: Product) => {
     if (!userId) {
       toast.error("User not logged in.");
@@ -88,7 +91,7 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory}) => {
         "https://easygrocery-server.onrender.com/api/user_profile/wishlist/",
         {
           user: userId,
-          product: product.id,
+          product: product,
         },
         {
           headers: {

@@ -16,87 +16,79 @@ interface UserProfile {
   image: string | null;
 }
 
+interface Product {
+  name: string;
+  image: string;
+}
+
 interface WishlistItem {
   id: number;
-  name: string;
+  product: Product;
 }
 
 export default function Profile() {
   const [profileData, setProfileData] = useState<UserProfile | null>(null);
+  const [wishlist, setWishlist] = useState<WishlistItem[]>([]);
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [wishlist, setWishlist] = useState<WishlistItem[]>([]);
 
-  // Fetch profile on component mount
+  const userId = typeof window !== 'undefined' ? localStorage.getItem('user_id') : null;
+
   useEffect(() => {
-    const fetchProfile = async () => {
-      const userId = localStorage.getItem('user_id');
+    if (!userId) {
+      setError('You must be logged in to view this data.');
+      setIsLoading(false);
+      return;
+    }
 
-      if (!userId) {
-        setError('User not logged in.');
-        setIsLoading(false);
-        return;
-      }
+    const fetchProfileAndWishlist = async () => {
+      setIsLoading(true);
 
       try {
-        const response = await axios.get<UserProfile>(
+        const profileResponse = await axios.get<UserProfile>(
           `https://easygrocery-server.onrender.com/api/user_profile/profile/user/${userId}/`,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
+          { headers: { 'Content-Type': 'application/json' } }
         );
+        setProfileData(profileResponse.data);
 
-        if (response.status === 200 && response.data) {
-          setProfileData(response.data);
-        } else {
-          setError('Profile not found.');
-        }
-      } catch (err: any) {
-        setError(
-          err.response?.data?.detail || 'An error occurred while fetching the profile.'
+        const wishlistResponse = await axios.get<WishlistItem[]>(
+          `https://easygrocery-server.onrender.com/api/user_profile/wishlist/user/${userId}/`,
+          { headers: { 'Content-Type': 'application/json' } }
         );
+        setWishlist(wishlistResponse.data);
+      } catch (err: any) {
+        setError(err.response?.data?.detail || 'An error occurred while fetching data.');
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchProfile();
-  }, []);  
+    fetchProfileAndWishlist();
+  }, [userId]);
 
-  // Load wishlist from localStorage
-  useEffect(() => {
-    const storedWishlist = localStorage.getItem('wishlist');
-    if (storedWishlist) {
-      try {
-        setWishlist(JSON.parse(storedWishlist));
-      } catch (err) {
-        console.error('Error parsing wishlist:', err);
-      }
-    }
-  }, []);
+  if (isLoading) return <div>Loading profile...</div>;
+  if (error) return <div className="text-red-500">{error}</div>;
+  if (!profileData) return <div>No profile data available</div>;
+  if (!wishlist) return <div>No wishlist data available</div>;
 
-  // Handle wishlist item removal
-  const handleRemoveFromWishlist = (productId: number) => {
-    const updatedWishlist = wishlist.filter((item) => item.id !== productId);
-    setWishlist(updatedWishlist);
+  function handleRemoveFromWishlist(id: number): void {
+    // Optimistically update the UI by filtering out the item from the wishlist
+    setWishlist((prevWishlist) => prevWishlist.filter((item) => item.id !== id));
 
-    // Update localStorage after removal
-    localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
-  };
-
-  // Loading and error states
-  if (isLoading) {
-    return <div>Loading profile...</div>;
-  }
-
-  if (error) {
-    return <div className="text-red-500 font-medium">{error}</div>;
-  }
-
-  if (!profileData) {
-    return <div>No profile data available</div>;
+    // Make a DELETE request to remove the item from the backend
+    axios
+      .delete(`https://easygrocery-server.onrender.com/api/user_profile/wishlist/${id}/`)
+      .then(() => {
+        console.log('Item successfully removed from wishlist');
+      })
+      .catch((err) => {
+        console.error('Error removing item from wishlist:', err);
+        // Optionally, rollback UI changes if the request fails
+        setWishlist((prevWishlist) => [
+          ...prevWishlist,
+          wishlist.find((item) => item.id === id)!,
+        ]);
+      });
   }
 
   return (
@@ -151,9 +143,18 @@ export default function Profile() {
               {wishlist.map((item) => (
                 <div
                   key={item.id}
-                  className="flex items-center justify-between border p-4 rounded-md w-1/4 bg-white"
+                  className="flex items-center justify-between border p-4 rounded-lg w-1/4 bg-white"
                 >
-                  <span className="font-medium">{item.name}</span>
+                  <div className="flex items-center">
+                    <Image
+                      src={item.product.image || '/default-image.jpg'} // Default image if not available
+                      alt={item.product.name}
+                      width={50}
+                      height={50}
+                      className="rounded-md"
+                    />
+                    <span className="ml-4 font-medium">{item.product.name}</span>
+                  </div>
                   <button
                     onClick={() => handleRemoveFromWishlist(item.id)}
                     className="text-red-500 font-medium"
