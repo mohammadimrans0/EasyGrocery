@@ -1,10 +1,10 @@
 'use client'
 import React from "react"
+import Link from "next/link"
 
-export default function FooterFiveColsLogoSubFooter() {
+export default function Footer() {
   return (
     <>
-      {/*    <!-- Component: Five Columns Footer with Logo and Sub Footer --> */}
       <footer className="text-slate-500">
         {/* <!-- Main footer --> */}
         <div className="pt-16 pb-12 text-sm border-t border-slate-200 bg-slate-100">
@@ -14,12 +14,12 @@ export default function FooterFiveColsLogoSubFooter() {
                 className="col-span-4 md:col-span-8 lg:col-span-4"
                 aria-labelledby="footer-header"
               >
-                <a
+                <Link
                   id="WindUI-5-logo"
                   aria-label="WindUI logo"
                   aria-current="page"
                   className="flex items-center gap-2 mb-6 text-base font-medium leading-6 whitespace-nowrap text-slate-700 focus:outline-none"
-                  href="javascript:void(0)"
+                  href="#"
                 >
                   <svg
                     width="300"
@@ -43,7 +43,7 @@ export default function FooterFiveColsLogoSubFooter() {
                     />
                   </svg>
                   EasyGrocery
-                </a>
+                </Link>
                 <p>
                   Expertly made, responsive, accessible components in React and
                   HTML ready to be used on your website or app. Just copy and
@@ -62,40 +62,40 @@ export default function FooterFiveColsLogoSubFooter() {
                 </h3>
                 <ul>
                   <li className="mb-2 leading-6">
-                    <a
-                      href="javascript:void(0)"
+                    <Link
+                      href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       Features{" "}
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a
-                      href="javascript:void(0)"
+                    <Link
+                      href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       Customers{" "}
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a
-                      href="javascript:void(0)"
+                    <Link
+                      href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       Why us?{" "}
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a
-                      href="javascript:void(0)"
+                    <Link
+                      href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       Pricing{" "}
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </nav>
@@ -112,142 +112,99 @@ export default function FooterFiveColsLogoSubFooter() {
                 </h3>
                 <ul>
                   <li className="mb-2 leading-6">
-                    <a
-                      href="javascript:void(0)"
+                    <Link
+                      href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       About us{" "}
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a
-                      href="javascript:void(0)"
+                    <Link
+                      href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       Careers{" "}
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a
-                      href="javascript:void(0)"
+                    <Link
+                      href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       Leadership{" "}
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a
-                      href="javascript:void(0)"
+                    <Link
+                      href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       Blog
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a
-                      href="javascript:void(0)"
+                    <Link
+                      href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       Events{" "}
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </nav>
+              
               <nav
                 className="col-span-2 md:col-span-4 lg:col-span-2"
-                aria-labelledby="footer-get-in-touch-5-logo"
+                aria-labelledby="footer-resources-5-logo"
               >
                 <h3
                   className="mb-6 text-base font-medium text-slate-700"
-                  id="footer-get-in-touch-5-logo"
+                  id="footer-resources-5-logo"
                 >
-                  Get in touch
+                  Resources
                 </h3>
                 <ul>
                   <li className="mb-2 leading-6">
-                    <a
-                      href="javascript:void(0)"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
-                    >
-                      {" "}
-                      Contact{" "}
-                    </a>
-                  </li>
-                  <li className="mb-2 leading-6">
-                    <a
-                      href="javascript:void(0)"
+                    <Link
+                      href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       Support{" "}
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a
-                      href="javascript:void(0)"
+                    <Link
+                      href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
-                      Partners{" "}
-                    </a>
+                      Contact us{" "}
+                    </Link>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a
-                      href="javascript:void(0)"
+                    <Link
+                      href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
-                      Join research{" "}
-                    </a>
+                      FAQ{" "}
+                    </Link>
                   </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </div>
-        {/* <!-- Sub Footer --> */}
-        <div className="py-4 text-sm border-t border-slate-200 bg-slate-100">
-          <div className="container px-6 mx-auto">
-            <div className="grid items-center grid-cols-4 gap-6 md:grid-cols-8 lg:grid-cols-12">
-              <div className="col-span-2 md:col-span-4 lg:col-span-6">
-                Copyright 2024 Brand
-              </div>
-              <nav
-                className="col-span-3 md:col-span-4 lg:col-span-6"
-                aria-labelledby="subfooter-links-3-sub"
-              >
-                <h3 className="sr-only" id="subfooter-links-3-sub">
-                  Get in touch
-                </h3>
-                <ul className="flex flex-wrap items-center justify-end gap-2 lg:gap-4">
-                  <li className="leading-6">
-                    <a
-                      href="javascript:void(0)"
+                  <li className="mb-2 leading-6">
+                    <Link
+                      href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
-                      T&C
-                    </a>
-                  </li>
-                  <li className="leading-6">
-                    <a
-                      href="javascript:void(0)"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
-                    >
-                      Privacy
-                    </a>
-                  </li>
-                  <li className="leading-6">
-                    <a
-                      href="javascript:void(0)"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
-                    >
-                      Cookies
-                    </a>
+                      {" "}
+                      Privacy{" "}
+                    </Link>
                   </li>
                 </ul>
               </nav>
@@ -255,7 +212,6 @@ export default function FooterFiveColsLogoSubFooter() {
           </div>
         </div>
       </footer>
-      {/*    <!-- End Five Columns Footer with Logo and Sub Footer --> */}
     </>
   )
 }

@@ -3,9 +3,9 @@
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useState } from "react"
 import useEmblaCarousel from "embla-carousel-react"
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { useEffect } from "react"
 
 
 const groceryItems = [
@@ -60,13 +60,13 @@ export function BannerCarousel() {
         className="absolute left-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 hidden sm:block"
         onClick={scrollPrev}
       >
-        <ChevronLeft className="w-6 h-6" />
+        <FiChevronLeft className="w-6 h-6" />
       </button>
       <button
         className="absolute right-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 hidden sm:block"
         onClick={scrollNext}
       >
-        <ChevronRight className="w-6 h-6" />
+        <FiChevronRight className="w-6 h-6" />
       </button>
     </div>
   )

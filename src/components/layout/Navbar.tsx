@@ -1,188 +1,208 @@
-'use client'
-import React, { useState } from "react"
+'use client';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import axios from 'axios';
+import { FaShoppingCart } from 'react-icons/fa';
+import Image from 'next/image';
+import { FaTrash } from 'react-icons/fa';
 
-export default function NavbarIcons() {
-  const [isToggleOpen, setIsToggleOpen] = useState(false)
 
-  return (
-    <>
-      {/*<!-- Component: Navbar with Icons --> */}
-      <header className=" relative z-20 w-full border-b border-slate-200 bg-white/90 shadow-lg shadow-slate-700/5 after:absolute after:left-0 after:top-full after:z-10 after:block after:h-px after:w-full after:bg-slate-200 lg:border-slate-200 lg:backdrop-blur-sm lg:after:hidden">
-        <div className="relative mx-auto max-w-full px-6 lg:max-w-5xl xl:max-w-7xl 2xl:max-w-[96rem]">
-          <nav
-            aria-label="main navigation"
-            className="flex h-[5.5rem] items-stretch justify-between font-medium text-slate-700"
-            role="navigation"
-          >
-            {/*      <!-- Brand logo --> */}
-            <a
-              id="WindUI"
-              aria-label="WindUI logo"
-              aria-current="page"
-              className="flex items-center gap-2 whitespace-nowrap py-3 text-lg focus:outline-none lg:flex-1"
-              href="/"
-            >
-              <svg
-                width="300"
-                height="300"
-                viewBox="0 0 300 300"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-12 w-12 bg-emerald-500"
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M88.1121 88.1134L150.026 150.027L150.027 150.027L150.027 150.027L150.028 150.027L150.027 150.026L88.1133 88.1122L88.1121 88.1134ZM273.878 273.877C272.038 274.974 196.128 319.957 165.52 289.349L88.1124 211.942L26.1434 273.911C26.1434 273.911 -20.3337 196.504 10.651 165.519L88.1121 88.1134L26.1417 26.1433C26.1417 26.1433 69.6778 0.00338007 104.519 0H0V300H300V0H104.533C116.144 0.00112664 126.789 2.90631 134.534 10.651L211.941 88.1123L273.877 26.177C274.974 28.0159 319.957 103.926 289.349 134.535L211.942 211.942L273.878 273.877ZM273.878 273.877L273.912 273.857V273.911L273.878 273.877ZM273.877 26.177L273.911 26.1429H273.857C273.857 26.1429 273.863 26.1544 273.877 26.177Z"
-                  fill="white"
-                />
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M0 0H300V300H0V0ZM150.026 150.025C121.715 99.731 88.1131 88.1122 88.1131 88.1122L10.6508 165.519C10.6508 165.519 26.143 150.027 150.026 150.027H150.027C150.026 150.027 150.026 150.027 150.026 150.027L150.026 150.027C99.731 178.339 88.1124 211.941 88.1124 211.941L165.52 289.348C165.52 289.348 150.032 273.86 150.027 150.027H150.029C178.341 200.323 211.944 211.942 211.944 211.942L289.352 134.535C289.352 134.535 273.864 150.023 150.027 150.027V150.027L150.027 150.027C200.322 121.715 211.941 88.1125 211.941 88.1125L134.534 10.651C134.534 10.651 150.026 26.1431 150.026 150.025ZM150.027 150.027L150.026 150.027C150.026 150.026 150.026 150.026 150.026 150.025C150.026 150.025 150.027 150.026 150.027 150.027ZM150.027 150.027L150.027 150.026L150.027 150.027C150.027 150.027 150.027 150.027 150.027 150.027L150.027 150.027ZM150.027 150.027C150.027 150.027 150.027 150.027 150.027 150.027H150.027L150.027 150.027Z"
-                  fill="rgba(255,255,255,.2)"
-                />
-              </svg>
-              EasyGrocery
-            </a>
-            {/*      <!-- Mobile trigger --> */}
-            <button
-              className={`relative order-10 block h-10 w-10 self-center lg:hidden
-              ${
-                isToggleOpen
-                  ? "visible opacity-100 [&_span:nth-child(1)]:w-6 [&_span:nth-child(1)]:translate-y-0 [&_span:nth-child(1)]:rotate-45 [&_span:nth-child(2)]:-rotate-45 [&_span:nth-child(3)]:w-0 "
-                  : ""
-              }
-            `}
-              onClick={() => setIsToggleOpen(!isToggleOpen)}
-              aria-expanded={isToggleOpen ? "true" : "false"}
-              aria-label="Toggle navigation"
-            >
-              <div className="absolute left-1/2 top-1/2 w-6 -translate-x-1/2 -translate-y-1/2 transform">
-                <span
-                  aria-hidden="true"
-                  className="absolute block h-0.5 w-9/12 -translate-y-2 transform rounded-full bg-slate-900 transition-all duration-300"
-                ></span>
-                <span
-                  aria-hidden="true"
-                  className="absolute block h-0.5 w-6 transform rounded-full bg-slate-900 transition duration-300"
-                ></span>
-                <span
-                  aria-hidden="true"
-                  className="absolute block h-0.5 w-1/2 origin-top-left translate-y-2 transform rounded-full bg-slate-900 transition-all duration-300"
-                ></span>
-              </div>
-            </button>
-            {/*      <!-- Navigation links --> */}
-            <ul
-              role="menubar"
-              aria-label="Select page"
-              className={`absolute left-0 top-0 z-[-1] h-[28.5rem] w-full justify-center overflow-hidden  overflow-y-auto overscroll-contain bg-white/90 px-8 pb-12 pt-24 font-medium transition-[opacity,visibility] duration-300 lg:visible lg:relative lg:top-0  lg:z-0 lg:flex lg:h-full lg:w-auto lg:items-stretch lg:overflow-visible lg:bg-white/0 lg:px-0 lg:py-0  lg:pt-0 lg:opacity-100 ${
-                isToggleOpen
-                  ? "visible opacity-100 backdrop-blur-sm"
-                  : "invisible opacity-0"
-              }`}
-            >
-              <li role="none" className="flex items-stretch">
-                <a
-                  role="menuitem"
-                  aria-haspopup="false"
-                  className="flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"
-                  href="javascript:void(0)"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="h-5 w-5"
-                    aria-label="Menu item icon"
-                    role="graphics-symbol"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z"
-                    />
-                  </svg>
+// const Cart = () => {
+//   return (
+//     <div>
+//       {cart.length > 0 ? (
+//         <div className="mt-5">
+//           <table className="min-w-full bg-white border border-gray-300 rounded-lg">
+//             <thead>
+//               <tr>
+//                 <th className="px-4 py-2 text-left">Product</th>
+//                 <th className="px-4 py-2 text-left">Quantity</th>
+//                 <th className="px-4 py-2 text-left">Unit Price</th>
+//                 <th className="px-4 py-2 text-left">Total Price</th>
+//                 <th className="px-4 py-2 text-left">Actions</th>
+//               </tr>
+//             </thead>
+//             <tbody>
+//               {cart.map((item) => (
+//                 <tr key={item.id} className="border-b border-gray-200">
+//                   <td className="px-4 py-2">{item.name}</td>
+//                   <td className="px-4 py-2 flex items-center gap-2">
+//                     <button
+//                       onClick={() => updateQuantity(item.id, -1)}
+//                       className="text-gray-600 hover:text-gray-800"
+//                     >
+//                       -
+//                     </button>
+//                     {item.stock}
+//                     <button
+//                       onClick={() => updateQuantity(item.id, 1)}
+//                       className="text-gray-600 hover:text-gray-800"
+//                     >
+//                       +
+//                     </button>
+//                   </td>
+//                   <td className="px-4 py-2">${item.price.toFixed(2)}</td>
+//                   <td className="px-4 py-2">${(item.price * item.stock).toFixed(2)}</td>
+//                   <td className="px-4 py-2">
+//                     <button
+//                       onClick={() => removeFromCart(item.id)}
+//                       className="text-red-500 hover:text-red-700"
+//                     >
+//                       <FaTrash />
+//                     </button>
+//                   </td>
+//                 </tr>
+//               ))}
+//             </tbody>
+//           </table>
+//         </div>
+//       ) : (
+//         <div className="mt-5">
+//           <p>Your cart is empty.</p>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
 
-                  <span>Features</span>
-                </a>
-              </li>
-              <li role="none" className="flex items-stretch">
-                <a
-                  role="menuitem"
-                  aria-current="page"
-                  aria-haspopup="false"
-                  className="flex items-center gap-2 py-4 text-emerald-500 transition-colors duration-300 hover:text-emerald-600 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"
-                  href="javascript:void(0)"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="h-5 w-5"
-                    aria-label="Menu item icon"
-                    role="graphics-symbol"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z"
-                    />
-                  </svg>
 
-                  <span>Pricing</span>
-                </a>
-              </li>
-              <li role="none" className="flex items-stretch">
-                <a
-                  role="menuitem"
-                  aria-haspopup="false"
-                  className="flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"
-                  href="/user/login"
-                >
-                  <button className="inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded bg-emerald-500 px-5 text-sm font-medium tracking-wide text-white shadow-md shadow-emerald-200 transition duration-300 hover:bg-emerald-600 hover:shadow-sm hover:shadow-emerald-200 focus:bg-emerald-700 focus:shadow-sm focus:shadow-emerald-200 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-emerald-300 disabled:bg-emerald-300 disabled:shadow-none">
-                    <span>Login</span>
-                  </button>
-                </a>
-              </li>
-              <li role="none" className="flex items-stretch">
-                <a
-                  role="menuitem"
-                  aria-haspopup="false"
-                  className="flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"
-                  href="/user/signup"
-                >
-                  <button className="inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded bg-emerald-500 px-5 text-sm font-medium tracking-wide text-white shadow-md shadow-emerald-200 transition duration-300 hover:bg-emerald-600 hover:shadow-sm hover:shadow-emerald-200 focus:bg-emerald-700 focus:shadow-sm focus:shadow-emerald-200 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-emerald-300 disabled:bg-emerald-300 disabled:shadow-none">
-                    <span>Signup</span>
-                  </button>
-                </a>
-              </li>
-            </ul>
-            <div className="ml-auto flex items-center px-6 lg:ml-0 lg:p-0">
-              <a
-                href="/user/profile"
-                className="relative inline-flex items-center justify-center w-12 h-12 text-white rounded-full"
-              >
-                <img
-                  src="https://i.pravatar.cc/48?img=1"
-                  alt="user name"
-                  title="user name"
-                  width="48"
-                  height="48"
-                  className="max-w-full border-2 border-white rounded-full"
-                />
-              </a>
-            </div>
-          </nav>
-        </div>
-      </header>
-      {/*<!-- End Navbar with Icons --> */}
-    </>
-  )
+interface UserProfile {
+  image?: string;
+  user: {
+    first_name: string;
+    last_name: string;
+  };
 }
 
+const Navbar = () => {
+  const [isToggleOpen, setIsToggleOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [loading, setLoading] = useState(true); // Track loading state for user profile
+
+  const handleToggle = () => setIsToggleOpen(!isToggleOpen);
+  const closeMenu = () => setIsToggleOpen(false);
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.get('https://easygrocery-server.onrender.com/api/user_profile/profile/', {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        setUserProfile(response.data[0]);
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+      } finally {
+        setLoading(false); // Set loading to false when data is fetched
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
+
+  return (
+    <div className="relative z-20 w-full border-b bg-green-300 shadow-3xl lg:backdrop-blur-sm">
+      <div className="container mx-auto px-4 lg:max-w-5xl xl:max-w-7xl">
+        <nav aria-label="main navigation" className="flex items-center justify-between">
+          {/* Brand logo */}
+          <Link href="/" className="flex items-center gap-2 text-3xl">
+            <span className="font-semibold text-orange-500">EasyGrocery</span>
+          </Link>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            className={`relative h-10 w-10 lg:hidden ${isToggleOpen ? 'open' : ''}`}
+            onClick={handleToggle}
+            aria-expanded={isToggleOpen}
+            aria-label="Toggle navigation"
+          >
+            <span className="block h-0.5 w-6 bg-slate-900 transition-transform"></span>
+            <span className="block h-0.5 w-6 bg-slate-900 transition-transform"></span>
+            <span className="block h-0.5 w-6 bg-slate-900 transition-transform"></span>
+          </button>
+
+          {/* Navigation Links */}
+          <ul
+            className={`fixed inset-0 z-10 flex flex-col items-center justify-center gap-6 bg-white p-3 lg:relative lg:flex-row lg:bg-transparent ${
+              isToggleOpen ? 'visible' : 'invisible opacity-0'
+            } transition-opacity lg:visible lg:opacity-100`}
+          >
+            <li>
+              <Link href="/features" onClick={closeMenu}>
+                Add Category
+              </Link>
+            </li>
+            <li>
+              <Link href="/pricing" onClick={closeMenu}>
+                Add Product
+              </Link>
+            </li>
+            <li>
+                <Link href="/user/login" onClick={closeMenu}>
+                  <button className="px-6 py-2 text-white bg-blue-600 rounded-full shadow-md bg-blue-500">
+                    Login
+                  </button>
+              </Link>
+            </li>
+            <li>
+                <Link href="/user/signup" onClick={closeMenu}>
+                  <button className="px-6 py-2 text-white bg-blue-600 rounded-full shadow-md bg-blue-500">
+                    Signup
+                  </button>
+              </Link>
+            </li>
+            <li className="flex items-center gap-8">
+              {userProfile ? (
+                <Link href="/user/profile" className="relative inline-flex items-center justify-center text-white rounded-full">
+                  <Image
+                    src={userProfile.image || '/fallback_image_url.jpg'}
+                    alt="User Profile"
+                    title={`${userProfile.user.first_name} ${userProfile.user.last_name}`}
+                    width={48}
+                    height={48}
+                    className="border-2 border-white rounded-full"
+                  />
+                </Link>
+              ) : (
+                <div className="w-12 h-12 bg-gray-200 rounded-full"></div>
+              )}
+
+              {/* Cart Icon */}
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="relative text-3xl text-orange-400"
+                aria-label="Open Cart"
+              >
+                <FaShoppingCart />
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      {/* Cart Window */}
+      {isCartOpen && (
+        <div className="fixed inset-0 z-50 flex justify-end bg-black bg-opacity-50">
+          <div className="relative w-80 bg-white shadow-lg h-full">
+            <button
+              onClick={() => setIsCartOpen(false)}
+              className="absolute top-4 right-4 text-lg"
+              aria-label="Close Cart"
+            >
+              ✖
+            </button>
+            <div className="p-4">
+              <h2 className="text-xl font-semibold mb-4">Your Cart</h2>
+              {/* Pass cart data to Cart component */}
+              {/* <Cart/> */}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Navbar;
