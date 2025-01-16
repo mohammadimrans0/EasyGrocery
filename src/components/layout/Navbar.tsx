@@ -20,7 +20,7 @@ const Navbar = () => {
   const closeMenu = () => setIsToggleOpen(false);
 
   useEffect(() => {
-    const fetchUserProfile = async () => {
+    const userProfile = async () => {
       try {
         const response = await axios.get(
           `https://easygrocery-server.onrender.com/api/user_profile/profile/user/${userId}/`,
@@ -47,7 +47,7 @@ const Navbar = () => {
     };
 
     if (userId) {
-      fetchUserProfile();
+      userProfile();
       fetchCart();
     }
   }, [userId]);
@@ -80,12 +80,12 @@ const Navbar = () => {
             } transition-opacity lg:visible lg:opacity-100`}
           >
             <li>
-              <Link href="/features" onClick={closeMenu}>
+              <Link href="/product/create_category" onClick={closeMenu}>
                 Add Category
               </Link>
             </li>
             <li>
-              <Link href="/pricing" onClick={closeMenu}>
+              <Link href="/product/create_product" onClick={closeMenu}>
                 Add Product
               </Link>
             </li>

@@ -6,7 +6,7 @@ import Image from "next/image";
 import { FaShoppingCart, FaHeart } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Product } from "@/constants/types";
+import { Product, UserProfile } from "@/constants/types";
 
 interface DisplayProductProps {
   selectedCategory: number | null;
@@ -15,12 +15,30 @@ interface DisplayProductProps {
 const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory}) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  const [userId, setUserId] = useState<string | null>(null);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
 
+  const userId = typeof window !== 'undefined' ? localStorage.getItem('user_id') : null;
+
+  console.log(userProfile?.user);
+
+  // Fetch user profile
   useEffect(() => {
-    const storedUserId = localStorage.getItem("user_id");
-    setUserId(storedUserId);
-  }, []);
+    const userProfile = async () => {
+      try {
+        const response = await axios.get(
+          `https://easygrocery-server.onrender.com/api/user_profile/profile/user/${userId}/`,
+          { headers: { 'Content-Type': 'application/json' } }
+        );
+        setUserProfile(response.data);
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+      }
+    };
+
+    if (userId) {
+      userProfile();
+    }
+  }, [userId]);
 
   // Fetch products from API
   useEffect(() => {
@@ -61,8 +79,9 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory}) => {
         "https://easygrocery-server.onrender.com/api/user_profile/cart/",
         {
           user: userId,
-          product: product,
-          quantity: 1, // Default quantity
+          product: product.id,
+          product_name: product.name,
+          product_price: product.price
         },
         {
           headers: {
@@ -85,28 +104,40 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory}) => {
       toast.error("User not logged in.");
       return;
     }
-
+  
     try {
+      const payload = {
+        user: userId,
+        product: product.id,
+        product_name: product.name
+      };
+  
+      console.log("Payload for wishlist API:", payload);
+  
       const response = await axios.post(
         "https://easygrocery-server.onrender.com/api/user_profile/wishlist/",
-        {
-          user: userId,
-          product: product,
-        },
+        payload,
         {
           headers: {
             'Content-Type': 'application/json',
           },
         }
       );
+  
       if (response.status === 201) {
         toast.success(`${product.name} has been added to your wishlist!`);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to add product to wishlist:", error);
+  
+      // Show detailed error for debugging
+      if (error.response) {
+        console.error("Response data:", error.response.data);
+      }
+  
       toast.error("Failed to add product to wishlist.");
     }
-  };
+  };  
 
   return (
     <div className="p-4">

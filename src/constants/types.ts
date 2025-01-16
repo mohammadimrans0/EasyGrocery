@@ -22,5 +22,10 @@ export interface Product {
     balance: string;
     contact_info: string;
     shopping_preferences: string;
-  }  
+  } 
+
+  export interface Category {
+    id: number;
+    name: string;
+  }
   

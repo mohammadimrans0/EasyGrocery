@@ -24,6 +24,7 @@ interface Product {
 interface WishlistItem {
   id: number;
   product: Product;
+  product_name: string;
 }
 
 export default function Profile() {
@@ -83,7 +84,6 @@ export default function Profile() {
       })
       .catch((err) => {
         console.error('Error removing item from wishlist:', err);
-        // Optionally, rollback UI changes if the request fails
         setWishlist((prevWishlist) => [
           ...prevWishlist,
           wishlist.find((item) => item.id === id)!,
@@ -143,24 +143,26 @@ export default function Profile() {
               {wishlist.map((item) => (
                 <div
                   key={item.id}
-                  className="flex items-center justify-between border p-4 rounded-lg w-1/4 bg-white"
+                  className="flex items-center justify-between border p-4 rounded-lg w-1/5 bg-white"
                 >
-                  <div className="flex items-center">
-                    <Image
-                      src={item.product.image || '/default-image.jpg'} // Default image if not available
-                      alt={item.product.name}
-                      width={50}
-                      height={50}
-                      className="rounded-md"
-                    />
-                    <span className="ml-4 font-medium">{item.product.name}</span>
+                  <div>
+                    <p className="font-medium">{item.product_name}</p>
                   </div>
-                  <button
-                    onClick={() => handleRemoveFromWishlist(item.id)}
-                    className="text-red-500 font-medium"
-                  >
-                    Remove
-                  </button>
+                  <div className="flex flex-row gap-x-5">
+                    <button
+                      onClick={() => handleRemoveFromWishlist(item.id)}
+                      className="text-blue-500 font-medium"
+                    >
+                      View
+                    </button>
+
+                    <button
+                      onClick={() => handleRemoveFromWishlist(item.id)}
+                      className="text-red-500 font-medium"
+                    >
+                      Remove
+                    </button>
+                  </div>      
                 </div>
               ))}
             </div>
