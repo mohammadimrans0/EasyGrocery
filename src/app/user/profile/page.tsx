@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation'; // For navigation
 
 interface UserProfile {
   user: {
@@ -33,6 +34,7 @@ export default function Profile() {
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  const router = useRouter(); // For navigation
   const userId = typeof window !== 'undefined' ? localStorage.getItem('user_id') : null;
 
   useEffect(() => {
@@ -42,41 +44,61 @@ export default function Profile() {
       return;
     }
 
-    const fetchProfileAndWishlist = async () => {
-      setIsLoading(true);
-
+    const fetchProfile = async () => {
       try {
         const profileResponse = await axios.get<UserProfile>(
           `https://easygrocery-server.onrender.com/api/user_profile/profile/user/${userId}/`,
           { headers: { 'Content-Type': 'application/json' } }
         );
         setProfileData(profileResponse.data);
+      } catch (err: any) {
+        setError(err.response?.data?.detail || 'An error occurred while fetching profile data.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
+    const fetchWishlist = async () => {
+      try {
         const wishlistResponse = await axios.get<WishlistItem[]>(
           `https://easygrocery-server.onrender.com/api/user_profile/wishlist/user/${userId}/`,
           { headers: { 'Content-Type': 'application/json' } }
         );
         setWishlist(wishlistResponse.data);
       } catch (err: any) {
-        setError(err.response?.data?.detail || 'An error occurred while fetching data.');
-      } finally {
-        setIsLoading(false);
+        setError(
+          err.response?.data?.detail || 'An error occurred while fetching wishlist data.'
+        );
+        setWishlist([]); // Ensure wishlist is empty if there's an error
       }
     };
 
-    fetchProfileAndWishlist();
+    fetchProfile();
+    fetchWishlist();
   }, [userId]);
 
-  if (isLoading) return <div>Loading profile...</div>;
-  if (error) return <div className="text-red-500">{error}</div>;
-  if (!profileData) return <div>No profile data available</div>;
-  if (!wishlist) return <div>No wishlist data available</div>;
+  const handleLogout = async () => {
+    try {
+      // await axios.post(
+      //   'https://easygrocery-server.onrender.com/api/user/logout/',
+      //   {},
+      //   { headers: { 'Content-Type': 'application/json' } }
+      // );
+      localStorage.removeItem('user_id'); // Clear user data
+      router.push('/user/login');
+    } catch (err) {
+      console.error('Error logging out:', err);
+      alert('Failed to logout. Please try again.');
+    }
+  };
 
-  function handleRemoveFromWishlist(id: number): void {
-    // Optimistically update the UI by filtering out the item from the wishlist
+  const handleResetPassword = () => {
+    router.push('/user/reset-password');
+  };
+
+  const handleRemoveFromWishlist = (id: number) => {
     setWishlist((prevWishlist) => prevWishlist.filter((item) => item.id !== id));
 
-    // Make a DELETE request to remove the item from the backend
     axios
       .delete(`https://easygrocery-server.onrender.com/api/user_profile/wishlist/${id}/`)
       .then(() => {
@@ -84,17 +106,34 @@ export default function Profile() {
       })
       .catch((err) => {
         console.error('Error removing item from wishlist:', err);
-        setWishlist((prevWishlist) => [
-          ...prevWishlist,
-          wishlist.find((item) => item.id === id)!,
-        ]);
+        alert('Failed to remove item from wishlist.');
       });
-  }
+  };
+
+  if (isLoading) return <div>Loading profile...</div>;
+  if (error) return <div className="text-red-500">{error}</div>;
+  if (!profileData) return <div>No profile data available</div>;
 
   return (
     <div className="bg-gray-50 py-6 px-4 sm:px-6 lg:px-8">
       <div className="w-full bg-white p-8 rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold text-center text-gray-700">Profile Information</h1>
+        <div className="flex justify-between">
+          <h1 className="text-2xl font-bold text-gray-700">Profile Information</h1>
+          <div className="flex gap-4">
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 bg-red-500 text-white font-semibold rounded hover:bg-red-600"
+            >
+              Logout
+            </button>
+            <button
+              onClick={handleResetPassword}
+              className="px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600"
+            >
+              Reset Password
+            </button>
+          </div>
+        </div>
 
         <div className="flex justify-center mt-4">
           <Image
@@ -150,7 +189,7 @@ export default function Profile() {
                   </div>
                   <div className="flex flex-row gap-x-5">
                     <button
-                      onClick={() => handleRemoveFromWishlist(item.id)}
+                      onClick={() => console.log('View product logic here')}
                       className="text-blue-500 font-medium"
                     >
                       View
@@ -162,12 +201,12 @@ export default function Profile() {
                     >
                       Remove
                     </button>
-                  </div>      
+                  </div>
                 </div>
               ))}
             </div>
           ) : (
-            <p>Your wishlist is empty!</p>
+            <p>No wishlist available</p>
           )}
         </div>
       </div>
