@@ -99,10 +99,6 @@ const CreateProduct = () => {
           category: '',
           product_owner: userId,
         });
-
-        setTimeout(() => {
-            router.push('/');
-        }, 1500);
       } else {
         setMessage('Failed to create product. Please try again.');
       }
