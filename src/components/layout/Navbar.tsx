@@ -1,56 +1,26 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
 import { FaShoppingCart } from 'react-icons/fa';
 import Image from 'next/image';
 import Cart from '@/components/home/Cart';
-import { UserProfile } from '@/constants/types';
+import { getUserProfile } from '@/lib/api/user/getUserProfile';
+import { logout } from '@/lib/api/auth/handleLogout';
 
 const Navbar = () => {
   const [isToggleOpen, setIsToggleOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [cart, setCart] = useState([]); // State to store cart data
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-  const userId = typeof window !== 'undefined' ? localStorage.getItem('user_id') : null;
+  const { profileData, error, isLoading } = getUserProfile();
 
   const handleToggle = () => setIsToggleOpen(!isToggleOpen);
   const closeMenu = () => setIsToggleOpen(false);
 
-  useEffect(() => {
-    const userProfile = async () => {
-      try {
-        const response = await axios.get(
-          `https://easygrocery-server.onrender.com/api/user_profile/profile/user/${userId}/`,
-          { headers: { 'Content-Type': 'application/json' } }
-        );
-        setUserProfile(response.data);
-      } catch (error) {
-        console.error('Error fetching user profile:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    const fetchCart = async () => {
-      try {
-        const response = await axios.get(
-          `https://easygrocery-server.onrender.com/api/user_profile/cart/user/${userId}/`,
-          { headers: { 'Content-Type': 'application/json' } }
-        );
-        setCart(response.data);
-      } catch (error) {
-        console.error('Error fetching cart:', error);
-      }
-    };
-
-    if (userId) {
-      userProfile();
-      fetchCart();
-    }
-  }, [userId]);
+  const toggleProfileWindow = () => {
+    setIsProfileOpen((prev) => !prev);
+  };
 
   return (
     <div className="relative z-20 w-full border-b bg-green-300 shadow-3xl lg:backdrop-blur-sm">
@@ -80,57 +50,64 @@ const Navbar = () => {
             } transition-opacity lg:visible lg:opacity-100`}
           >
             <li>
-              <Link href="/product/create_category" onClick={closeMenu}>
-                Add Category
+              <Link href="/" onClick={closeMenu}>
+                Home
               </Link>
             </li>
             <li>
-              <Link href="/product/create_product" onClick={closeMenu}>
-                Add Product
+              <Link href="/" onClick={closeMenu}>
+                All Products
               </Link>
             </li>
-            {userProfile ? (
-              <li className="flex items-center gap-8">
-                <Link href="/user/profile">
-                  <div className="relative inline-flex items-center justify-center text-white rounded-full">
-                    <Image
-                      src={userProfile.image || '/fallback_image_url.jpg'}
-                      alt="User Profile"
-                      title={`${userProfile.user.first_name} ${userProfile.user.last_name}`}
-                      width={48}
-                      height={48}
-                      className="border-2 border-white rounded-full"
-                    />
-                  </div>
-                </Link>
-              </li>
-            ) : (
+            <li>
+              <Link href="/about" onClick={closeMenu}>
+                About
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" onClick={closeMenu}>
+                Contact
+              </Link>
+            </li>
+            {profileData ? (
               <>
+                <li className="flex items-center gap-8">
+                <button
+                    onClick={toggleProfileWindow}
+                    className="relative"
+                    aria-label={isProfileOpen ? 'Close Profile' : 'Open Profile'}
+                  >
+                    <div className="relative inline-flex items-center justify-center text-white rounded-full">
+                      <Image
+                        src={profileData.image || '/fallback_image_url.jpg'}
+                        alt="User Profile"
+                        title={`${profileData.user.first_name} ${profileData.user.last_name}`}
+                        width={48}
+                        height={48}
+                        className="border-2 border-white rounded-full"
+                      />
+                    </div>
+                  </button>
+                </li>
+                <li className="flex items-center gap-8">
+                  <button
+                    onClick={() => setIsCartOpen(true)}
+                    className="relative text-3xl text-orange-400"
+                    aria-label="Open Cart"
+                  >
+                    <FaShoppingCart />
+                  </button>
+                </li>
+              </>
+            ) : (
                 <li>
-                  <Link href="/user/login" onClick={closeMenu}>
+                  <Link href="/auth/login" onClick={closeMenu}>
                     <button className="px-6 py-2 text-white bg-blue-600 rounded-full shadow-md bg-blue-500">
                       Login
                     </button>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/user/signup" onClick={closeMenu}>
-                    <button className="px-6 py-2 text-white bg-blue-600 rounded-full shadow-md bg-blue-500">
-                      Signup
-                    </button>
-                  </Link>
-                </li>
-              </>
             )}
-            <li className="flex items-center gap-8">
-              <button
-                onClick={() => setIsCartOpen(true)}
-                className="relative text-3xl text-orange-400"
-                aria-label="Open Cart"
-              >
-                <FaShoppingCart />
-              </button>
-            </li>
           </ul>
         </nav>
       </div>
@@ -138,7 +115,7 @@ const Navbar = () => {
       {/* Cart Window */}
       {isCartOpen && (
         <div className="fixed inset-0 z-50 flex justify-end bg-black bg-opacity-50">
-          <div className="relative w-[550px] h-screen bg-white shadow-lg overflow-auto"> {/* Increased width */}
+          <div className="relative w-[550px] h-screen bg-white shadow-lg overflow-auto">
             <button
               onClick={() => setIsCartOpen(false)}
               className="absolute top-4 right-4 text-lg"
@@ -148,8 +125,41 @@ const Navbar = () => {
             </button>
             <div className="p-4">
               <h2 className="text-xl font-semibold mb-4">Your Cart</h2>
-              <Cart cart={cart} />
+              <Cart/>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Profile Window */}
+      {isProfileOpen && (
+        <div className="fixed inset-0 z-50 top-20 right-10 flex justify-end bg-black bg-opacity-50">
+          <div className="relative w-[230px] h-60 bg-white shadow-lg overflow-auto">
+            <nav className='p-4'>
+            <ul className="space-y-4">
+                <li>
+                  <Link href="/dashboard/user/profile" onClick={toggleProfileWindow}>
+                    <button className="w-48 px-6 py-2 text-white bg-green-400 rounded-full shadow-md bg-blue-500">
+                      Dashboard
+                    </button>
+                  </Link>
+                </li>
+                <li>
+                  <button
+                    onClick={async () => {
+                      try {
+                        await logout();
+                      } catch (error) {
+                        console.error('Logout error:', error);
+                      }
+                    }}
+                    className="w-48 text-center px-4 py-2 text-xl text-red-500 cursor-pointer"
+                  >
+                    Logout
+                  </button>
+              </li>
+            </ul>
+        </nav>
           </div>
         </div>
       )}

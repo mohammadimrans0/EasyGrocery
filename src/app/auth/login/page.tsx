@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
@@ -10,14 +10,6 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-
-  // useEffect to check if user is already logged in
-  useEffect(() => {
-    const userId = localStorage.getItem('user_id');
-    if (userId) {
-      router.push('/user/profile'); // Redirect if user is already logged in
-    }
-  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,15 +29,13 @@ export default function Login() {
       });
 
       if (response.data.token) {
-        // Store the user ID in localStorage
+        localStorage.setItem('token', response.data.token);
         localStorage.setItem('user_id', response.data.user_id);
 
-        // Show success message
         toast.success('Login successful! Redirecting...');
 
-        // Redirect to the profile page after a delay
         setTimeout(() => {
-          router.push('/user/profile');
+          router.push('/dashboard/user/profile');
         }, 2000);
       }
     } catch (err) {
@@ -56,7 +46,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center my-24">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold text-center text-gray-700">Login</h2>
 
@@ -92,12 +82,11 @@ export default function Login() {
         <div className="text-center text-gray-600">
           <p>
             Don&apos;t have an account?{' '}
-            <a href="/user/signup" className="text-blue-500">Sign up</a>
+            <a href="/auth/signup" className="text-blue-500">Sign up</a>
           </p>
         </div>
       </div>
 
-      {/* Toast container for notifications */}
       <ToastContainer />
     </div>
   );

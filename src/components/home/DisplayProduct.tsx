@@ -6,7 +6,8 @@ import Image from "next/image";
 import { FaShoppingCart, FaHeart } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Product, UserProfile } from "@/constants/types";
+import { Product } from "@/constants/types";
+import { getUserId } from "@/lib/api/user/getUserId";
 
 interface DisplayProductProps {
   selectedCategory: number | null;
@@ -15,30 +16,8 @@ interface DisplayProductProps {
 const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory}) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
 
-  const userId = typeof window !== 'undefined' ? localStorage.getItem('user_id') : null;
-
-  console.log(userProfile?.user);
-
-  // Fetch user profile
-  useEffect(() => {
-    const userProfile = async () => {
-      try {
-        const response = await axios.get(
-          `https://easygrocery-server.onrender.com/api/user_profile/profile/user/${userId}/`,
-          { headers: { 'Content-Type': 'application/json' } }
-        );
-        setUserProfile(response.data);
-      } catch (error) {
-        console.error('Error fetching user profile:', error);
-      }
-    };
-
-    if (userId) {
-      userProfile();
-    }
-  }, [userId]);
+  const userId = getUserId();
 
   // Fetch products from API
   useEffect(() => {
@@ -130,7 +109,6 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory}) => {
     } catch (error: any) {
       console.error("Failed to add product to wishlist:", error);
   
-      // Show detailed error for debugging
       if (error.response) {
         console.error("Response data:", error.response.data);
       }
@@ -142,11 +120,11 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory}) => {
   return (
     <div className="p-4">
       {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {filteredProducts.map((product) => (
             <div
               key={product.id}
-              className="border rounded-lg shadow-md p-4 flex flex-col items-center bg-white"
+              className="rounded-lg shadow-md p-4 flex flex-col items-center bg-white hover:border hover:border-green-500 transition duration-200"
             >
               <Image
                 src={product.image}
@@ -163,7 +141,7 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory}) => {
                 <span className="font-medium">Stock:</span> {product.stock}
               </p>
               <button
-                onClick={() => handleAddToCart(product)} // Call the API for "Add to Cart"
+                onClick={() => handleAddToCart(product)}
                 className="px-6 py-3 mb-3 bg-blue-500 text-white rounded-full flex items-center gap-2 font-medium"
               >
                 <span>Add to Cart</span>
@@ -171,7 +149,7 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory}) => {
               </button>
 
               <button
-                onClick={() => handleAddToWishlist(product)} // Call the API for "Add to Wishlist"
+                onClick={() => handleAddToWishlist(product)}
                 className="px-6 py-3 rounded-full flex items-center gap-2 font-medium text-red-400 border"
               >
                 <span>Add to Wishlist</span>
@@ -184,7 +162,6 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory}) => {
         <p>No products available for this category</p>
       )}
 
-      {/* Toast Container for success notifications */}
       <ToastContainer />
     </div>
   );

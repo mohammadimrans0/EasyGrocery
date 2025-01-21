@@ -5,15 +5,11 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { MdAddCircle } from 'react-icons/md';
 import { Category } from '@/constants/types';
+import { getUserId } from '@/lib/api/user/getUserId';
 
 const CreateProduct = () => {
   const router = useRouter();
-  const [userId, setUserId] = useState<string | null>(null);
-
-  useEffect(() => {
-    const storedUserId = localStorage.getItem('user_id');
-    setUserId(storedUserId);
-  }, []);
+  const userId = getUserId();
   
   
   const [categories, setCategories] = useState<Category[]>([]);
@@ -40,7 +36,7 @@ const CreateProduct = () => {
   useEffect(() => {
     if (!userId) {
       setTimeout(() => {
-        router.push('/user/login');
+        router.push('/auth/login');
       }, 2000);
     } else {
       const fetchCategories = async () => {
@@ -54,7 +50,7 @@ const CreateProduct = () => {
 
       fetchCategories();
     }
-  }, [userId, router]);
+  }, [userId]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -119,7 +115,7 @@ const CreateProduct = () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-gray-800 dark:to-gray-900 p-4">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 p-4">
       <div className="w-full max-w-2xl">
         <div className="bg-white dark:bg-gray-800 shadow-2xl rounded-lg overflow-hidden transform transition-all hover:scale-105 duration-300">
           <div className="bg-gradient-to-r from-purple-600 to-indigo-600 p-6">
@@ -227,7 +223,7 @@ const CreateProduct = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className={`w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-150 ease-in-out ${
+              className={`w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-150 ease-in-out ${
                 isLoading ? 'opacity-50 cursor-not-allowed' : ''
               }`}
             >

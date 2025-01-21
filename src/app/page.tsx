@@ -17,7 +17,7 @@ export default function Home() {
       {/* Banner Carousel */}
       <BannerCarousel />
 
-      {/* Display Category and Product */}
+      {/* Category Section */}
       <div>
         <h1 className="text-2xl font-semibold text-center mt-12 mb-8 text-gray-800">
           Filter Your Needs By Category
@@ -25,9 +25,16 @@ export default function Home() {
         <div className="mb-12">
           <DisplayCategory onSelectCategory={handleSelectCategory} />
         </div>
-        <div className="mb-12">
+      </div>
+
+      {/* Home Section */}
+      <div className="mb-12">
           <DisplayProduct selectedCategory={selectedCategory}/>
-        </div>
+      </div>
+
+      {/* Home Section */}
+      <div>
+        <Home/>
       </div>
     </div>
   );
