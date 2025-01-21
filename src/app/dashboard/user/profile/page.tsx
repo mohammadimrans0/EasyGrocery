@@ -1,10 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import { getUserProfile } from '@/lib/api/user/getUserProfile';
+import { useUserProfile } from '@/lib/api/user/getUserProfile';
 
 export default function Profile() {
-  const { profileData, error, isLoading } = getUserProfile();
+  const { profileData, error, isLoading } = useUserProfile();
 
   if (isLoading) return <div>Loading profile...</div>;
   if (error) return <div className="text-red-500">{error}</div>;

@@ -146,7 +146,6 @@ export default function Signup() {
         </div>
       </div>
 
-      {/* Toast container for notifications */}
       <ToastContainer />
     </div>
   );

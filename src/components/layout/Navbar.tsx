@@ -5,7 +5,7 @@ import axios from 'axios';
 import { FaShoppingCart } from 'react-icons/fa';
 import Image from 'next/image';
 import Cart from '@/components/home/Cart';
-import { getUserProfile } from '@/lib/api/user/getUserProfile';
+import { useUserProfile } from '@/lib/api/user/getUserProfile';
 import { logout } from '@/lib/api/auth/handleLogout';
 
 const Navbar = () => {
@@ -13,7 +13,7 @@ const Navbar = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-  const { profileData, error, isLoading } = getUserProfile();
+  const { profileData, error, isLoading } = useUserProfile();
 
   const handleToggle = () => setIsToggleOpen(!isToggleOpen);
   const closeMenu = () => setIsToggleOpen(false);
@@ -23,7 +23,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="relative z-20 w-full border-b bg-green-300 shadow-3xl lg:backdrop-blur-sm">
+    <div className="relative z-20 w-full border-b shadow-2xl bg-gradient-to-r from-sky-300 via-green-400 to-lime-100">
       <div className="container mx-auto px-4 lg:max-w-5xl xl:max-w-7xl">
         <nav aria-label="main navigation" className="flex items-center justify-between">
           {/* Brand logo */}

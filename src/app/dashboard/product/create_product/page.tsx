@@ -10,47 +10,33 @@ import { getUserId } from '@/lib/api/user/getUserId';
 const CreateProduct = () => {
   const router = useRouter();
   const userId = getUserId();
-  
-  
+
   const [categories, setCategories] = useState<Category[]>([]);
-  const [formData, setFormData] = useState<{
-    name: string;
-    image: File | null;
-    description: string;
-    price: string;
-    stock: string;
-    category: string;
-    product_owner: string | null;
-  }>({
+  const [formData, setFormData] = useState({
     name: '',
-    image: null,
+    image: null as File | null,
     description: '',
     price: '',
     stock: '',
     category: '',
-    product_owner: null,
+    product_owner: userId || null,
   });
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
 
+  // Fetch categories
   useEffect(() => {
-    if (!userId) {
-      setTimeout(() => {
-        router.push('/auth/login');
-      }, 2000);
-    } else {
-      const fetchCategories = async () => {
-        try {
-          const response = await axios.get('https://easygrocery-server.onrender.com/api/category/categories/');
-          setCategories(response.data.results);
-        } catch (error) {
-          console.error('Error fetching categories:', error);
-        }
-      };
-
-      fetchCategories();
-    }
-  }, [userId]);
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get('https://easygrocery-server.onrender.com/api/category/categories/');
+        setCategories(response.data.results);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+        setMessage('Failed to load categories. Please try again.');
+      }
+    };
+    fetchCategories();
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -60,10 +46,7 @@ const CreateProduct = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files && files[0]) {
-      setFormData((prevData) => ({
-        ...prevData,
-        image: files[0],
-      }));
+      setFormData((prevData) => ({ ...prevData, image: files[0] }));
     }
   };
 
@@ -74,14 +57,12 @@ const CreateProduct = () => {
 
     const data = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
-      if (value !== null) data.append(key, value);
+      if (value !== null) data.append(key, value instanceof File ? value : String(value));
     });
 
     try {
       const response = await axios.post('https://easygrocery-server.onrender.com/api/product/products/', data, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
 
       if (response.status === 201) {
@@ -108,8 +89,10 @@ const CreateProduct = () => {
 
   if (!userId) {
     return (
-      <div className='flex justify-center items-center'>
-        <p>User not authenticated. Please log in.</p>
+      <div className="flex justify-center items-center">
+        <p>User not authenticated. Please {' '}
+            <a href="/auth/login" className="text-blue-500">Login</a>
+        </p>
       </div>
     );
   }

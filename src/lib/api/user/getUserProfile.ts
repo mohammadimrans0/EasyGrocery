@@ -8,7 +8,7 @@ interface UserProfileResponse {
     results: UserProfile[];
   }
 
-export const getUserProfile = () => {
+export const useUserProfile = () => {
   const [profileData, setProfileData] = useState<UserProfile | null>(null);
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);

@@ -1,9 +1,10 @@
 'use client'
+import { useState } from "react";
 
 import { BannerCarousel } from "@/components/home/BannerCarousel";
 import DisplayProduct from "@/components/home/DisplayProduct";
 import DisplayCategory from "@/components/home/DisplayCategory";
-import { useState } from "react";
+import ReviewPage from "@/components/home/Review";
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
@@ -32,9 +33,9 @@ export default function Home() {
           <DisplayProduct selectedCategory={selectedCategory}/>
       </div>
 
-      {/* Home Section */}
+      {/* Review Section */}
       <div>
-        <Home/>
+        <ReviewPage/>
       </div>
     </div>
   );

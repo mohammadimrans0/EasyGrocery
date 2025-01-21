@@ -1,10 +1,10 @@
 'use client';
 
-import { getUserWishlist } from "@/lib/api/user/getUserWishlist";
+import { useUserWishlist } from "@/lib/api/user/getUserWishlist";
 
 
 export default function MyWishlist() {
-  const { wishlist, error, isLoading, removeWishlistItem } = getUserWishlist();
+  const { wishlist, error, isLoading, removeWishlistItem } = useUserWishlist();
 
   if (isLoading) return <div>Loading wishlist...</div>;
   if (error) return <div className="text-red-500">{error}</div>;

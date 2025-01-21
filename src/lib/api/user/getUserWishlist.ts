@@ -7,7 +7,7 @@ interface UserWishlistResponse {
     results: WishlistItem[];
   }
 
-export const getUserWishlist = () => {
+export const useUserWishlist = () => {
   const [wishlist, setWishlist] = useState<WishlistItem[]>([]);
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
