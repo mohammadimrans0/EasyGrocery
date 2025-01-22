@@ -1,5 +1,6 @@
 import { FaLeaf, FaHeadset, FaLock, FaTruck } from "react-icons/fa";
 import Image from "next/image";
+import { AiFillStar } from "react-icons/ai";
 
 export default function ReviewPage() {
   return (
@@ -45,7 +46,7 @@ export default function ReviewPage() {
             <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all">
               <div className="flex items-center space-x-4">
                 <Image
-                  src="https://randomuser.me/api/portraits/women/1.jpg"
+                  src="/images/reviewer/reviewer1.jpeg"
                   alt="Customer 1"
                   className="w-16 h-16 rounded-full object-cover"
                   width={64}
@@ -65,16 +66,7 @@ export default function ReviewPage() {
               <div className="mt-4 flex items-center space-x-1 text-yellow-400">
                 {/* Star rating */}
                 {[...Array(5)].map((_, index) => (
-                  <svg
-                    key={index}
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-5 h-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    aria-hidden="true"
-                  >
-                    <path d="M9.049 2.927a5.003 5.003 0 0 1 8.745 3.66A5.003 5.003 0 0 1 15.728 11H10v4a1 1 0 1 1-2 0v-4H4.271a5.003 5.003 0 0 1-2.066-4.413 5.003 5.003 0 0 1 8.745-3.66A5.003 5.003 0 0 1 9.05 2.928z" />
-                  </svg>
+                   <AiFillStar key={index} className="w-5 h-5" />
                 ))}
               </div>
             </div>
@@ -82,7 +74,7 @@ export default function ReviewPage() {
             <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all">
               <div className="flex items-center space-x-4">
                 <Image
-                  src="https://randomuser.me/api/portraits/women/2.jpg"
+                  src="/images/reviewer/reviewer2.jpeg"
                   alt="Customer 2"
                   className="w-16 h-16 rounded-full object-cover"
                   width={64}
@@ -101,19 +93,37 @@ export default function ReviewPage() {
               </p>
               <div className="mt-4 flex items-center space-x-1 text-yellow-400">
                 {[...Array(5)].map((_, index) => (
-                  <svg
-                    key={index}
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-5 h-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    aria-hidden="true"
-                  >
-                    <path d="M9.049 2.927a5.003 5.003 0 0 1 8.745 3.66A5.003 5.003 0 0 1 15.728 11H10v4a1 1 0 1 1-2 0v-4H4.271a5.003 5.003 0 0 1-2.066-4.413 5.003 5.003 0 0 1 8.745-3.66A5.003 5.003 0 0 1 9.05 2.928z" />
-                  </svg>
+                  <AiFillStar key={index} className="w-5 h-5" />
                 ))}
               </div>
             </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all">
+              <div className="flex items-center space-x-4">
+                <Image
+                  src="/images/reviewer/reviewer3.jpeg"
+                  alt="Customer 2"
+                  className="w-16 h-16 rounded-full object-cover"
+                  width={64}
+                  height={64}
+                />
+                <div>
+                  <h3 className="font-medium text-lg text-gray-800">
+                    Ishan Goyal
+                  </h3>
+                  <p className="text-gray-500">Verified Buyer</p>
+                </div>
+              </div>
+              <p className="mt-4 text-gray-700">
+                &quot;Fast delivery and great packaging. I will definitely be shopping again !&quot;
+              </p>
+              <div className="mt-4 flex items-center space-x-1 text-yellow-400">
+                {[...Array(5)].map((_, index) => (
+                   <AiFillStar key={index} className="w-5 h-5" />
+                ))}
+              </div>
+            </div>
+
           </div>
         </div>
       </section>

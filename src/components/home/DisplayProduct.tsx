@@ -1,52 +1,37 @@
-'use client'
+'use client';
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Image from "next/image";
 import { FaShoppingCart, FaHeart } from "react-icons/fa";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Product } from "@/constants/types";
 import { getUserId } from "@/lib/api/user/getUserId";
+import { getProducts } from "@/lib/api/product/getProduct";
+import axios from "axios";
 
 interface DisplayProductProps {
   selectedCategory: number | null;
 }
 
-const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory}) => {
-  const [products, setProducts] = useState<Product[]>([]);
+const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory }) => {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-
   const userId = getUserId();
 
-  // Fetch products from API
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get(
-          "https://easygrocery-server.onrender.com/api/product/products/"
-        );
-        setProducts(response.data.results);
-        setFilteredProducts(response.data.results);
-      } catch (error) {
-        console.error("Failed to fetch products:", error);
+    const fetchAndFilterProducts = async () => {
+      const products = await getProducts();
+      if (selectedCategory === null) {
+        setFilteredProducts(products);
+      } else {
+        setFilteredProducts(products.filter((product) => product.category === selectedCategory));
       }
     };
 
-    fetchProducts();
-  }, []);
+    fetchAndFilterProducts();
+  }, [selectedCategory]);
 
-  // Filter products by category
-  useEffect(() => {
-    if (selectedCategory === null) {
-      setFilteredProducts(products); // Show all products if no category selected
-    } else {
-      setFilteredProducts(products.filter((product) => product.category === selectedCategory));
-    }
-  }, [selectedCategory, products]);
-
-
-   // Add to Cart
+  // Add to Cart
   const handleAddToCart = async (product: Product) => {
     if (!userId) {
       toast.error("User not logged in.");
@@ -102,7 +87,7 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory}) => {
           },
         }
       );
-  
+
       if (response.status === 201) {
         toast.success(`${product.name} has been added to your wishlist!`);
       }
@@ -115,7 +100,7 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory}) => {
   
       toast.error("Failed to add product to wishlist.");
     }
-  };  
+  };
 
   return (
     <div className="p-4">
@@ -147,7 +132,6 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory}) => {
                 <span>Add to Cart</span>
                 <FaShoppingCart className="w-5 h-5" />
               </button>
-
               <button
                 onClick={() => handleAddToWishlist(product)}
                 className="px-6 py-3 rounded-full flex items-center gap-2 font-medium text-red-400 border"
@@ -161,7 +145,6 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory}) => {
       ) : (
         <p>No products available for this category</p>
       )}
-
       <ToastContainer />
     </div>
   );

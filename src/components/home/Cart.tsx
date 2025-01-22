@@ -10,8 +10,6 @@ import { toast } from 'react-toastify';
 const Cart = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  console.log(cart)
-
   const userId = getUserId();
 
   useEffect(() => {
@@ -77,6 +75,7 @@ const Cart = () => {
     try {
       const total = parseFloat(totalAmount());
       const response = await checkout(total);
+      console.log(response);
       toast.success('Checkout successful!', { position: 'top-right' });
       console.log('Checkout response:', response);
     } catch (error) {

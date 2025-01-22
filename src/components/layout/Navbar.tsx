@@ -55,8 +55,8 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link href="/" onClick={closeMenu}>
-                All Products
+              <Link href="/products" onClick={closeMenu}>
+                Products
               </Link>
             </li>
             <li>

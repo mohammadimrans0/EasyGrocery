@@ -52,8 +52,12 @@ const ResetPassword = () => {
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 p-4">
       <div className="w-full max-w-md">
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300">
+        <div className="w-full bg-gradient-to-r from-purple-600 to-sky-500 p-6">
+            <h2 className="text-3xl font-bold text-white text-center flex items-center justify-center">
+              Reset Password
+            </h2>
+          </div>
           <div className="p-8">
-            <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Reset Password</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
                 <label htmlFor="username" className="text-sm font-medium text-gray-700">

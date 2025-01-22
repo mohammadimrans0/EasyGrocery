@@ -1,10 +1,10 @@
 import Image from "next/image";
 
 const teamMembers = [
-  { name: "John Doe", role: "CEO & Founder", image: "/placeholder.svg?height=200&width=200" },
-  { name: "Jane Smith", role: "CTO", image: "/placeholder.svg?height=200&width=200" },
-  { name: "Mike Johnson", role: "Head of Design", image: "/placeholder.svg?height=200&width=200" },
-  { name: "Sarah Brown", role: "Head of Marketing", image: "/placeholder.svg?height=200&width=200" },
+  { name: "John Doe", role: "CEO & Founder", image: "/images/team-members/employee1.jpeg" },
+  { name: "Jane Smith", role: "CTO", image: "/images/team-members/employee2.jpeg" },
+  { name: "Mike Johnson", role: "Head of Design", image: "/images/team-members/employee3.jpeg" },
+  { name: "Sarah Brown", role: "Head of Marketing", image: "/images/team-members/employee4.jpeg" },
 ];
 
 export default function TeamMembers() {
@@ -18,7 +18,7 @@ export default function TeamMembers() {
               src={member.image || "/placeholder.svg"}
               alt={member.name}
               width={300} // Replace with appropriate width
-              height={200} // Replace with appropriate height
+              height={500} // Replace with appropriate height
               className="w-full h-48 object-cover"
             />
             <div className="p-4">

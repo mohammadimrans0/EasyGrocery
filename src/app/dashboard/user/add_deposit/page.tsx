@@ -3,6 +3,7 @@
 import { addDeposit } from '@/lib/api/user/addDeposit';
 import React, { useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
+import { MdAddCircle } from 'react-icons/md';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -33,9 +34,13 @@ const AddDeposit = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600 p-4">
       <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden">
+      <div className="w-full bg-gradient-to-r from-purple-600 to-sky-500 p-6">
+            <h2 className="text-3xl font-bold text-white text-center flex items-center justify-center">
+              <MdAddCircle className="mr-2" />
+              Add Balance
+            </h2>
+          </div>
         <div className="p-6">
-          <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-white mb-2">Add Deposit</h2>
-          <p className="text-center text-gray-600 dark:text-gray-300 mb-6">Enter the amount you wish to deposit</p>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <label htmlFor="amount" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -48,13 +53,13 @@ const AddDeposit = () => {
                 onChange={(e) => setAmount(Number(e.target.value))}
                 placeholder="Enter amount"
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               />
             </div>
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 ease-in-out transform hover:scale-105 ${
+              className={`w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-200 ease-in-out transform hover:scale-105 ${
                 isSubmitting ? "opacity-70 cursor-not-allowed" : ""
               }`}
             >

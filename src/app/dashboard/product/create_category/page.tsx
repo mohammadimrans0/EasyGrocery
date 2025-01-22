@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { MdAddCircle } from 'react-icons/md';
 
 const CreateCategory = () => {
   const router = useRouter();
@@ -48,13 +49,16 @@ const CreateCategory = () => {
   };
 
   return (
-    <div className="flex justify-center min-h-screen py-12 bg-gradient-to-br from-indigo-500 to-purple-600">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600">
     <div className="w-full max-w-md">
       <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden transform transition-all hover:scale-105 duration-300">
-        <div className="bg-gradient-to-r from-purple-500 to-indigo-600 p-4">
-          <h2 className="text-2xl font-bold text-white text-center">Create Category</h2>
-        </div>
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+          <div className="bg-gradient-to-r from-purple-600 to-sky-500 p-6">
+            <h2 className="text-3xl font-bold text-white text-center flex items-center justify-center">
+              <MdAddCircle className="mr-2" />
+              Create Category
+            </h2>
+          </div>
+        <form onSubmit={handleSubmit} className="p-6 space-y-8">
           <div>
             <label htmlFor="categoryName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Category Name
@@ -65,7 +69,7 @@ const CreateCategory = () => {
               value={categoryName}
               onChange={handleInputChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-150 ease-in-out dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-150 ease-in-out dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               placeholder="Enter category name"
             />
           </div>
