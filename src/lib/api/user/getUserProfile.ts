@@ -5,13 +5,14 @@ import { getUserId } from '@/lib/api/user/getUserId';
 
 // Define the API response structure
 interface UserProfileResponse {
-    results: UserProfile[];
-  }
+  results: UserProfile[];
+}
 
 export const useUserProfile = () => {
   const [profileData, setProfileData] = useState<UserProfile | null>(null);
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const userId = getUserId();
 
   useEffect(() => {
@@ -38,5 +39,22 @@ export const useUserProfile = () => {
     fetchProfile();
   }, [userId]);
 
-  return { profileData, error, isLoading };
+  // Update profile data function
+  const updateProfile = async (updatedProfile: UserProfile) => {
+    setIsUpdating(true);
+    try {
+      const response = await axios.put(
+        `https://easygrocery-server.onrender.com/api/user_profile/profile/${profileData?.id}/`,
+        updatedProfile,
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+      setProfileData(response.data); // Update state with the new profile data
+    } catch (err: any) {
+      setError(err.response?.data?.detail || 'An error occurred while updating profile data.');
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  return { profileData, error, isLoading, isUpdating, updateProfile };
 };

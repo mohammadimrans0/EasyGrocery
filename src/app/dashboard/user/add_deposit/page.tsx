@@ -1,6 +1,7 @@
 'use client';
 
 import { addDeposit } from '@/lib/api/user/addDeposit';
+import Image from 'next/image';
 import React, { useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { MdAddCircle } from 'react-icons/md';
@@ -32,33 +33,69 @@ const AddDeposit = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600 p-4">
+    <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden">
-      <div className="w-full bg-gradient-to-r from-purple-600 to-sky-500 p-6">
-            <h2 className="text-3xl font-bold text-white text-center flex items-center justify-center">
-              <MdAddCircle className="mr-2" />
-              Add Balance
-            </h2>
+        <div className="w-full bg-gradient-to-r from-purple-600 to-sky-500 p-6">
+          <div className="text-3xl font-bold text-white text-center flex items-center justify-center">
+            <MdAddCircle className="mr-2" />
+            Add Balance
           </div>
+        </div>
         <div className="p-6">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <label htmlFor="amount" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Deposit Amount
-              </label>
-              <input
-                type="number"
-                id="amount"
-                value={amount}
-                onChange={(e) => setAmount(Number(e.target.value))}
-                placeholder="Enter amount"
-                required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-              />
+          <div className="mb-8 relative">
+            <div className="w-full h-56 bg-gradient-to-r from-blue-400 to-blue-600 rounded-xl shadow-lg p-6 flex flex-col justify-between">
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="text-white text-xl font-medium">Card Number</p>
+                  <p className="text-black text-base font-bold tracking-more-wider">4539 1488 0343 6467</p>
+                </div>
+                <Image
+                  src="/images/card-chip.png"
+                  alt="Chip"
+                  width={48}
+                  height={48}
+                  className="w-12"
+                />
+              </div>
+              <div className="flex justify-between items-end">
+                <div>
+                <p className="text-white font-bold">Jane Smith</p>
+                  <p className="text-black font-medium">Card Holder</p>
+                </div>
+                <div>
+                <p className="text-white font-bold">09/26</p>
+                  <p className="text-black font-medium">Expires</p>
+                  
+                </div>
+                <div>
+                <p className="text-white font-bold">842</p>
+                  <p className="text-black font-medium">CVC</p>
+                  
+                </div>
+              </div>
             </div>
+            <div className="absolute top-20 left-0 right-0">
+              <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-700 rounded-xl shadow-lg p-4 mx-4">
+                <div className="flex items-center border-b border-gray-300 dark:border-gray-600">
+                  <input
+                    type="number"
+                    id="amount"
+                    value={amount}
+                    onChange={(e) => setAmount(Number(e.target.value))}
+                    placeholder="Enter deposit amount"
+                    required
+                    className="appearance-none bg-transparent border-none w-full dark:text-white mr-3 py-1 px-2 leading-tight focus:outline-none"
+                  />
+                  <span className="flex-shrink-0 text-gray-500 dark:text-gray-400 text-sm font-semibold">USD</span>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div className="mt-12">
             <button
               type="submit"
               disabled={isSubmitting}
+              onClick={handleSubmit}
               className={`w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-200 ease-in-out transform hover:scale-105 ${
                 isSubmitting ? "opacity-70 cursor-not-allowed" : ""
               }`}
@@ -66,14 +103,13 @@ const AddDeposit = () => {
               <FaPlus className="mr-2 h-4 w-4" />
               {isSubmitting ? "Processing..." : "Add Deposit"}
             </button>
-          </form>
+          </div>
         </div>
         <div className="px-6 py-4 bg-gray-50 dark:bg-gray-700 text-center text-sm text-gray-500 dark:text-gray-400">
           Your funds will be available instantly
         </div>
       </div>
 
-      {/* Toast Container for notifications */}
       <ToastContainer
         position="top-right"
         autoClose={3000}

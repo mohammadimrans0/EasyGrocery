@@ -49,7 +49,7 @@ const CreateCategory = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600">
+    <div className="flex justify-center items-center min-h-screen">
     <div className="w-full max-w-md">
       <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden transform transition-all hover:scale-105 duration-300">
           <div className="bg-gradient-to-r from-purple-600 to-sky-500 p-6">

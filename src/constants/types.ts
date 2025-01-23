@@ -41,7 +41,8 @@ export interface CartItem {
 
 export interface WishlistItem {
   id: number;
-  product: Product;
-  product_name: string;
+  product: number;
+  user: number;
+  added_at: string;
 }
   

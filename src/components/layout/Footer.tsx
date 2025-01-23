@@ -19,22 +19,22 @@ export default function Footer() {
                   id="WindUI-5-logo"
                   aria-label="WindUI logo"
                   aria-current="page"
-                  className="flex items-center gap-2 mb-6 text-base font-medium leading-6 whitespace-nowrap text-slate-700 focus:outline-none"
+                  className="flex items-center gap-2 mb-6 font-medium leading-6 whitespace-nowrap focus:outline-none"
                   href="/"
                 >
-                  <p className="text-3xl font-semibold text-orange-500">EasyGrocery</p>
+                  <p className="text-3xl font-semibold text-green-500">EasyGrocery</p>
                 </Link>
                 
-                <p>
+                <p className="text-black">
                 Your one-stop destination for fresh produce, quality essentials, and everyday needs. Enjoy affordable prices, top-notch service, and a wide selection of products for your family !
                 </p>
               </div>
               <nav
-                className="col-span-2 md:col-span-4 lg:col-span-2"
+                className="col-span-2 md:col-span-4 lg:col-span-3"
                 aria-labelledby="footer-product-5-logo"
               >
                 <h3
-                  className="mb-6 text-base font-medium text-slate-700"
+                  className="mb-6 text-xl font-medium text-slate-700"
                   id="footer-product-5-logo"
                 >
                   Product
@@ -43,7 +43,7 @@ export default function Footer() {
                   <li className="mb-2 leading-6">
                     <Link
                       href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      className="transition-colors duration-300 text-black hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       Features{" "}
@@ -52,7 +52,7 @@ export default function Footer() {
                   <li className="mb-2 leading-6">
                     <Link
                       href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      className="transition-colors duration-300 text-black hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       Customers{" "}
@@ -61,7 +61,7 @@ export default function Footer() {
                   <li className="mb-2 leading-6">
                     <Link
                       href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      className="transition-colors duration-300 text-black hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       Why us?{" "}
@@ -70,7 +70,7 @@ export default function Footer() {
                   <li className="mb-2 leading-6">
                     <Link
                       href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      className="transition-colors duration-300 text-black hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       Pricing{" "}
@@ -80,11 +80,11 @@ export default function Footer() {
               </nav>
               
               <nav
-                className="col-span-2 md:col-span-4 lg:col-span-2"
+                className="col-span-2 md:col-span-4 lg:col-span-3"
                 aria-labelledby="footer-about-5-logo"
               >
                 <h3
-                  className="mb-6 text-base font-medium text-slate-700"
+                  className="mb-6 text-xl font-medium text-slate-700"
                   id="footer-about-5-logo"
                 >
                   About us
@@ -93,7 +93,7 @@ export default function Footer() {
                   <li className="mb-2 leading-6">
                     <Link
                       href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      className="transition-colors duration-300 text-black hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       About us{" "}
@@ -102,7 +102,7 @@ export default function Footer() {
                   <li className="mb-2 leading-6">
                     <Link
                       href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      className="transition-colors duration-300 text-black hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       Careers{" "}
@@ -111,7 +111,7 @@ export default function Footer() {
                   <li className="mb-2 leading-6">
                     <Link
                       href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      className="transition-colors duration-300 text-black hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       Leadership{" "}
@@ -120,7 +120,7 @@ export default function Footer() {
                   <li className="mb-2 leading-6">
                     <Link
                       href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      className="transition-colors duration-300 text-black hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       Blog
@@ -129,7 +129,7 @@ export default function Footer() {
                   <li className="mb-2 leading-6">
                     <Link
                       href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      className="transition-colors duration-300 text-black hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       Events{" "}
@@ -143,7 +143,7 @@ export default function Footer() {
                 aria-labelledby="footer-resources-5-logo"
               >
                 <h3
-                  className="mb-6 text-base font-medium text-slate-700"
+                  className="mb-6 text-xl font-medium text-slate-700"
                   id="footer-resources-5-logo"
                 >
                   Resources
@@ -152,7 +152,7 @@ export default function Footer() {
                   <li className="mb-2 leading-6">
                     <Link
                       href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      className="transition-colors duration-300 text-black hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       Support{" "}
@@ -161,7 +161,7 @@ export default function Footer() {
                   <li className="mb-2 leading-6">
                     <Link
                       href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      className="transition-colors duration-300 text-black hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       Contact us{" "}
@@ -170,7 +170,7 @@ export default function Footer() {
                   <li className="mb-2 leading-6">
                     <Link
                       href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      className="transition-colors duration-300 text-black hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       FAQ{" "}
@@ -179,7 +179,7 @@ export default function Footer() {
                   <li className="mb-2 leading-6">
                     <Link
                       href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      className="transition-colors duration-300 text-black hover:text-emerald-500 focus:text-emerald-600"
                     >
                       {" "}
                       Privacy{" "}

@@ -23,12 +23,12 @@ const Navbar = () => {
   };
 
   return (
-    <div className="relative z-20 w-full border-b shadow-2xl bg-gradient-to-r from-sky-300 via-green-400 to-lime-100">
+    <div className="relative z-20 w-full border-b shadow-2xl ">
       <div className="container mx-auto px-4 lg:max-w-5xl xl:max-w-7xl">
         <nav aria-label="main navigation" className="flex items-center justify-between">
           {/* Brand logo */}
           <Link href="/" className="flex items-center gap-2 text-3xl">
-            <span className="font-semibold text-orange-500">EasyGrocery</span>
+            <span className="font-semibold text-green-500">EasyGrocery</span>
           </Link>
 
           {/* Mobile Menu Toggle */}
@@ -82,9 +82,9 @@ const Navbar = () => {
                         src={profileData.image || '/fallback_image_url.jpg'}
                         alt="User Profile"
                         title={`${profileData.user.first_name} ${profileData.user.last_name}`}
-                        width={48}
-                        height={48}
-                        className="border-2 border-white rounded-full"
+                        width={36}
+                        height={36}
+                        className="border-2 border-slate-500 rounded-full"
                       />
                     </div>
                   </button>
@@ -92,7 +92,7 @@ const Navbar = () => {
                 <li className="flex items-center gap-8">
                   <button
                     onClick={() => setIsCartOpen(true)}
-                    className="relative text-3xl text-orange-400"
+                    className="relative text-2xl text-orange-400"
                     aria-label="Open Cart"
                   >
                     <FaShoppingCart />
@@ -102,7 +102,7 @@ const Navbar = () => {
             ) : (
                 <li>
                   <Link href="/auth/login" onClick={closeMenu}>
-                    <button className="px-6 py-2 text-white bg-blue-600 rounded-full shadow-md bg-blue-500">
+                    <button className="px-6 py-2 text-white bg-green-500 rounded-full shadow-md">
                       Login
                     </button>
                   </Link>
@@ -133,7 +133,7 @@ const Navbar = () => {
 
       {/* Profile Window */}
       {isProfileOpen && (
-        <div className="fixed inset-0 z-50 top-20 right-10 flex justify-end bg-black bg-opacity-50">
+        <div className="fixed inset-0 z-40 top-16 right-8 flex justify-end">
           <div className="relative w-[230px] h-60 bg-white shadow-lg overflow-auto">
             <nav className='p-4'>
             <ul className="space-y-4">

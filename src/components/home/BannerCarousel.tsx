@@ -9,10 +9,10 @@ import { useEffect } from "react"
 
 
 const groceryItems = [
-  { id: 1, name: "Fresh Fruits", image: "/images/banner-carousel-img1.png", link: "/fruits" },
-  { id: 2, name: "Vegetables", image: "/images/banner-carousel-img2.png", link: "/vegetables" },
-  { id: 3, name: "Bakery Items", image: "/images/banner-carousel-img3.jpeg", link: "/bakery" },
-  { id: 4, name: "Meat & Poultry", image: "/images/banner-carousel-img4.png", link: "/meat" },
+  { id: 1, name: "Fresh Fruits", image: "/images/banner-carousel-img1.png", link: "/" },
+  { id: 2, name: "Vegetables", image: "/images/banner-carousel-img2.png", link: "/" },
+  { id: 3, name: "Bakery Items", image: "/images/banner-carousel-img3.jpeg", link: "/" },
+  { id: 4, name: "Meat & Poultry", image: "/images/banner-carousel-img4.png", link: "/" },
 ]
 
 export function BannerCarousel() {

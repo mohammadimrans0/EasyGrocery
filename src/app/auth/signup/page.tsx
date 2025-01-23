@@ -59,7 +59,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600 py-6 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center py-6 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-lg space-y-8 bg-white p-8 rounded-lg shadow-md">
         <h1 className="text-2xl font-bold text-center text-gray-700">Create an Account</h1>
 

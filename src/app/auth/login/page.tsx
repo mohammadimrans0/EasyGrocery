@@ -37,6 +37,8 @@ export default function Login() {
         setTimeout(() => {
           router.push('/dashboard/user/profile');
         }, 2000);
+      }else {
+        toast.error(response.data.error || 'Invalid username or password');
       }
     } catch (err) {
       toast.error('Invalid username or password');
@@ -46,7 +48,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600">
+    <div className="flex items-center justify-center min-h-screen">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold text-center text-gray-700">Login</h2>
 

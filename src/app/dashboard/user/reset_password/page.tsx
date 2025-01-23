@@ -49,7 +49,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 p-4">
+    <div className="flex justify-center items-center min-h-screen p-4">
       <div className="w-full max-w-md">
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300">
         <div className="w-full bg-gradient-to-r from-purple-600 to-sky-500 p-6">

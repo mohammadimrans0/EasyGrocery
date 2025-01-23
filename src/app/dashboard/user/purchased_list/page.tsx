@@ -1,50 +1,46 @@
 'use client';
 
-import { getPurchasedList } from '@/lib/api/user/getPurchasedList';
-import { useEffect, useState } from 'react';
-
-
-interface Purchase {
-  id: number;
-  user: number;
-  product: number;
-  purchased_at: string;
-}
+import { usePurchasedList } from "@/lib/api/user/getPurchasedList";
 
 const PurchasedList = () => {
-  const [purchasedList, setPurchasedList] = useState<Purchase[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchPurchasedList = async () => {
-      try {
-        setIsLoading(true);
-        const data = await getPurchasedList();
-        setPurchasedList(data);
-      } catch (error) {
-        console.error('Error fetching purchase list:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchPurchasedList();
-  }, []);
+  const { purchasedList, productData, isLoading, isProductLoading } = usePurchasedList();
 
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Purchased List</h2>
       {isLoading ? (
-        <p>Loading...</p>
+        <p>Loading purchases...</p>
       ) : purchasedList.length > 0 ? (
-        <ul className="list-disc pl-6">
-          {purchasedList.map((purchase) => (
-            <li key={purchase.id} className="mb-2">
-              Product ID: {purchase.product}, Purchased At:{' '}
-              {new Date(purchase.purchased_at).toLocaleString()}
-            </li>
-          ))}
-        </ul>
+        <table className="min-w-full border-collapse border border-slate-500">
+          <thead>
+            <tr>
+              <th className="border border-slate-500 px-4 py-2">Product ID</th>
+              <th className="border border-slate-500 px-4 py-2">Product Name</th>
+              <th className="border border-slate-500 px-4 py-2">Product Price</th>
+              <th className="border border-slate-500 px-4 py-2">Purchased At</th>
+            </tr>
+          </thead>
+          <tbody>
+            {purchasedList.map((purchase: any) => (
+              <tr key={purchase.id}>
+              <td className="border border-slate-500 px-4 py-2">{purchase.product}</td>
+              <td className="border border-slate-500 px-4 py-2">
+                {isProductLoading
+                  ? 'Loading...'
+                  : productData[purchase.product]?.name || 'Unknown Product'}
+              </td>
+              <td className="border border-slate-500 px-4 py-2">
+                {isProductLoading
+                  ? 'Loading...'
+                  : `$ ${productData[purchase.product]?.price || 'Price Unavailable'}`}
+              </td>
+              <td className="border border-slate-500 px-4 py-2">
+                {new Date(purchase.purchased_at).toLocaleString()}
+              </td>
+            </tr>
+            ))}
+          </tbody>
+        </table>
       ) : (
         <p>No purchases found.</p>
       )}

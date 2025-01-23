@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { getUserId } from './getUserId';
-import { WishlistItem } from '@/constants/types';
+import { WishlistItem, Product } from '@/constants/types';
 
 interface UserWishlistResponse {
-    results: WishlistItem[];
-  }
+  results: WishlistItem[];
+}
 
 export const useUserWishlist = () => {
   const [wishlist, setWishlist] = useState<WishlistItem[]>([]);
+  const [productData, setProductData] = useState<{ [key: number]: Product }>({});
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -23,11 +24,30 @@ export const useUserWishlist = () => {
 
     const fetchWishlist = async () => {
       try {
+        // Fetch the wishlist items
         const response = await axios.get<UserWishlistResponse>(
           `https://easygrocery-server.onrender.com/api/user_profile/wishlist/?user=${userId}`,
           { headers: { 'Content-Type': 'application/json' } }
         );
-        setWishlist(response.data.results);
+        const wishlistItems = response.data.results;
+        setWishlist(wishlistItems);
+
+        // Fetch product details for unique product IDs
+        const uniqueProductIds = [...new Set(wishlistItems.map((item) => item.product))];
+        const productResponses = await Promise.all(
+          uniqueProductIds.map((id) =>
+            axios.get<Product>(`https://easygrocery-server.onrender.com/api/product/products/${id}`)
+          )
+        );
+
+        // Map product details
+        const productMap: { [key: number]: Product } = {};
+        productResponses.forEach((response) => {
+          const product = response.data;
+          productMap[product.id] = product;
+        });
+
+        setProductData(productMap);
       } catch (err: any) {
         setError(err.response?.data?.detail || 'An error occurred while fetching wishlist data.');
       } finally {
@@ -48,5 +68,5 @@ export const useUserWishlist = () => {
     }
   };
 
-  return { wishlist, error, isLoading, removeWishlistItem };
+  return { wishlist, productData, error, isLoading, removeWishlistItem };
 };
