@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import axios from 'axios';
 import { FaShoppingCart } from 'react-icons/fa';
 import Image from 'next/image';
 import Cart from '@/components/home/Cart';
