@@ -98,10 +98,10 @@ const CreateProduct = () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4">
+    <div className="flex items-center justify-center py-12">
       <div className="w-full max-w-2xl">
         <div className="bg-white dark:bg-gray-800 shadow-2xl rounded-lg overflow-hidden transform transition-all hover:scale-105 duration-300">
-          <div className="bg-gradient-to-r from-purple-600 to-sky-500 p-6">
+          <div className="bg-slate-500 p-6">
             <h2 className="text-3xl font-bold text-white text-center flex items-center justify-center">
               <MdAddCircle className="mr-2" />
               Create Product

@@ -127,7 +127,7 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory }) => 
               </p>
               <button
                 onClick={() => handleAddToCart(product)}
-                className="px-6 py-3 mb-3 bg-blue-500 text-white rounded-full flex items-center gap-2 font-medium"
+                className="px-6 py-3 mb-3 bg-[#77b91e] text-white rounded-full flex items-center gap-2 font-medium"
               >
                 <span>Add to Cart</span>
                 <FaShoppingCart className="w-5 h-5" />

@@ -62,7 +62,7 @@ export default function Profile() {
           <div className="">
             <button
               onClick={toggleEditMode}
-              className="px-4 py-2 bg-blue-500 text-white font-semibold rounded"
+              className="px-4 py-2 bg-slate-500 text-white font-semibold rounded"
             >
               {isEditing ? 'Cancel' : 'Edit Profile'}
             </button>

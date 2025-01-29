@@ -1,11 +1,11 @@
-'use client';
-import { useState } from 'react';
-import Link from 'next/link';
-import { FaShoppingCart } from 'react-icons/fa';
-import Image from 'next/image';
-import Cart from '@/components/home/Cart';
-import { useUserProfile } from '@/lib/api/user/getUserProfile';
-import { logout } from '@/lib/api/auth/handleLogout';
+"use client";
+import { useState } from "react";
+import Link from "next/link";
+import { FaShoppingCart } from "react-icons/fa";
+import Image from "next/image";
+import Cart from "@/components/home/Cart";
+import { useUserProfile } from "@/lib/api/user/getUserProfile";
+import { logout } from "@/lib/api/auth/handleLogout";
 
 const Navbar = () => {
   const [isToggleOpen, setIsToggleOpen] = useState(false);
@@ -24,15 +24,28 @@ const Navbar = () => {
   return (
     <div className="relative z-20 w-full border-b shadow-2xl ">
       <div className="container mx-auto px-4 lg:max-w-5xl xl:max-w-7xl">
-        <nav aria-label="main navigation" className="flex items-center justify-between">
+        <nav
+          aria-label="main navigation"
+          className="flex items-center justify-between"
+        >
           {/* Brand logo */}
-          <Link href="/" className="flex items-center gap-2 text-3xl">
-            <span className="font-semibold text-green-500">EasyGrocery</span>
+          <Link href="/">
+            <div className="flex items-center justify-center">
+              <Image
+                src="/images/easygrocery-logo.png"
+                alt="Login"
+                width={36}
+                height={36}
+              />
+              <span className="text-2xl font-semibold text-[#77b91e]">EasyGrocery</span>
+            </div>
           </Link>
 
           {/* Mobile Menu Toggle */}
           <button
-            className={`relative h-10 w-10 lg:hidden ${isToggleOpen ? 'open' : ''}`}
+            className={`relative h-10 w-10 lg:hidden ${
+              isToggleOpen ? "open" : ""
+            }`}
             onClick={handleToggle}
             aria-expanded={isToggleOpen}
             aria-label="Toggle navigation"
@@ -45,7 +58,7 @@ const Navbar = () => {
           {/* Navigation Links */}
           <ul
             className={`fixed inset-0 z-10 flex flex-col items-center justify-center gap-6 bg-white p-3 lg:relative lg:flex-row lg:bg-transparent ${
-              isToggleOpen ? 'visible' : 'invisible opacity-0'
+              isToggleOpen ? "visible" : "invisible opacity-0"
             } transition-opacity lg:visible lg:opacity-100`}
           >
             <li>
@@ -71,14 +84,16 @@ const Navbar = () => {
             {profileData ? (
               <>
                 <li className="flex items-center gap-8">
-                <button
+                  <button
                     onClick={toggleProfileWindow}
                     className="relative"
-                    aria-label={isProfileOpen ? 'Close Profile' : 'Open Profile'}
+                    aria-label={
+                      isProfileOpen ? "Close Profile" : "Open Profile"
+                    }
                   >
                     <div className="relative inline-flex items-center justify-center text-white rounded-full">
                       <Image
-                        src={profileData.image || '/fallback_image_url.jpg'}
+                        src={profileData.image || "/fallback_image_url.jpg"}
                         alt="User Profile"
                         title={`${profileData.user.first_name} ${profileData.user.last_name}`}
                         width={36}
@@ -91,7 +106,7 @@ const Navbar = () => {
                 <li className="flex items-center gap-8">
                   <button
                     onClick={() => setIsCartOpen(true)}
-                    className="relative text-2xl text-orange-400"
+                    className="relative text-2xl text-slate-900"
                     aria-label="Open Cart"
                   >
                     <FaShoppingCart />
@@ -99,13 +114,13 @@ const Navbar = () => {
                 </li>
               </>
             ) : (
-                <li>
-                  <Link href="/auth/login" onClick={closeMenu}>
-                    <button className="px-6 py-2 text-white bg-green-500 rounded-full shadow-md">
-                      Login
-                    </button>
-                  </Link>
-                </li>
+              <li>
+                <Link href="/auth/login" onClick={closeMenu}>
+                  <button className="px-6 py-2 text-white bg-[#77b91e] rounded-full shadow-md">
+                    Login
+                  </button>
+                </Link>
+              </li>
             )}
           </ul>
         </nav>
@@ -124,7 +139,7 @@ const Navbar = () => {
             </button>
             <div className="p-4">
               <h2 className="text-xl font-semibold mb-4">Your Cart</h2>
-              <Cart/>
+              <Cart />
             </div>
           </div>
         </div>
@@ -133,12 +148,15 @@ const Navbar = () => {
       {/* Profile Window */}
       {isProfileOpen && (
         <div className="fixed inset-0 z-40 top-16 right-8 flex justify-end">
-          <div className="relative w-[230px] h-60 bg-white shadow-lg overflow-auto">
-            <nav className='p-4'>
-            <ul className="space-y-4">
+          <div className="relative w-[220px] h-40 bg-white shadow-lg overflow-auto">
+            <nav className="p-4">
+              <ul className="space-y-4">
                 <li>
-                  <Link href="/dashboard/user/profile" onClick={toggleProfileWindow}>
-                    <button className="w-48 px-6 py-2 text-white bg-green-400 rounded-full shadow-md bg-blue-500">
+                  <Link
+                    href="/dashboard/user/profile"
+                    onClick={toggleProfileWindow}
+                  >
+                    <button className="w-48 px-6 py-2 text-gray-900 text-xl cursor-pointer">
                       Dashboard
                     </button>
                   </Link>
@@ -149,20 +167,19 @@ const Navbar = () => {
                       try {
                         await logout();
                       } catch (error) {
-                        console.error('Logout error:', error);
+                        console.error("Logout error:", error);
                       }
                     }}
                     className="w-48 text-center px-4 py-2 text-xl text-red-500 cursor-pointer"
                   >
                     Logout
                   </button>
-              </li>
-            </ul>
-        </nav>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       )}
-
     </div>
   );
 };

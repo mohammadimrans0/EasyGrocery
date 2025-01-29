@@ -33,9 +33,9 @@ const AddDeposit = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="flex items-center justify-center py-12">
       <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden">
-        <div className="w-full bg-gradient-to-r from-purple-600 to-sky-500 p-6">
+        <div className="w-full bg-slate-500 p-6">
           <div className="text-3xl font-bold text-white text-center flex items-center justify-center">
             <MdAddCircle className="mr-2" />
             Add Balance
@@ -43,11 +43,11 @@ const AddDeposit = () => {
         </div>
         <div className="p-6">
           <div className="mb-8 relative">
-            <div className="w-full h-56 bg-gradient-to-r from-blue-400 to-blue-600 rounded-xl shadow-lg p-6 flex flex-col justify-between">
+            <div className="w-full h-56 bg-slate-400 rounded-xl shadow-lg p-6 flex flex-col justify-between">
               <div className="flex justify-between items-start">
                 <div>
                   <p className="text-white text-xl font-medium">Card Number</p>
-                  <p className="text-black text-base font-bold tracking-more-wider">4539 1488 0343 6467</p>
+                  <p className="text-gray-800 text-base font-bold tracking-more-wider">4539 1488 0343 6467</p>
                 </div>
                 <Image
                   src="/images/card-chip.png"
@@ -60,16 +60,16 @@ const AddDeposit = () => {
               <div className="flex justify-between items-end">
                 <div>
                 <p className="text-white font-bold">Jane Smith</p>
-                  <p className="text-black font-medium">Card Holder</p>
+                  <p className="text-gray-800 font-medium">Card Holder</p>
                 </div>
                 <div>
                 <p className="text-white font-bold">09/26</p>
-                  <p className="text-black font-medium">Expires</p>
+                  <p className="text-gray-800 font-medium">Expires</p>
                   
                 </div>
                 <div>
                 <p className="text-white font-bold">842</p>
-                  <p className="text-black font-medium">CVC</p>
+                  <p className="text-gray-800 font-medium">CVC</p>
                   
                 </div>
               </div>

@@ -1,6 +1,7 @@
 'use client'
-import React from "react"
+
 import Link from "next/link"
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -16,13 +17,18 @@ export default function Footer() {
               >
                 
                 <Link
-                  id="WindUI-5-logo"
-                  aria-label="WindUI logo"
-                  aria-current="page"
                   className="flex items-center gap-2 mb-6 font-medium leading-6 whitespace-nowrap focus:outline-none"
                   href="/"
                 >
-                  <p className="text-3xl font-semibold text-green-500">EasyGrocery</p>
+                  <div className="flex items-center justify-center">
+              <Image
+                src="/images/easygrocery-logo.png"
+                alt="Login"
+                width={48}
+                height={48}
+              />
+              <span className="text-3xl font-semibold text-[#77b91e]">EasyGrocery</span>
+            </div>
                 </Link>
                 
                 <p className="text-black">
