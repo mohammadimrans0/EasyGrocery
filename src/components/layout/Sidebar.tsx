@@ -16,7 +16,7 @@ export default function Sidebar() {
         <ul className="space-y-4">
           <li>
             <Link href="/dashboard/user/profile">
-               <p className="flex items-center gap-x-2 px-4 py-2 text-slate-900 hover:bg-slate-300 rounded-lg cursor-pointer">
+               <p className="flex items-center gap-x-2 px-4 py-2 text-slate-900 hover:bg-[#77c91c] rounded-lg cursor-pointer">
                <FaUser /> Profile
               </p>
             </Link>
@@ -24,7 +24,7 @@ export default function Sidebar() {
           <li>
             <Link href="/dashboard/user/wishlist">
               
-              <p className="flex items-center gap-x-2 px-4 py-2 text-slate-900 hover:bg-slate-300 rounded-lg cursor-pointer">
+              <p className="flex items-center gap-x-2 px-4 py-2 text-slate-900 hover:bg-[#77c91c] rounded-lg cursor-pointer">
               <FaHeart /> Wishlist
               </p>
             </Link>
@@ -32,7 +32,7 @@ export default function Sidebar() {
           <li>
             <Link href="/dashboard/user/purchased_list">
               
-              <p className="flex items-center gap-x-2 px-4 py-2 text-slate-900 hover:bg-slate-300 rounded-lg cursor-pointer">
+              <p className="flex items-center gap-x-2 px-4 py-2 text-slate-900 hover:bg-[#77c91c] rounded-lg cursor-pointer">
               <FaListAlt /> Purchased List
               </p>
             </Link>
@@ -40,7 +40,7 @@ export default function Sidebar() {
           <li>
             <Link href="/dashboard/user/add_deposit">
               
-              <p className="flex items-center gap-x-2 px-4 py-2 text-slate-900 hover:bg-slate-300 rounded-lg cursor-pointer">
+              <p className="flex items-center gap-x-2 px-4 py-2 text-slate-900 hover:bg-[#77c91c] rounded-lg cursor-pointer">
               <FaMoneyBillWave /> Deposit
               </p>
             </Link>
@@ -48,7 +48,7 @@ export default function Sidebar() {
           <li>
             <Link href="/dashboard/product/create_category">
              
-              <p className="flex items-center gap-x-2 px-4 py-2 text-slate-900 hover:bg-slate-300 rounded-lg cursor-pointer">
+              <p className="flex items-center gap-x-2 px-4 py-2 text-slate-900 hover:bg-[#77c91c] rounded-lg cursor-pointer">
               <FaPlusCircle /> Add Category
               </p>
             </Link>
@@ -56,7 +56,7 @@ export default function Sidebar() {
           <li>
             <Link href="/dashboard/product/create_product">
              
-              <p className="flex items-center gap-x-2 px-4 py-2 text-slate-900 hover:bg-slate-300 rounded-lg cursor-pointer">
+              <p className="flex items-center gap-x-2 px-4 py-2 text-slate-900 hover:bg-[#77c91c] rounded-lg cursor-pointer">
               <FaBox /> Add Product
               </p>
             </Link>
@@ -64,7 +64,7 @@ export default function Sidebar() {
           <li>
             <Link href="/dashboard/user/reset_password">
               
-              <p className="flex items-center gap-x-2 px-4 py-2 text-slate-900 hover:bg-slate-300 rounded-lg cursor-pointer">
+              <p className="flex items-center gap-x-2 px-4 py-2 text-slate-900 hover:bg-[#77c91c] rounded-lg cursor-pointer">
               <FaKey /> Reset Password
               </p>
             </Link>

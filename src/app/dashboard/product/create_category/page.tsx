@@ -52,7 +52,7 @@ const CreateCategory = () => {
     <div className="flex justify-center items-center py-12">
     <div className="w-full max-w-md">
       <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden transform transition-all hover:scale-105 duration-300">
-          <div className="bg-slate-500 p-6">
+          <div className="bg-[#77b91e] p-6">
             <h2 className="text-3xl font-bold text-white text-center flex items-center justify-center">
               <MdAddCircle className="mr-2" />
               Create Category
@@ -76,7 +76,7 @@ const CreateCategory = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-150 ease-in-out ${
+            className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#77b91e] transition duration-150 ease-in-out ${
               isLoading ? 'opacity-50 cursor-not-allowed' : ''
             }`}
           >

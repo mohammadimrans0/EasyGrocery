@@ -52,7 +52,7 @@ const ResetPassword = () => {
     <div className="flex justify-center items-center py-12">
       <div className="w-full max-w-md">
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300">
-        <div className="w-full bg-slate-500 p-6">
+        <div className="w-full bg-[#77b91e] p-6">
             <h2 className="text-3xl font-bold text-white text-center flex items-center justify-center">
               Reset Password
             </h2>
@@ -107,7 +107,7 @@ const ResetPassword = () => {
               <div>
                 <button
                   type="submit"
-                  className="w-full py-3 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-blue-200 transition duration-300"
+                  className="w-full py-3 px-4 bg-[#77b91e] text-white font-semibold rounded-lg shadow-md  transition duration-300"
                   disabled={loading}
                 >
                   {loading ? (

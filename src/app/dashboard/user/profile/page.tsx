@@ -62,7 +62,7 @@ export default function Profile() {
           <div className="">
             <button
               onClick={toggleEditMode}
-              className="px-4 py-2 bg-slate-500 text-white font-semibold rounded"
+              className="px-4 py-2 bg-[#77c91c] text-white font-semibold rounded"
             >
               {isEditing ? 'Cancel' : 'Edit Profile'}
             </button>
@@ -71,8 +71,16 @@ export default function Profile() {
 
         <div className="flex justify-center mt-4">
           <div className="relative">
+            {/* <Image
+              src={updatedProfile?.image || profileData.image || '/images/avatar.png'}
+              alt="Profile"
+              width={96}
+              height={96}
+              className="rounded-full border-2 border-gray-300"
+              priority={true}
+            /> */}
             <Image
-              src={updatedProfile?.image || profileData.image || 'https://easygrocery-server.onrender.com/media/user_profile/upload/images/avatar.jpg'}
+              src= '/images/avatar.png'
               alt="Profile"
               width={96}
               height={96}

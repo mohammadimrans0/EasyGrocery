@@ -15,7 +15,9 @@ export default function ReviewPage() {
             width={1200}
             height={600}
           />
-          <div className="absolute top-1/2 left-10 right-0 transform -translate-y-1/2 text-center md:text-left px-6">
+
+          {/* text */}
+          <div className="hidden md:block absolute top-1/2 left-10 right-0 transform -translate-y-1/2 text-center md:text-left px-6">
             <h1 className="text-4xl font-bold mb-4">Fresh Groceries</h1>
             <h1 className="text-4xl font-bold mb-4 ml-2 md:ml-6 lg:ml-16">
               Delivered to Your Door

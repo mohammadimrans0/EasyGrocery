@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { FaShoppingCart } from "react-icons/fa";
+import { ShoppingCart, Menu } from "lucide-react";
 import Image from "next/image";
 import Cart from "@/components/home/Cart";
 import { useUserProfile } from "@/lib/api/user/getUserProfile";
@@ -22,7 +22,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="relative z-20 w-full border-b shadow-2xl ">
+    <div className="relative z-20 w-full shadow-sm ">
       <div className="container mx-auto px-4 lg:max-w-5xl xl:max-w-7xl">
         <nav
           aria-label="main navigation"
@@ -50,9 +50,7 @@ const Navbar = () => {
             aria-expanded={isToggleOpen}
             aria-label="Toggle navigation"
           >
-            <span className="block h-0.5 w-6 bg-slate-900 transition-transform"></span>
-            <span className="block h-0.5 w-6 bg-slate-900 transition-transform"></span>
-            <span className="block h-0.5 w-6 bg-slate-900 transition-transform"></span>
+            <Menu/>
           </button>
 
           {/* Navigation Links */}
@@ -91,9 +89,10 @@ const Navbar = () => {
                       isProfileOpen ? "Close Profile" : "Open Profile"
                     }
                   >
-                    <div className="relative inline-flex items-center justify-center text-white rounded-full">
+                    <div className="relative inline-flex items-center justify-center text-white">
                       <Image
-                        src={profileData.image || "/fallback_image_url.jpg"}
+                        // src={profileData.image || "/fallback_image_url.jpg"}
+                        src="/images/avatar.png"
                         alt="User Profile"
                         title={`${profileData.user.first_name} ${profileData.user.last_name}`}
                         width={36}
@@ -106,10 +105,10 @@ const Navbar = () => {
                 <li className="flex items-center gap-8">
                   <button
                     onClick={() => setIsCartOpen(true)}
-                    className="relative text-2xl text-slate-900"
+                    className="relative text-3xl text-[#77b91e]"
                     aria-label="Open Cart"
                   >
-                    <FaShoppingCart />
+                    <ShoppingCart />
                   </button>
                 </li>
               </>
@@ -147,8 +146,8 @@ const Navbar = () => {
 
       {/* Profile Window */}
       {isProfileOpen && (
-        <div className="fixed inset-0 z-40 top-16 right-8 flex justify-end">
-          <div className="relative w-[220px] h-40 bg-white shadow-lg overflow-auto">
+        <div className="fixed inset-0 z-40 top-16 right-24 flex justify-end">
+          <div className="relative w-[156px] h-32 bg-white shadow-lg overflow-auto rounded-b-lg">
             <nav className="p-4">
               <ul className="space-y-4">
                 <li>
@@ -156,7 +155,7 @@ const Navbar = () => {
                     href="/dashboard/user/profile"
                     onClick={toggleProfileWindow}
                   >
-                    <button className="w-48 px-6 py-2 text-gray-900 text-xl cursor-pointer">
+                    <button className=" px-4 py-1 text-gray-900 text-xl cursor-pointer">
                       Dashboard
                     </button>
                   </Link>
@@ -170,7 +169,7 @@ const Navbar = () => {
                         console.error("Logout error:", error);
                       }
                     }}
-                    className="w-48 text-center px-4 py-2 text-xl text-red-500 cursor-pointer"
+                    className="text-center px-4 py-1 text-xl text-red-500 cursor-pointer"
                   >
                     Logout
                   </button>

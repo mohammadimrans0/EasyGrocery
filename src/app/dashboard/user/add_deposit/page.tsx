@@ -35,7 +35,7 @@ const AddDeposit = () => {
   return (
     <div className="flex items-center justify-center py-12">
       <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden">
-        <div className="w-full bg-slate-500 p-6">
+        <div className="w-full bg-[#77b91e] p-6">
           <div className="text-3xl font-bold text-white text-center flex items-center justify-center">
             <MdAddCircle className="mr-2" />
             Add Balance
@@ -96,7 +96,7 @@ const AddDeposit = () => {
               type="submit"
               disabled={isSubmitting}
               onClick={handleSubmit}
-              className={`w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-200 ease-in-out transform hover:scale-105 ${
+              className={`w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#77b91e] transition-all duration-200 ease-in-out transform hover:scale-105 ${
                 isSubmitting ? "opacity-70 cursor-not-allowed" : ""
               }`}
             >
