@@ -7,6 +7,8 @@ import { UserProfile } from '@/constants/types';
 
 export default function Profile() {
   const { profileData, error, isLoading, updateProfile } = useUserProfile();
+
+  console.log(profileData); 
   
   // State to track the editing mode and the updated profile data
   const [isEditing, setIsEditing] = useState(false);
@@ -71,22 +73,22 @@ export default function Profile() {
 
         <div className="flex justify-center mt-4">
           <div className="relative">
-            {/* <Image
-              src={updatedProfile?.image || profileData.image || '/images/avatar.png'}
-              alt="Profile"
-              width={96}
-              height={96}
-              className="rounded-full border-2 border-gray-300"
-              priority={true}
-            /> */}
             <Image
-              src= '/images/avatar.png'
+              src={updatedProfile?.image || profileData.image}
               alt="Profile"
               width={96}
               height={96}
               className="rounded-full border-2 border-gray-300"
               priority={true}
             />
+            {/* <Image
+              src= '/images/avatar.png'
+              alt="Profile"
+              width={96}
+              height={96}
+              className="rounded-full border-2 border-gray-300"
+              priority={true}
+            /> */}
             {isEditing && (
               <input
                 type="file"

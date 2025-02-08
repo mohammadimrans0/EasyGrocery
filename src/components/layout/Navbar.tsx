@@ -91,12 +91,12 @@ const Navbar = () => {
                   >
                     <div className="relative inline-flex items-center justify-center text-white">
                       <Image
-                        // src={profileData.image || "/fallback_image_url.jpg"}
-                        src="/images/avatar.png"
+                        src={profileData.image || "/fallback_image_url.jpg"}
+                        // src="/images/avatar.png"
                         alt="User Profile"
                         title={`${profileData.user.first_name} ${profileData.user.last_name}`}
                         width={36}
-                        height={36}
+                        height={16}
                         className="border-2 border-slate-500 rounded-full"
                       />
                     </div>

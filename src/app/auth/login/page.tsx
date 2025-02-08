@@ -3,7 +3,6 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -29,8 +28,8 @@ export default function Login() {
       });
 
       if (response.data.token) {
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('user_id', response.data.user_id);
+        localStorage.setItem('easygrocery_auth_token', response.data.token);
+        localStorage.setItem('easygrocery_user_id', response.data.user_id);
 
         toast.success('Login successful! Redirecting...');
 

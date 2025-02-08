@@ -26,7 +26,7 @@ export const useUserWishlist = () => {
       try {
         // Fetch the wishlist items
         const response = await axios.get<UserWishlistResponse>(
-          `https://easygrocery-server.onrender.com/api/user_profile/wishlist/?user=${userId}`,
+          `https://easygrocery-server.onrender.com/api/user/wishlist/?user=${userId}`,
           { headers: { 'Content-Type': 'application/json' } }
         );
         const wishlistItems = response.data.results;
@@ -61,7 +61,7 @@ export const useUserWishlist = () => {
   const removeWishlistItem = async (id: number) => {
     try {
       setWishlist((prevWishlist) => prevWishlist.filter((item) => item.id !== id));
-      await axios.delete(`https://easygrocery-server.onrender.com/api/user_profile/wishlist/${id}/`);
+      await axios.delete(`https://easygrocery-server.onrender.com/api/user/wishlist/${id}/`);
     } catch (err) {
       console.error('Error removing item from wishlist:', err);
       alert('Failed to remove item from wishlist.');

@@ -14,7 +14,7 @@ export const checkout = async (totalAmount: number) => {
     }
 
     const response = await axios.post(
-      'https://easygrocery-server.onrender.com/api/user_profile/checkout/',
+      'https://easygrocery-server.onrender.com/api/user/checkout/',
       {
         user: userId,
         total_amount: totalAmount,

@@ -10,8 +10,8 @@ export const logout = async () => {
 
     if (response.ok) {
       // Logout successful
-      localStorage.removeItem('user_id');
-      localStorage.removeItem('token');
+      localStorage.removeItem('easygrocery_user_id');
+      localStorage.removeItem('easygrocery_auth_token');
       console.log('Logout successful');
       window.location.href = '/auth/login';
     } else {

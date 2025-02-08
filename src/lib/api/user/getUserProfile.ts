@@ -3,10 +3,6 @@ import axios from 'axios';
 import { UserProfile } from '@/constants/types';
 import { getUserId } from '@/lib/api/user/getUserId';
 
-// Define the API response structure
-interface UserProfileResponse {
-  results: UserProfile[];
-}
 
 export const useUserProfile = () => {
   const [profileData, setProfileData] = useState<UserProfile | null>(null);
@@ -24,11 +20,15 @@ export const useUserProfile = () => {
 
     const fetchProfile = async () => {
       try {
-        const response = await axios.get<UserProfileResponse>(
-          `https://easygrocery-server.onrender.com/api/user_profile/profile/?user=${userId}`,
+        const response = await axios.get<UserProfile>(
+          `https://easygrocery-server.onrender.com/api/user/profiles/${userId}`,
           { headers: { 'Content-Type': 'application/json' } }
         );
-        setProfileData(response.data.results[0]);
+        
+        if(response){
+          setProfileData(response.data);
+        }
+        
       } catch (err: any) {
         setError(err.response?.data?.detail || 'An error occurred while fetching profile data.');
       } finally {
@@ -44,7 +44,7 @@ export const useUserProfile = () => {
     setIsUpdating(true);
     try {
       const response = await axios.put(
-        `https://easygrocery-server.onrender.com/api/user_profile/profile/${profileData?.id}/`,
+        `https://easygrocery-server.onrender.com/api/user/profiles/${profileData?.id}/`,
         updatedProfile,
         { headers: { 'Content-Type': 'application/json' } }
       );

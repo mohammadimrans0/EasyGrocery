@@ -35,7 +35,7 @@ export const usePurchasedList = () => {
 
         // Fetch the purchased list
         const purchaseResponse = await axios.get(
-          `https://easygrocery-server.onrender.com/api/user_profile/purchase-history/?user=${userId}`
+          `https://easygrocery-server.onrender.com/api/user/purchase-history/?user=${userId}`
         );
         const purchases = purchaseResponse.data.results;
         setPurchasedList(purchases);

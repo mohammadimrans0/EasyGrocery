@@ -8,7 +8,7 @@ export const addDeposit = async (amount: number) => {
       throw new Error('User ID not found');
     }
 
-    const response = await axios.post('https://easygrocery-server.onrender.com/api/user_profile/deposit/', {
+    const response = await axios.post('https://easygrocery-server.onrender.com/api/user/deposit/', {
       user: userId,
       amount,
     });

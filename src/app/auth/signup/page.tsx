@@ -8,8 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function Signup() {
   const [formData, setFormData] = useState({
     username: '',
-    first_name: '',
-    last_name: '',
     email: '',
     password: '',
     confirm_password: '',
@@ -39,7 +37,7 @@ export default function Signup() {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('https://easygrocery-server.onrender.com/api/user/register/', formData);
+      const response = await axios.post('https://easygrocery-server.onrender.com/api/user/signup/', formData);
 
       if (response.status === 200) {
         toast.success('Signup successful! Redirecting to login...');
@@ -74,31 +72,7 @@ export default function Signup() {
               required
               className="w-full border p-3 rounded border-green-500"
             />
-          </div>
-          <div className="flex space-x-4">
-            <div className="w-1/2">
-              <input
-                type="text"
-                name="first_name"
-                placeholder="First Name"
-                value={formData.first_name}
-                onChange={handleInputChange}
-                required
-                className="w-full border p-3 rounded border-green-500"
-              />
-            </div>
-            <div className="w-1/2">
-              <input
-                type="text"
-                name="last_name"
-                placeholder="Last Name"
-                value={formData.last_name}
-                onChange={handleInputChange}
-                required
-                className="w-full border p-3 rounded border-green-500"
-              />
-            </div>
-          </div>
+          </div>    
           <div>
             <input
               type="email"
