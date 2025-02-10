@@ -42,7 +42,7 @@ export function BannerCarousel() {
         <div className="flex">
           {groceryItems.map((item) => (
             <div key={item.id} className="flex-[0_0_100%]">
-              <Link href={item.link} className="block relative w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[40vh]">
+              <Link href={item.link} className="block relative w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[50vh]">
                 <Image
                   src={item.image}
                   alt={item.name}

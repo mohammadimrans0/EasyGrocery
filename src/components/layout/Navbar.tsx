@@ -94,7 +94,7 @@ const Navbar = () => {
                         src={profileData.image || "/fallback_image_url.jpg"}
                         // src="/images/avatar.png"
                         alt="User Profile"
-                        title={`${profileData.user.first_name} ${profileData.user.last_name}`}
+                        title={`${profileData.name}`}
                         width={36}
                         height={16}
                         className="border-2 border-slate-500 rounded-full"

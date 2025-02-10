@@ -15,6 +15,7 @@ export const useUserProfile = () => {
     if (!userId) {
       setError('You must be logged in to view this data.');
       setIsLoading(false);
+      console.log("userid", userId)
       return;
     }
 
@@ -44,7 +45,7 @@ export const useUserProfile = () => {
     setIsUpdating(true);
     try {
       const response = await axios.put(
-        `https://easygrocery-server.onrender.com/api/user/profiles/${profileData?.id}/`,
+        `https://easygrocery-server.onrender.com/api/user/profiles/${userId}/`,
         updatedProfile,
         { headers: { 'Content-Type': 'application/json' } }
       );

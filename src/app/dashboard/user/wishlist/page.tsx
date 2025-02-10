@@ -17,7 +17,7 @@ export default function MyWishlist() {
           <div className="flex flex-wrap gap-4">
             {Array.isArray(wishlist) && wishlist.length > 0 ? (
               wishlist.map((item) => {
-                const product = productData[item.product]; // Get product details by ID
+                const product = productData[item.product];
                 return (
                   <div
                     key={item.id}

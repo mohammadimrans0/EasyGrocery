@@ -2,11 +2,9 @@
 
 import { useState } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
 import { MdAddCircle } from 'react-icons/md';
 
 const CreateCategory = () => {
-  const router = useRouter();
   const [categoryName, setCategoryName] = useState('');
   const [slug, setSlug] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -32,11 +30,6 @@ const CreateCategory = () => {
         setMessage('Category created successfully!');
         setCategoryName('');
         setSlug('');
-
-        setTimeout(() => {
-            router.push('/');
-          }, 1500);
-
       } else {
         setMessage('Failed to create category. Please try again.');
       }

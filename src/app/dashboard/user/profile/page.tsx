@@ -106,12 +106,12 @@ export default function Profile() {
               <input
                 type="text"
                 name="name"
-                value={updatedProfile?.user?.first_name || ''} 
+                value={updatedProfile?.name || ''} 
                 onChange={handleChange}
                 className="border border-gray-300 rounded p-2"
               />
             ) : (
-              <p>{profileData?.user?.first_name} {profileData?.user?.last_name}</p>
+              <p>{profileData?.name}</p>
             )}
           </div>
 
@@ -127,21 +127,6 @@ export default function Profile() {
               />
             ) : (
               <p>{profileData?.user?.email}</p>
-            )}
-          </div>
-
-          <div className="flex justify-between mb-4">
-            <p className="font-semibold text-gray-600">Balance:</p>
-            {isEditing ? (
-              <input
-                type="number"
-                name="balance"
-                value={updatedProfile?.balance || ''}
-                onChange={handleChange}
-                className="border border-gray-300 rounded p-2"
-              />
-            ) : (
-              <p>{profileData?.balance}</p>
             )}
           </div>
 

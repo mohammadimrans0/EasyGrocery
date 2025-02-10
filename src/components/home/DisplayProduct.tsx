@@ -40,12 +40,10 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory }) => 
 
     try {
       const response = await axios.post(
-        "https://easygrocery-server.onrender.com/api/user_profile/cart/",
+        "https://easygrocery-server.onrender.com/api/order/cart/",
         {
           user: userId,
           product: product.id,
-          product_name: product.name,
-          product_price: product.price
         },
         {
           headers: {
@@ -72,14 +70,13 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory }) => 
     try {
       const payload = {
         user: userId,
-        product: product.id,
-        product_name: product.name
+        product: product.id
       };
   
       console.log("Payload for wishlist API:", payload);
   
       const response = await axios.post(
-        "https://easygrocery-server.onrender.com/api/user_profile/wishlist/",
+        "https://easygrocery-server.onrender.com/api/user/wishlist/",
         payload,
         {
           headers: {
@@ -109,7 +106,7 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory }) => 
           {filteredProducts.map((product) => (
             <div
               key={product.id}
-              className="rounded-lg shadow-md p-4 flex flex-col items-center bg-white hover:border hover:border-green-500 transition duration-200"
+              className="rounded-lg drop-shadow-lg p-4 flex flex-col items-center bg-white hover:border hover:border-green-500 transition duration-200"
             >
               <Image
                 src={product.image}
