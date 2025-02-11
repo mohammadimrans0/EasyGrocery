@@ -1,14 +1,16 @@
 'use client'
 import { useState } from 'react';
-import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
+import { useUserStore } from '@/app/stores/useUserStore';
+import Link from 'next/link';
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { login } = useUserStore();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,25 +24,14 @@ export default function Login() {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('https://easygrocery-server.onrender.com/api/user/login/', {
-        username,
-        password,
-      });
+      await login({ username, password });
 
-      if (response.data.token) {
-        localStorage.setItem('easygrocery_auth_token', response.data.token);
-        localStorage.setItem('easygrocery_user_id', response.data.user_id);
-
-        toast.success('Login successful! Redirecting...');
-
-        setTimeout(() => {
-          router.push('/dashboard/user/profile');
-        }, 2000);
-      }else {
-        toast.error(response.data.error || 'Invalid username or password');
-      }
-    } catch (err) {
-      toast.error('Invalid username or password');
+      setTimeout(() => {
+        router.push('/dashboard/user/profile');
+      }, 2000);
+    } catch (err: any) {
+      console.error('Login error:', err);
+      toast.error(err?.response?.data?.error || 'Invalid username or password');
     } finally {
       setIsLoading(false);
     }
@@ -83,7 +74,7 @@ export default function Login() {
         <div className="text-center text-gray-600">
           <p>
             Don&apos;t have an account?{' '}
-            <a href="/auth/signup" className="text-blue-500">Sign up</a>
+            <Link href="/auth/signup" className="text-blue-500">Sign up</Link>
           </p>
         </div>
       </div>

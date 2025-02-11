@@ -1,18 +1,21 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ShoppingCart, Menu } from "lucide-react";
 import Image from "next/image";
 import Cart from "@/components/home/Cart";
-import { useUserProfile } from "@/lib/api/user/getUserProfile";
-import { logout } from "@/lib/api/auth/handleLogout";
+import { useUserStore } from '@/app/stores/useUserStore';
 
 const Navbar = () => {
   const [isToggleOpen, setIsToggleOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-  const { profileData, error, isLoading } = useUserProfile();
+  const { profile, fetchProfile, logout } = useUserStore();
+
+  useEffect(() => {
+      fetchProfile();
+    }, [fetchProfile]);
 
   const handleToggle = () => setIsToggleOpen(!isToggleOpen);
   const closeMenu = () => setIsToggleOpen(false);
@@ -79,7 +82,7 @@ const Navbar = () => {
                 Contact
               </Link>
             </li>
-            {profileData ? (
+            {profile ? (
               <>
                 <li className="flex items-center gap-8">
                   <button
@@ -91,12 +94,11 @@ const Navbar = () => {
                   >
                     <div className="relative inline-flex items-center justify-center text-white">
                       <Image
-                        src={profileData.image || "/fallback_image_url.jpg"}
-                        // src="/images/avatar.png"
+                        src={profile.image}
                         alt="User Profile"
-                        title={`${profileData.name}`}
+                        title={`${profile.name}`}
                         width={36}
-                        height={16}
+                        height={36}
                         className="border-2 border-slate-500 rounded-full"
                       />
                     </div>

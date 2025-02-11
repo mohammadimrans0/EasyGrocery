@@ -1,10 +1,15 @@
 'use client';
 
-import { useUserWishlist } from "@/lib/api/user/getUserWishlist";
+import { useUserStore } from "@/app/stores/useUserStore";
 import Image from "next/image";
+import { useEffect } from "react";
 
 export default function MyWishlist() {
-  const { wishlist, productData, error, isLoading, removeWishlistItem } = useUserWishlist();
+  const { wishlist, fetchWishlist, productData, error, isLoading, removeWishlistItem } = useUserStore();
+
+  useEffect(() => {
+    fetchWishlist();
+  }, [fetchWishlist]);
 
   if (isLoading) return <div>Loading wishlist...</div>;
   if (error) return <div className="text-red-500">{error}</div>;

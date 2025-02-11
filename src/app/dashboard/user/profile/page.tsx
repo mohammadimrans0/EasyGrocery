@@ -1,20 +1,27 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
-import { useUserProfile } from '@/lib/api/user/getUserProfile';
+import { useEffect, useState } from 'react';
 import { UserProfile } from '@/constants/types';
+import { useUserStore } from '@/app/stores/useUserStore';
 
 export default function Profile() {
-  const { profileData, error, isLoading, updateProfile } = useUserProfile();
+  const { profile, fetchProfile, updateProfile } = useUserStore();
 
-  console.log(profileData); 
-  
-  // State to track the editing mode and the updated profile data
+  // State to track the editing mode and updated profile data
   const [isEditing, setIsEditing] = useState(false);
-  const [updatedProfile, setUpdatedProfile] = useState<UserProfile | null>(null);
+  const [updatedProfile, setUpdatedProfile] = useState<Partial<UserProfile> | null>(null);
 
-  // Handle field changes
+  useEffect(() => {
+    fetchProfile();
+  }, [fetchProfile]);
+
+  useEffect(() => {
+    if (profile) {
+      setUpdatedProfile(profile);
+    }
+  }, [profile]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setUpdatedProfile((prev) => ({
@@ -22,8 +29,7 @@ export default function Profile() {
       [name]: value,
     }));
   };
-  
-  // Handle image change
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -38,57 +44,42 @@ export default function Profile() {
     }
   };
 
-  // Handle save action
-  const handleSave = () => {
+  const handleSave = async () => {
     if (updatedProfile) {
-      updateProfile(updatedProfile);
-      setIsEditing(false); // Exit editing mode
+      await updateProfile(updatedProfile);
+      setIsEditing(false);
     }
   };
 
-  // Toggle editing mode
   const toggleEditMode = () => {
     setIsEditing(!isEditing);
-    setUpdatedProfile(profileData);
   };
 
-  if (isLoading) return <div>Loading profile...</div>;
-  if (error) return <div className="text-red-500">{error}</div>;
-  if (!profileData) return <div>No profile data available</div>;
+  if (!profile) return <div>Loading profile...</div>;
 
   return (
     <div className="px-8 py-12 min-h-screen">
       <div className="w-full bg-white p-8 rounded-lg shadow-md">
         <div className="flex justify-between">
           <h1 className="text-2xl font-bold text-gray-700">Profile Information</h1>
-          <div className="">
-            <button
-              onClick={toggleEditMode}
-              className="px-4 py-2 bg-[#77c91c] text-white font-semibold rounded"
-            >
-              {isEditing ? 'Cancel' : 'Edit Profile'}
-            </button>
-          </div>
+          <button
+            onClick={toggleEditMode}
+            className="px-4 py-2 bg-[#77c91c] text-white font-semibold rounded"
+          >
+            {isEditing ? 'Cancel' : 'Edit Profile'}
+          </button>
         </div>
 
         <div className="flex justify-center mt-4">
           <div className="relative">
             <Image
-              src={updatedProfile?.image || profileData.image}
+              src={updatedProfile?.image || profile.image || '/images/avatar.png'}
               alt="Profile"
               width={96}
               height={96}
               className="rounded-full border-2 border-gray-300"
-              priority={true}
+              priority
             />
-            {/* <Image
-              src= '/images/avatar.png'
-              alt="Profile"
-              width={96}
-              height={96}
-              className="rounded-full border-2 border-gray-300"
-              priority={true}
-            /> */}
             {isEditing && (
               <input
                 type="file"
@@ -100,63 +91,32 @@ export default function Profile() {
         </div>
 
         <div className="mt-6">
-          <div className="flex justify-between mb-4">
-            <p className="font-semibold text-gray-600">Name:</p>
-            {isEditing ? (
-              <input
-                type="text"
-                name="name"
-                value={updatedProfile?.name || ''} 
-                onChange={handleChange}
-                className="border border-gray-300 rounded p-2"
-              />
-            ) : (
-              <p>{profileData?.name}</p>
-            )}
-          </div>
+        {(['name', 'email', 'contact_info', 'shopping_preferences'] as const).map((field) => (
+  <div key={field} className="flex justify-between mb-4">
+    <p className="font-semibold text-gray-600 capitalize">{field.replace('_', ' ')}:</p>
+    {isEditing ? (
+      <input
+        type="text"
+        name={field}
+        value={
+          field === 'email'
+            ? updatedProfile?.user?.email ?? ''
+            : updatedProfile?.[field] ?? ''
+        }
+        onChange={handleChange}
+        className="border border-gray-300 rounded p-2"
+      />
+    ) : (
+      <p>
+        {field === 'email'
+          ? profile?.user?.email ?? 'N/A'
+          : profile?.[field] ?? 'N/A'}
+      </p>
+    )}
+  </div>
+))}
 
-          <div className="flex justify-between mb-4">
-            <p className="font-semibold text-gray-600">Email:</p>
-            {isEditing ? (
-              <input
-                type="email"
-                name="email"
-                value={updatedProfile?.user?.email || ''}
-                onChange={handleChange}
-                className="border border-gray-300 rounded p-2"
-              />
-            ) : (
-              <p>{profileData?.user?.email}</p>
-            )}
-          </div>
 
-          <div className="flex justify-between mb-4">
-            <p className="font-semibold text-gray-600">Contact Info:</p>
-            {isEditing ? (
-              <textarea
-                name="contact_info"
-                value={updatedProfile?.contact_info || ''}
-                onChange={handleChange}
-                className="border border-gray-300 rounded p-2"
-              />
-            ) : (
-              <p>{profileData?.contact_info}</p>
-            )}
-          </div>
-
-          <div className="flex justify-between mb-4">
-            <p className="font-semibold text-gray-600">Shopping Preferences:</p>
-            {isEditing ? (
-              <textarea
-                name="shopping_preferences"
-                value={updatedProfile?.shopping_preferences || ''}
-                onChange={handleChange}
-                className="border border-gray-300 rounded p-2"
-              />
-            ) : (
-              <p>{profileData?.shopping_preferences}</p>
-            )}
-          </div>
 
           {isEditing && (
             <div className="flex justify-end mt-4">

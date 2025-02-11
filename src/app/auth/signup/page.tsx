@@ -1,9 +1,10 @@
 'use client';
 import { useState } from 'react';
-import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useUserStore } from '@/app/stores/useUserStore';
+import Link from 'next/link';
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ export default function Signup() {
 
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { signup } = useUserStore();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -37,20 +39,11 @@ export default function Signup() {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('https://easygrocery-server.onrender.com/api/user/signup/', formData);
+      await signup(formData);
 
-      if (response.status === 200) {
-        toast.success('Signup successful! Redirecting to login...');
-        setTimeout(() => {
-          router.push('/user/login');
-        }, 2000); // Delay for user to read the success message
-      }
+      setTimeout(() => {router.push('/auth/login')}, 2000);
     } catch (err: any) {
-      if (err.response && err.response.data) {
-        toast.error(err.response.data.message || 'Something went wrong');
-      } else {
-        toast.error('An error occurred. Please try again later.');
-      }
+      console.error('Signup error:', err);
     } finally {
       setIsLoading(false);
     }
@@ -115,7 +108,7 @@ export default function Signup() {
         <div className="text-center text-gray-600">
           <p>
             Already have an account?{' '}
-            <a href="/auth/login" className="text-blue-500">Login</a>
+            <Link href="/auth/login" className="text-blue-500">Login</Link>
           </p>
         </div>
       </div>

@@ -1,21 +1,20 @@
 'use client';
 
-import React, { useEffect, useState } from "react";
+import { useEffect} from "react";
 import Image from "next/image";
-import { Product } from "@/constants/types";
-import { getProducts } from "@/lib/api/product/getProduct";
+import { useProductStore } from "../stores/useProductStore";
 
 const AllProduct: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const fetchedProducts = await getProducts();
-      setProducts(fetchedProducts);
-    };
-
-    fetchProducts();
-  }, []);
+  const { products, fetchProducts } = useProductStore();
+  
+    useEffect(() => {
+      const fetchAndFilterProducts = async () => {
+        await fetchProducts();
+      };
+  
+      fetchAndFilterProducts();
+    }, [fetchProducts]);
 
   return (
     <div className="p-8 my-16">

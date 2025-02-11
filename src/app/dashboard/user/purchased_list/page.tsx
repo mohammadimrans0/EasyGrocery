@@ -1,13 +1,19 @@
 'use client';
 
-import { usePurchasedList } from "@/lib/api/user/getPurchasedList";
+import { useOrderStore } from "@/app/stores/useOrderStore";
+
+import { useEffect } from "react";
 
 const PurchasedList = () => {
-  const { purchasedList, productData, isLoading, isProductLoading } = usePurchasedList();
+  const { purchasedList, fetchPurchasedList, isLoading, productData } = useOrderStore();
+
+useEffect(() => {
+  fetchPurchasedList();
+}, [fetchPurchasedList]);
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Purchased List</h2>
+      <h2 className="text-2xl font-bold mb-4">Purchased List :</h2>
       {isLoading ? (
         <p>Loading purchases...</p>
       ) : purchasedList.length > 0 ? (
@@ -25,14 +31,10 @@ const PurchasedList = () => {
               <tr key={purchase.id}>
               <td className="border border-slate-500 px-4 py-2">{purchase.product}</td>
               <td className="border border-slate-500 px-4 py-2">
-                {isProductLoading
-                  ? 'Loading...'
-                  : productData[purchase.product]?.name || 'Unknown Product'}
+                { productData[purchase.product]?.name || 'Unknown Product'}
               </td>
               <td className="border border-slate-500 px-4 py-2">
-                {isProductLoading
-                  ? 'Loading...'
-                  : `$ ${productData[purchase.product]?.price || 'Price Unavailable'}`}
+                {`$ ${productData[purchase.product]?.price || 'Price Unavailable'}`}
               </td>
               <td className="border border-slate-500 px-4 py-2">
                 {new Date(purchase.purchased_at).toLocaleString()}

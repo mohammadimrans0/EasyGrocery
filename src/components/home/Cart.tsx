@@ -1,10 +1,15 @@
 'use client';
 
-import { useCartItem } from '@/lib/api/user/useCartItem';
+import { useOrderStore } from '@/app/stores/useOrderStore';
+import { useEffect } from 'react';
 import { FaTrash } from 'react-icons/fa';
 
 const Cart = () => {
-  const { cart, productData, error, isLoading, removeCartItem, handleQuantityChange, totalAmount, handleCheckout } = useCartItem();
+  const { cart, fetchCartItems, productData, isLoading, error, removeCartItem, handleQuantityChange, totalAmount, checkout } = useOrderStore();
+
+  useEffect(() => {
+    fetchCartItems();
+  }, [fetchCartItems]);
 
   return (
     <div>
@@ -67,7 +72,7 @@ const Cart = () => {
 
             <div className="mt-12 flex items-center justify-center w-full">
               <button
-                onClick={handleCheckout}
+                onClick={checkout}
                 disabled={cart.length === 0}
                 className="w-1/2 py-3 text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 rounded-lg shadow-lg text-lg font-semibold transition-all duration-200 ease-in-out"
               >

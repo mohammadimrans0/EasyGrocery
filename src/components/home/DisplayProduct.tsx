@@ -3,12 +3,13 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { FaShoppingCart, FaHeart } from "react-icons/fa";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Product } from "@/constants/types";
-import { getUserId } from "@/lib/api/user/getUserId";
-import { getProducts } from "@/lib/api/product/getProduct";
-import axios from "axios";
+import { useProductStore } from "@/app/stores/useProductStore";
+import { useOrderStore } from "@/app/stores/useOrderStore";
+import { useUserStore } from "@/app/stores/useUserStore";
+// import axios from "axios";
 
 interface DisplayProductProps {
   selectedCategory: number | null;
@@ -16,88 +17,33 @@ interface DisplayProductProps {
 
 const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory }) => {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  const userId = getUserId();
+  const { products, fetchProducts, isLoading, message } = useProductStore();
+  const { addToCart } = useOrderStore();
+  const {addToWishlist} = useUserStore();
 
   useEffect(() => {
     const fetchAndFilterProducts = async () => {
-      const products = await getProducts();
-      if (selectedCategory === null) {
-        setFilteredProducts(products);
-      } else {
-        setFilteredProducts(products.filter((product) => product.category === selectedCategory));
-      }
+      await fetchProducts();
     };
 
     fetchAndFilterProducts();
-  }, [selectedCategory]);
+  }, [fetchProducts]);
 
-  // Add to Cart
-  const handleAddToCart = async (product: Product) => {
-    if (!userId) {
-      toast.error("User not logged in.");
-      return;
+  useEffect(() => {
+    if (selectedCategory === null) {
+      setFilteredProducts(products);
+    } else {
+      setFilteredProducts(products.filter((product) => product.category === selectedCategory));
     }
+  }, [products, selectedCategory]);
 
-    try {
-      const response = await axios.post(
-        "https://easygrocery-server.onrender.com/api/order/cart/",
-        {
-          user: userId,
-          product: product.id,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      if (response.status === 201) {
-        toast.success(`${product.name} has been added to your cart!`);
-      }
-    } catch (error) {
-      console.error("Failed to add product to cart:", error);
-      toast.error("Failed to add product to cart.");
-    }
-  };
+  if (isLoading) {
+    return <div className="text-center text-gray-600">Loading products...</div>;
+  }
 
-  // Add to Wishlist
-  const handleAddToWishlist = async (product: Product) => {
-    if (!userId) {
-      toast.error("User not logged in.");
-      return;
-    }
-  
-    try {
-      const payload = {
-        user: userId,
-        product: product.id
-      };
-  
-      console.log("Payload for wishlist API:", payload);
-  
-      const response = await axios.post(
-        "https://easygrocery-server.onrender.com/api/user/wishlist/",
-        payload,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-
-      if (response.status === 201) {
-        toast.success(`${product.name} has been added to your wishlist!`);
-      }
-    } catch (error: any) {
-      console.error("Failed to add product to wishlist:", error);
-  
-      if (error.response) {
-        console.error("Response data:", error.response.data);
-      }
-  
-      toast.error("Failed to add product to wishlist.");
-    }
-  };
+  if (message) {
+    return <div className="text-center text-red-500">{message}</div>;
+  }
 
   return (
     <div className="p-4">
@@ -123,14 +69,14 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory }) => 
                 <span className="font-medium">Stock:</span> {product.stock}
               </p>
               <button
-                onClick={() => handleAddToCart(product)}
+                onClick={() => addToCart(product)}
                 className="px-6 py-3 mb-3 bg-[#77b91e] text-white rounded-full flex items-center gap-2 font-medium"
               >
                 <span>Add to Cart</span>
                 <FaShoppingCart className="w-5 h-5" />
               </button>
               <button
-                onClick={() => handleAddToWishlist(product)}
+                onClick={() => addToWishlist(product)}
                 className="px-6 py-3 rounded-full flex items-center gap-2 font-medium text-red-400 border"
               >
                 <span>Add to Wishlist</span>

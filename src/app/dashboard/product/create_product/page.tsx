@@ -1,17 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useRouter } from 'next/navigation';
 import { MdAddCircle } from 'react-icons/md';
-import { Category } from '@/constants/types';
-import { getUserId } from '@/lib/api/user/getUserId';
+import { useUserStore } from '@/app/stores/useUserStore';
+import { useProductStore } from '@/app/stores/useProductStore';
 
 const CreateProduct = () => {
-  const router = useRouter();
-  const userId = getUserId();
+  const { userId } = useUserStore();
+  const { categories, message, isLoading, fetchCategories, createProduct } = useProductStore();
 
-  const [categories, setCategories] = useState<Category[]>([]);
   const [formData, setFormData] = useState({
     name: '',
     image: null as File | null,
@@ -21,22 +18,10 @@ const CreateProduct = () => {
     category: '',
     product_owner: userId || null,
   });
-  const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState('');
 
-  // Fetch categories
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get('https://easygrocery-server.onrender.com/api/category/categories/');
-        setCategories(response.data.results);
-      } catch (error) {
-        console.error('Error fetching categories:', error);
-        setMessage('Failed to load categories. Please try again.');
-      }
-    };
     fetchCategories();
-  }, []);
+  }, [fetchCategories]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -52,39 +37,16 @@ const CreateProduct = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
-    setMessage('');
-
-    const data = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      if (value !== null) data.append(key, value instanceof File ? value : String(value));
+    await createProduct(formData);
+    setFormData({
+      name: '',
+      image: null,
+      description: '',
+      price: '',
+      stock: '',
+      category: '',
+      product_owner: userId,
     });
-
-    try {
-      const response = await axios.post('https://easygrocery-server.onrender.com/api/product/products/', data, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-
-      if (response.status === 201) {
-        setMessage('Product created successfully!');
-        setFormData({
-          name: '',
-          image: null,
-          description: '',
-          price: '',
-          stock: '',
-          category: '',
-          product_owner: userId,
-        });
-      } else {
-        setMessage('Failed to create product. Please try again.');
-      }
-    } catch (error) {
-      console.error('Error creating product:', error);
-      setMessage('An error occurred. Please try again later.');
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   if (!userId) {
@@ -193,13 +155,11 @@ const CreateProduct = () => {
                     required
                     >
                     <option value="">Select a category</option>
-                    {Array.isArray(categories) && categories.length > 0 && (
-                        categories.map((category) => (
+                    {categories.map((category) => (
                         <option key={category.id} value={category.id}>
                             {category.name}
                         </option>
-                        ))
-                    )}
+                    ))}
                 </select>
               </div>
             </div>
@@ -244,5 +204,3 @@ const CreateProduct = () => {
 };
 
 export default CreateProduct;
-
-
