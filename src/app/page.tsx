@@ -20,10 +20,10 @@ export default function Home() {
 
       {/* Category Section */}
       <div>
-        <h1 className="text-2xl font-semibold text-center mt-12 mb-8 text-gray-800">
+        <h1 className="text-2xl font-semibold text-center mt-8 mb-6 text-gray-800">
           Filter Your Needs By Category
         </h1>
-        <div className="mb-12">
+        <div className="mb-6">
           <DisplayCategory onSelectCategory={handleSelectCategory} />
         </div>
       </div>
