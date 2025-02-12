@@ -1,11 +1,19 @@
-'use client';
+"use client";
 
 import { useUserStore } from "@/app/stores/useUserStore";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect } from "react";
 
 export default function MyWishlist() {
-  const { wishlist, fetchWishlist, productData, error, isLoading, removeWishlistItem } = useUserStore();
+  const {
+    wishlist,
+    fetchWishlist,
+    productData,
+    error,
+    isLoading,
+    removeWishlistItem,
+  } = useUserStore();
 
   useEffect(() => {
     fetchWishlist();
@@ -16,63 +24,71 @@ export default function MyWishlist() {
   if (wishlist.length === 0) return <div>No wishlist items available</div>;
 
   return (
-      <div className="w-full h-screen p-8">
-        <h1 className="text-2xl font-bold text-gray-700">My Wishlist</h1>
-        <div className="mt-6">
-          <div className="flex flex-wrap gap-4">
+    <div className="w-full h-screen p-8">
+      <h1 className="text-2xl font-bold text-gray-700">My Wishlist</h1>
+      <div className="mt-6">
+        <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="py-3 px-6 text-left text-sm font-semibold text-gray-600">Product</th>
+              <th className="py-3 px-6 text-left text-sm font-semibold text-gray-600">Price</th>
+              <th className="py-3 px-6 text-left text-sm font-semibold text-gray-600">Stock</th>
+              <th className="py-3 px-6 text-left text-sm font-semibold text-gray-600">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
             {Array.isArray(wishlist) && wishlist.length > 0 ? (
               wishlist.map((item) => {
                 const product = productData[item.product];
                 return (
-                  <div
-                    key={item.id}
-                    className="flex flex-col border p-4 rounded-lg w-full md:w-1/3 lg:w-1/4 bg-white"
-                  >
-                    {product ? (
-                      <>
-                        <div className="relative w-full h-48 mb-4">
-                          <Image
-                            src={product.image}
-                            alt={product.name}
-                            layout="fill"
-                            objectFit="cover"
-                            className="rounded-md"
-                            priority={true}
-                          />
+                  <tr key={item.id} className="border-b">
+                    <td className="py-4 px-6 flex items-center">
+                      {product ? (
+                        <div className="flex items-center gap-4">
+                          <div className="relative w-16 h-16">
+                            <Image
+                              src={product.image}
+                              alt={product.name}
+                              layout="fill"
+                              objectFit="cover"
+                              className="rounded-md"
+                              priority={true}
+                            />
+                          </div>
+                          <span className="text-gray-700">{product.name}</span>
                         </div>
-                        <div>
-                          <p className="font-bold text-lg">{product.name}</p>
-                          <p className="text-gray-700">Price: ${product.price}</p>
-                          <p className="text-gray-700">
-                            Stock: {product.stock > 0 ? product.stock : 'Out of stock'}
-                          </p>
-                        </div>
-                        <div className="flex justify-between mt-4">
-                          <button
-                            onClick={() => console.log("View product logic here")}
-                            className="text-blue-500 font-medium"
-                          >
-                            View
-                          </button>
-                          <button
-                            onClick={() => removeWishlistItem(item.id)}
-                            className="text-red-500 font-medium"
-                          >
-                            Remove
-                          </button>
-                        </div>
-                      </>
-                    ) : (
-                      <div className="text-gray-500">Product details unavailable</div>
-                    )}
-                  </div>
+                      ) : (
+                        <div className="text-gray-500">Product details unavailable</div>
+                      )}
+                    </td>
+                    <td className="py-4 px-6 text-gray-700">${product?.price}</td>
+                    <td className="py-4 px-6 text-gray-700">
+                      {product?.stock > 0 ? product?.stock : "Out of stock"}
+                    </td>
+                    <td className="py-4 px-6 flex gap-4">
+                      <Link href={`/products/${product?.id}`}>
+                        <button className="text-blue-500 hover:text-blue-700 font-medium">View</button>
+                      </Link>
+                      <button
+                        onClick={() => removeWishlistItem(item.id)}
+                        className="text-red-500 hover:text-red-700 font-medium"
+                      >
+                        Remove
+                      </button>
+                    </td>
+                  </tr>
                 );
               })
             ) : (
-              <div>No wishlist items available</div>
+              <tr>
+                <td colSpan={4} className="py-4 px-6 text-center text-gray-500">
+                  No wishlist items available
+                </td>
+              </tr>
             )}
-          </div>
-        </div>
+          </tbody>
+        </table>
       </div>
+    </div>
   );
 }

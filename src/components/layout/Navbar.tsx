@@ -40,7 +40,7 @@ const Navbar = () => {
                 width={36}
                 height={36}
               />
-              <span className="text-2xl font-semibold text-[#77b91e]">EasyGrocery</span>
+              <span className="text-2xl font-semibold text-primary">EasyGrocery</span>
             </div>
           </Link>
 
@@ -107,7 +107,7 @@ const Navbar = () => {
                 <li className="flex items-center gap-8">
                   <button
                     onClick={() => setIsCartOpen(true)}
-                    className="relative text-3xl text-[#77b91e]"
+                    className="relative text-3xl text-primary"
                     aria-label="Open Cart"
                   >
                     <ShoppingCart />
@@ -117,7 +117,7 @@ const Navbar = () => {
             ) : (
               <li>
                 <Link href="/auth/login" onClick={closeMenu}>
-                  <button className="px-6 py-2 text-white bg-[#77b91e] rounded-full shadow-md">
+                  <button className="px-6 py-2 text-white bg-primary rounded-full shadow-md">
                     Login
                   </button>
                 </Link>

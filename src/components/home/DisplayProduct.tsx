@@ -1,25 +1,28 @@
-'use client';
+"use client";
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { FaShoppingCart, FaHeart } from "react-icons/fa";
+import { ShoppingCart, Heart } from "lucide-react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Product } from "@/constants/types";
 import { useProductStore } from "@/app/stores/useProductStore";
 import { useOrderStore } from "@/app/stores/useOrderStore";
 import { useUserStore } from "@/app/stores/useUserStore";
+import Link from "next/link";
 // import axios from "axios";
 
 interface DisplayProductProps {
   selectedCategory: number | null;
 }
 
-const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory }) => {
+const DisplayProduct: React.FC<DisplayProductProps> = ({
+  selectedCategory,
+}) => {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const { products, fetchProducts, isLoading, message } = useProductStore();
   const { addToCart } = useOrderStore();
-  const {addToWishlist} = useUserStore();
+  const { addToWishlist } = useUserStore();
 
   useEffect(() => {
     const fetchAndFilterProducts = async () => {
@@ -33,7 +36,9 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory }) => 
     if (selectedCategory === null) {
       setFilteredProducts(products);
     } else {
-      setFilteredProducts(products.filter((product) => product.category === selectedCategory));
+      setFilteredProducts(
+        products.filter((product) => product.category === selectedCategory)
+      );
     }
   }, [products, selectedCategory]);
 
@@ -52,35 +57,48 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory }) => 
           {filteredProducts.map((product) => (
             <div
               key={product.id}
-              className="rounded-lg drop-shadow-lg p-4 flex flex-col items-center bg-white hover:border hover:border-green-500 transition duration-200"
+              className="rounded-lg drop-shadow-lg p-4 flex flex-col items-center bg-white hover:border hover:border-green-500 transition duration-200 h-[480px]"
             >
-              <Image
-                src={product.image}
-                alt={product.name}
-                width={160}
-                height={160}
-                className="object-cover rounded-md mb-4"
-              />
-              <h2 className="text-lg font-semibold mb-2">{product.name}</h2>
+              {/* Link wraps only Image */}
+              <Link href={`/products/${product.id}`} className="block">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  width={160}
+                  height={120}
+                  className="object-cover rounded-md mb-4"
+                />
+              </Link>
+
+              {/* Link wraps only Product Name */}
+              <Link href={`/products/${product.id}`} className="block">
+                <h2 className="text-lg font-semibold mb-2 hover:text-2xl hover:text-primary">
+                  {product.name}
+                </h2>
+              </Link>
+
               <p className="text-gray-700 mb-1">
                 <span className="font-medium">Price:</span> ৳{product.price}
               </p>
+
               <p className="text-gray-700 mb-3">
                 <span className="font-medium">Stock:</span> {product.stock}
               </p>
+
               <button
                 onClick={() => addToCart(product)}
                 className="px-6 py-3 mb-3 bg-[#77b91e] text-white rounded-full flex items-center gap-2 font-medium"
               >
                 <span>Add to Cart</span>
-                <FaShoppingCart className="w-5 h-5" />
+                <ShoppingCart className="w-5 h-5" />
               </button>
+
               <button
                 onClick={() => addToWishlist(product)}
                 className="px-6 py-3 rounded-full flex items-center gap-2 font-medium text-red-400 border"
               >
                 <span>Add to Wishlist</span>
-                <FaHeart className="w-5 h-5 text-red-500" />
+                <Heart className="w-5 h-5 text-red-500" />
               </button>
             </div>
           ))}
@@ -88,7 +106,7 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({ selectedCategory }) => 
       ) : (
         <p>No products available for this category</p>
       )}
-      <ToastContainer />
+      <ToastContainer/>
     </div>
   );
 };
