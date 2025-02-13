@@ -58,7 +58,7 @@ export default function Profile() {
   if (!profile) return <div>Loading profile...</div>;
 
   return (
-    <div className="px-8 py-12 min-h-screen">
+    <div className="px-8 py-12 md:h-screen">
       <div className="w-full bg-white p-8 rounded-lg shadow-md">
         <div className="flex justify-between">
           <h1 className="text-2xl font-bold text-gray-700">Profile Information</h1>

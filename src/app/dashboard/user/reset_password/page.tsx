@@ -49,7 +49,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="flex justify-center items-center py-12">
+    <div className="flex justify-center items-center px-4 py-12">
       <div className="w-full max-w-md">
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300">
         <div className="w-full bg-[#77b91e] p-6">

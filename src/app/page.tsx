@@ -4,7 +4,7 @@ import { useState } from "react";
 import { BannerCarousel } from "@/components/home/BannerCarousel";
 import DisplayProduct from "@/components/home/DisplayProduct";
 import DisplayCategory from "@/components/home/DisplayCategory";
-import ReviewPage from "@/components/home/Review";
+import ExtraInfoPage from "@/components/home/ExtraInfo";
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
@@ -35,7 +35,7 @@ export default function Home() {
 
       {/* Review Section */}
       <div>
-        <ReviewPage/>
+        <ExtraInfoPage/>
       </div>
     </div>
   );

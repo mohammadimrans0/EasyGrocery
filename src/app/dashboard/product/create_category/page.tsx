@@ -42,7 +42,7 @@ const CreateCategory = () => {
   };
 
   return (
-    <div className="flex justify-center items-center py-12">
+    <div className="flex justify-center items-center px-4 py-12">
     <div className="w-full max-w-md">
       <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden transform transition-all hover:scale-105 duration-300">
           <div className="bg-[#77b91e] p-6">

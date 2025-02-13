@@ -60,7 +60,7 @@ const CreateProduct = () => {
   }
 
   return (
-    <div className="flex items-center justify-center py-12">
+    <div className="flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-2xl">
         <div className="bg-white shadow-2xl rounded-lg overflow-hidden transform transition-all hover:scale-105 duration-300">
           <div className="bg-[#77b91e] p-6">

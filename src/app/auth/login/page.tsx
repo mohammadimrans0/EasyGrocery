@@ -38,7 +38,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center py-16">
+    <div className="flex items-center justify-center py-16 px-6">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg border">
         <h2 className="text-2xl font-semibold text-center text-gray-700">Login to your account</h2>
 
