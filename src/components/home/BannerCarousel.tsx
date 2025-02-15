@@ -1,48 +1,50 @@
 'use client'
 
-import * as React from "react"
-import Image from "next/image"
-import Link from "next/link"
-import useEmblaCarousel from "embla-carousel-react"
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import { useEffect } from "react"
-
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const groceryItems = [
-  { id: 1, name: "Fresh Fruits", image: "/images/banner-carousel/img1.png", link: "/" },
-  { id: 2, name: "Vegetables", image: "/images/banner-carousel/img2.png", link: "/" },
-  { id: 3, name: "Bakery Items", image: "/images/banner-carousel/img3.jpeg", link: "/" },
-  { id: 4, name: "Meat & Poultry", image: "/images/banner-carousel/img4.png", link: "/" },
-]
+  { id: 1, name: 'Fresh Fruits', image: '/images/banner-carousel/img1.png', link: '/' },
+  { id: 2, name: 'Vegetables', image: '/images/banner-carousel/img2.png', link: '/' },
+  { id: 3, name: 'Bakery Items', image: '/images/banner-carousel/img3.jpeg', link: '/' },
+  { id: 4, name: 'Meat & Poultry', image: '/images/banner-carousel/img4.png', link: '/' },
+];
 
 export function BannerCarousel() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true })
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    if (emblaApi) {
-      const intervalId = setInterval(() => {
-        emblaApi.scrollNext()
-      }, 4000)
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % groceryItems.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
-      return () => clearInterval(intervalId)
-    }
-  }, [emblaApi])
+  const scrollPrev = () => {
+    setIndex((prev) => (prev - 1 + groceryItems.length) % groceryItems.length);
+  };
 
-  const scrollPrev = React.useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev()
-  }, [emblaApi])
-
-  const scrollNext = React.useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext()
-  }, [emblaApi])
+  const scrollNext = () => {
+    setIndex((prev) => (prev + 1) % groceryItems.length);
+  };
 
   return (
-    <div className="relative w-full">
-      <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex">
-          {groceryItems.map((item) => (
-            <div key={item.id} className="flex-[0_0_100%]">
-              <Link href={item.link} className="block relative w-full h-[30vh]  md:h-[50vh]">
+    <div className="relative w-full h-[30vh] md:h-[50vh] overflow-hidden">
+      <AnimatePresence>
+        {groceryItems.map((item, i) =>
+          i === index ? (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.5 }}
+              className="absolute inset-0 w-full h-full"
+            >
+              <Link href={item.link} className="block relative w-full h-full">
                 <Image
                   src={item.image}
                   alt={item.name}
@@ -52,22 +54,22 @@ export function BannerCarousel() {
                   priority
                 />
               </Link>
-            </div>
-          ))}
-        </div>
-      </div>
+            </motion.div>
+          ) : null
+        )}
+      </AnimatePresence>
       <button
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 hidden sm:block"
+        className="absolute left-4 top-1/2 -translate-y-1/2 bg-primary text-white rounded-full p-2 hidden sm:block"
         onClick={scrollPrev}
       >
-        <FiChevronLeft className="w-6 h-6" />
+        <ChevronLeft className="w-6 h-6" />
       </button>
       <button
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 hidden sm:block"
+        className="absolute right-4 top-1/2 -translate-y-1/2 bg-primary text-white rounded-full p-2 hidden sm:block"
         onClick={scrollNext}
       >
-        <FiChevronRight className="w-6 h-6" />
+        <ChevronRight className="w-6 h-6" />
       </button>
     </div>
-  )
+  );
 }

@@ -2,7 +2,7 @@
 
 import { useOrderStore } from '@/app/stores/useOrderStore';
 import { useEffect } from 'react';
-import { FaTrash } from 'react-icons/fa';
+import { Trash } from 'lucide-react';
 
 const Cart = () => {
   const { cart, fetchCartItems, productData, isLoading, error, removeCartItem, handleQuantityChange, totalAmount, checkout } = useOrderStore();
@@ -35,8 +35,8 @@ const Cart = () => {
 
                 return (
                   <tr key={item.id} className="border-b border-gray-200">
-                    <td className="px-4 py-2">{product ? product.name : 'Loading...'}</td>
-                    <td className="px-4 py-2 flex items-center space-x-2">
+                    <td className="px-4 py-4">{product ? product.name : 'Loading...'}</td>
+                    <td className="px-4 py-4 flex items-center space-x-2">
                       <button
                         onClick={() => handleQuantityChange(item.id, -1)}
                         className="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded"
@@ -52,11 +52,11 @@ const Cart = () => {
                         +
                       </button>
                     </td>
-                    <td className="px-4 py-2">${product ? Number(product.price).toFixed(2) : '0.00'}</td>
-                    <td className="px-4 py-2">${product ? (Number(product.price) * item.quantity).toFixed(2) : '0.00'}</td>
-                    <td className="px-4 py-2">
+                    <td className="px-4 py-4">${product ? Number(product.price).toFixed(2) : '0.00'}</td>
+                    <td className="px-4 py-4">${product ? (Number(product.price) * item.quantity).toFixed(2) : '0.00'}</td>
+                    <td className="px-4 py-4">
                       <button onClick={() => removeCartItem(item.id)} className="text-red-500 hover:text-red-700">
-                        <FaTrash />
+                        <Trash />
                       </button>
                     </td>
                   </tr>

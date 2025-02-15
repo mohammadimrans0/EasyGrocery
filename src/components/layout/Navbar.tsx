@@ -94,7 +94,7 @@ const Navbar = () => {
       {/* Cart Window */}
       {isCartOpen && (
         <div className="fixed inset-0 z-50 flex justify-end bg-black bg-opacity-50">
-          <div className="relative w-[550px] h-screen bg-white shadow-lg overflow-auto">
+          <div className="relative w-[580px] h-screen bg-white shadow-lg overflow-auto">
             <button onClick={() => setIsCartOpen(false)} className="absolute top-4 right-4 text-lg">✖</button>
             <div className="p-4">
               <h2 className="text-xl font-semibold mb-4">Your Cart</h2>

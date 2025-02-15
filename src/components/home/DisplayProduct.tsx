@@ -57,7 +57,7 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({
           {filteredProducts.map((product) => (
             <div
               key={product.id}
-              className="rounded-lg drop-shadow-lg p-4 flex flex-col items-center bg-white hover:border hover:border-green-500 transition duration-200 h-[480px]"
+              className="rounded-lg drop-shadow-lg p-4 flex flex-col items-center bg-white hover:border-2 hover:border-primary transition duration-200 h-[480px]"
             >
               {/* Link wraps only Image */}
               <Link href={`/products/${product.id}`} className="block">
@@ -70,7 +70,6 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({
                 />
               </Link>
 
-              {/* Link wraps only Product Name */}
               <Link href={`/products/${product.id}`} className="block">
                 <h2 className="text-lg font-semibold mb-2 hover:text-2xl hover:text-primary">
                   {product.name}

@@ -1,6 +1,5 @@
-import { FaLeaf, FaHeadset, FaLock, FaTruck } from "react-icons/fa";
+import { Leaf, Headphones, Lock, Truck} from "lucide-react";
 import Image from "next/image";
-import { AiFillStar } from "react-icons/ai";
 import ReviewPage from "./Reviews";
 
 export default function ExtraInofPage() {
@@ -32,7 +31,7 @@ export default function ExtraInofPage() {
             <p className="text-xl mb-8">
               <span>Shop for fruits, vegetables, dairy, and more.</span>
             </p>
-            <button className="bg-green-500 py-3 px-6 text-white rounded-lg shadow-lg transition duration-300">
+            <button className="bg-green-500 hover:bg-primary py-3 px-6 text-white rounded-lg shadow-lg transition duration-300">
               Shop now
             </button>
           </div>
@@ -40,14 +39,14 @@ export default function ExtraInofPage() {
       </section>
 
       {/* Review section */}
-      <section className="py-20 bg-lime-100">
+      <section className="pt-16 bg-lime-100">
         <ReviewPage/>
       </section>
 
       {/* Subscribe section */}
 
       <section>
-        <div className="w-full bg-lime-100 p-6 md:px-12 md:py-12 rounded-lg shadow-lg">
+        <div className="w-full bg-lime-100 p-6 md:px-12 md:py-16 rounded-lg shadow-lg">
           <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
             Subscribe to our emails
           </h2>
@@ -59,9 +58,9 @@ export default function ExtraInofPage() {
             <input
               type="email"
               placeholder="Enter your email"
-              className="w-full md:w-1/2 px-4 py-3 rounded-lg hover:border hover:border-green-500 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              className="w-full md:w-1/2 px-4 py-3 rounded-lg hover:border hover:border-green-500 shadow-sm"
             />
-            <button className="w-full md:w-auto bg-green-500 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-green-600 transition duration-300">
+            <button className="w-full md:w-auto bg-green-500 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-primary transition duration-300">
               Subscribe
             </button>
           </div>
@@ -75,7 +74,7 @@ export default function ExtraInofPage() {
           {/* Quality Products */}
           <div className="flex items-center gap-4 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-64">
             <div className="text-green-500 text-4xl">
-              <FaLeaf />
+              <Leaf size={32}/>
             </div>
             <div>
               <h1 className="text-xl font-bold text-gray-700">
@@ -88,7 +87,7 @@ export default function ExtraInofPage() {
           {/* 24/7 Support */}
           <div className="flex items-center gap-4 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-64">
             <div className="text-blue-500 text-4xl">
-              <FaHeadset />
+              <Headphones size={32}/>
             </div>
             <div>
               <h1 className="text-xl font-bold text-gray-700">24/7 Support</h1>
@@ -99,7 +98,7 @@ export default function ExtraInofPage() {
           {/* Secure Payment */}
           <div className="flex items-center gap-4 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-64">
             <div className="text-yellow-500 text-4xl">
-              <FaLock />
+              <Lock size={32}/>
             </div>
             <div>
               <h1 className="text-xl font-bold text-gray-700">
@@ -112,7 +111,7 @@ export default function ExtraInofPage() {
           {/* Free Shipping */}
           <div className="flex items-center gap-4 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-64">
             <div className="text-purple-500 text-4xl">
-              <FaTruck />
+              <Truck size={32}/>
             </div>
             <div>
               <h1 className="text-xl font-bold text-gray-700">Free Shipping</h1>
@@ -121,8 +120,6 @@ export default function ExtraInofPage() {
           </div>
         </div>
       </section>
-
-
     </div>
   );
 }

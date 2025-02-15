@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { MdAddCircle } from 'react-icons/md';
+import { CirclePlus } from 'lucide-react';
 import { useUserStore } from '@/app/stores/useUserStore';
 import { useProductStore } from '@/app/stores/useProductStore';
 
@@ -65,7 +65,7 @@ const CreateProduct = () => {
         <div className="bg-white shadow-2xl rounded-lg overflow-hidden transform transition-all hover:scale-105 duration-300">
           <div className="bg-[#77b91e] p-6">
             <h2 className="text-3xl font-bold text-white text-center flex items-center justify-center">
-              <MdAddCircle className="mr-2" />
+              <CirclePlus size={32} className="mr-2" />
               Create Product
             </h2>
           </div>

@@ -1,4 +1,4 @@
-import { FiCheckCircle } from "react-icons/fi";
+import { CirclePlus } from "lucide-react";
 
 const coreValues = [
   { title: "Innovation", description: "We constantly seek new and better ways to solve problems and create value." },
@@ -22,7 +22,7 @@ export default function CoreValues() {
           <div key={value.title} className="bg-white rounded-lg shadow-lg overflow-hidden">
             <div className="p-6">
               <div className="flex items-center mb-4">
-                <FiCheckCircle className="h-6 w-6 text-green-500 mr-2" />
+                <CirclePlus className="h-6 w-6 text-primary mr-2" />
                 <h3 className="text-xl font-semibold text-gray-900">{value.title}</h3>
               </div>
               <p className="text-gray-600">{value.description}</p>

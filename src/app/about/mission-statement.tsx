@@ -1,11 +1,11 @@
-import { FiTarget } from "react-icons/fi"
+import { Target } from "lucide-react"
 
 export default function MissionStatement() {
   return (
-    <section className="bg-indigo-700 rounded-lg shadow-lg overflow-hidden text-white">
+    <section className="bg-primary rounded-lg shadow-lg overflow-hidden text-white">
       <div className="p-8">
         <div className="flex items-center mb-4">
-          <FiTarget className="h-8 w-8 mr-2" />
+          <Target className="h-8 w-8 mr-2" />
           <h2 className="text-3xl font-bold">Our Mission</h2>
         </div>
         <p className="text-xl leading-relaxed">

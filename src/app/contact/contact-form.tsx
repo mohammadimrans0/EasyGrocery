@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { FiSend } from "react-icons/fi";
+import { Send } from "lucide-react";
 
 export default function ContactForm() {
   const [name, setName] = useState("")
@@ -70,7 +70,7 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
+          className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary transition duration-150 ease-in-out"
         >
           {isSubmitting ? (
             <span className="flex items-center">
@@ -91,7 +91,7 @@ export default function ContactForm() {
             </span>
           ) : (
             <span className="flex items-center">
-              <FiSend className="mr-2 h-4 w-4" />
+              <Send className="mr-2 h-4 w-4" />
               Send Message
             </span>
           )}

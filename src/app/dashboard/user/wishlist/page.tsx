@@ -30,10 +30,18 @@ export default function MyWishlist() {
         <table className="min-w-full bg-white shadow-md rounded-lg">
           <thead className="bg-gray-100">
             <tr>
-              <th className="py-3 px-6 text-left text-sm font-semibold text-gray-600">Product</th>
-              <th className="py-3 px-6 text-left text-sm font-semibold text-gray-600">Price</th>
-              <th className="py-3 px-6 text-left text-sm font-semibold text-gray-600">Stock</th>
-              <th className="py-3 px-6 text-left text-sm font-semibold text-gray-600">Actions</th>
+              <th className="py-3 px-6 text-left text-sm font-semibold text-gray-600">
+                Product
+              </th>
+              <th className="py-3 px-6 text-left text-sm font-semibold text-gray-600">
+                Price
+              </th>
+              <th className="py-3 px-6 text-left text-sm font-semibold text-gray-600">
+                Stock
+              </th>
+              <th className="py-3 px-6 text-left text-sm font-semibold text-gray-600">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -58,23 +66,31 @@ export default function MyWishlist() {
                           <span className="text-gray-700">{product.name}</span>
                         </div>
                       ) : (
-                        <div className="text-gray-500">Product details unavailable</div>
+                        <div className="text-gray-500">
+                          Product details unavailable
+                        </div>
                       )}
                     </td>
-                    <td className="py-4 px-6 text-gray-700">${product?.price}</td>
+                    <td className="py-4 px-6 text-gray-700">
+                      ${product?.price}
+                    </td>
                     <td className="py-4 px-6 text-gray-700">
                       {product?.stock > 0 ? product?.stock : "Out of stock"}
                     </td>
-                    <td className="py-4 px-6 flex gap-4">
-                      <Link href={`/products/${product?.id}`}>
-                        <button className="text-blue-500 hover:text-blue-700 font-medium">View</button>
-                      </Link>
-                      <button
-                        onClick={() => removeWishlistItem(item.id)}
-                        className="text-red-500 hover:text-red-700 font-medium"
-                      >
-                        Remove
-                      </button>
+                    <td className="py-4 px-6 text-left">
+                      <div className="flex items-center gap-x-4">
+                        <Link href={`/products/${product?.id}`}>
+                          <button className="text-blue-500 hover:text-blue-700 font-medium">
+                            View
+                          </button>
+                        </Link>
+                        <button
+                          onClick={() => removeWishlistItem(item.id)}
+                          className="text-red-500 hover:text-red-700 font-medium"
+                        >
+                          Remove
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 );
