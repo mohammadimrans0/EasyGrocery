@@ -4,7 +4,9 @@ import { permanentRedirect } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { UserProfile, WishlistItem, Product } from '@/constants/types';
 
-interface User{
+const baseURL = 'https://easygrocery-server.vercel.app/api'; // Base URL for all API calls
+
+interface User {
   id: number;
   username: string;
   email: string;
@@ -42,7 +44,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
 
   signup: async (data) => {
     try {
-      await axios.post('https://easygrocery-server.onrender.com/api/user/signup/', data);
+      await axios.post(`${baseURL}/user/signup/`, data);
       toast.success('Account created successfully! Redirecting to login.');
       setTimeout(() => permanentRedirect('/auth/login'), 2000);
     } catch (error: any) {
@@ -53,7 +55,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
 
   login: async (data) => {
     try {
-      const response = await axios.post('https://easygrocery-server.onrender.com/api/user/login/', data);
+      const response = await axios.post(`${baseURL}/user/login/`, data);
       const userId = response.data?.user_id;
       const token = response.data?.token;
       if (userId) {
@@ -73,7 +75,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
 
   logout: async () => {
     try {
-      await axios.post('https://easygrocery-server.onrender.com/api/user/logout/');
+      await axios.post(`${baseURL}/user/logout/`);
       localStorage.removeItem('easygrocery_user_id');
       localStorage.removeItem('easygrocery_auth_token');
       set({ userId: null, profile: null, wishlist: [], productData: {} });
@@ -90,7 +92,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
     if (!userId) return;
 
     try {
-      const response = await axios.get(`https://easygrocery-server.onrender.com/api/user/users/${userId}`);
+      const response = await axios.get(`${baseURL}/user/users/${userId}`);
       set({ user: response.data });
     } catch (error: any) {
       console.error('Error fetching profile:', error.response?.data || error.message);
@@ -99,11 +101,14 @@ export const useUserStore = create<UserStore>((set, get) => ({
 
   fetchProfile: async () => {
     const userId = get().userId;
-    if (!userId) return;
+    if (!userId){
+      console.error('User not found')
+      return;
+    } 
 
     try {
-      const response = await axios.get(`https://easygrocery-server.onrender.com/api/user/profiles/${userId}`);
-      set({ profile: response.data });
+      const response = await axios.get(`${baseURL}/user/profiles/?user=${userId}`);
+      set({ profile: response.data.results[0] });
     } catch (error: any) {
       console.error('Error fetching profile:', error.response?.data || error.message);
     }
@@ -114,7 +119,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
     if (!userId) return;
 
     try {
-      const response = await axios.put(`https://easygrocery-server.onrender.com/api/user/profiles/${userId}/`, data);
+      const response = await axios.put(`${baseURL}/user/profiles/${userId}/`, data);
       set({ profile: response.data });
       toast.success('Profile updated successfully.');
     } catch (error: any) {
@@ -134,10 +139,10 @@ export const useUserStore = create<UserStore>((set, get) => ({
       toast.error("Product ID is missing.");
       return;
     }
-    
+
     try {
       const response = await axios.post(
-        "https://easygrocery-server.onrender.com/api/user/wishlist/",
+        `${baseURL}/user/wishlist/`,
         { user: userId, product: product.id },
         { headers: { 'Content-Type': 'application/json' } }
       );
@@ -161,7 +166,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
 
     try {
       const response = await axios.get<{ results: WishlistItem[] }>(
-        `https://easygrocery-server.onrender.com/api/user/wishlist/?user=${userId}`,
+        `${baseURL}/user/wishlist/?user=${userId}`,
         { headers: { 'Content-Type': 'application/json' } }
       );
 
@@ -172,7 +177,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
       const uniqueProductIds = [...new Set(wishlistItems.map((item) => item.product))];
       const productResponses = await Promise.all(
         uniqueProductIds.map((id) =>
-          axios.get<Product>(`https://easygrocery-server.onrender.com/api/product/products/${id}`)
+          axios.get<Product>(`${baseURL}/product/products/${id}`)
         )
       );
 
@@ -191,10 +196,19 @@ export const useUserStore = create<UserStore>((set, get) => ({
   removeWishlistItem: async (id: number) => {
     try {
       set((state) => ({ wishlist: state.wishlist.filter((item) => item.id !== id) }));
-      await axios.delete(`https://easygrocery-server.onrender.com/api/user/wishlist/${id}/`);
+      await axios.delete(`${baseURL}/user/wishlist/${id}/`);
     } catch (err) {
       console.error('Error removing item from wishlist:', err);
       alert('Failed to remove item from wishlist.');
     }
   },
 }));
+
+
+/***
+ * 
+ * {
+"username": "rahims0",
+"password": "rahi1234"
+}
+ */

@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 import { useUserStore } from '@/app/stores/useUserStore';
 import { Product } from '@/constants/types';
 
+const BASE_URL = 'https://easygrocery-server.vercel.app/api';
+
 interface Purchase {
   id: number;
   user: number;
@@ -25,7 +27,7 @@ interface OrderStore {
   handleQuantityChange: (id: number, delta: number) => void;
   totalAmount: () => string;
   checkout: () => Promise<void>;
-  fetchPurchasedList: () => Promise<void>; 
+  fetchPurchasedList: () => Promise<void>;
 }
 
 export const useOrderStore = create<OrderStore>((set, get) => ({
@@ -50,7 +52,7 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
 
     try {
       const response = await axios.post(
-        "https://easygrocery-server.onrender.com/api/order/cart/",
+        `${BASE_URL}/order/cart/`,
         { user: userId, product: product.id },
         { headers: { 'Content-Type': 'application/json' } }
       );
@@ -73,7 +75,7 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
       if (!userId) throw new Error('User ID not found');
 
       const response = await axios.get(
-        `https://easygrocery-server.onrender.com/api/order/cart/?user=${userId}`,
+        `${BASE_URL}/order/cart/?user=${userId}`,
         { headers: { 'Content-Type': 'application/json' } }
       );
 
@@ -83,7 +85,7 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
       const uniqueProductIds = [...new Set(cartData.map((item: any) => item.product))];
       const productResponses = await Promise.all(
         uniqueProductIds.map((id) =>
-          axios.get<Product>(`https://easygrocery-server.onrender.com/api/product/products/${id}`)
+          axios.get<Product>(`${BASE_URL}/product/products/${id}`)
         )
       );
 
@@ -105,7 +107,7 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
   removeCartItem: async (id: number) => {
     try {
       set((state) => ({ cart: state.cart.filter((item) => item.id !== id) }));
-      await axios.delete(`https://easygrocery-server.onrender.com/api/order/cart/${id}/`);
+      await axios.delete(`${BASE_URL}/order/cart/${id}/`);
     } catch (err) {
       console.error('Error removing item from cart:', err);
       toast.error('Failed to remove item from cart.');
@@ -136,6 +138,9 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
   checkout: async () => {
     try {
       const {userId, authToken} = useUserStore.getState();
+
+      console.log(userId)
+      console.log(authToken)
   
       if (!userId) throw new Error('User Id not found');
       if (!authToken) throw new Error('Auth token not found');
@@ -143,7 +148,7 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
       const total = parseFloat(get().totalAmount());
   
       const response = await axios.post(
-        'https://easygrocery-server.onrender.com/api/order/checkout/',
+        `${BASE_URL}/order/checkout/`,
         { user: userId, total_amount: total },
         {
           headers: {
@@ -176,7 +181,7 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
       if (!userId) throw new Error('User ID not found');
 
       const response = await axios.get(
-        `https://easygrocery-server.onrender.com/api/order/purchase-history/?user=${userId}`
+        `${BASE_URL}/order/purchase-history/?user=${userId}`
       );
 
       const purchases = response.data.results;
@@ -185,7 +190,7 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
       const uniqueProductIds = [...new Set(purchases.map((item : any) => item.product))];
       const productResponses = await Promise.all(
         uniqueProductIds.map((id) =>
-          axios.get(`https://easygrocery-server.onrender.com/api/product/products/${id}`)
+          axios.get(`${BASE_URL}/product/products/${id}`)
         )
       );
 

@@ -2,6 +2,8 @@ import { create } from 'zustand';
 import axios from 'axios';
 import { Category, Product } from '@/constants/types';
 
+const BASE_URL = 'https://easygrocery-server.vercel.app/api';
+
 interface ProductStore {
   categories: Category[];
   products: Product[];
@@ -22,7 +24,7 @@ export const useProductStore = create<ProductStore>((set) => ({
   fetchCategories: async () => {
     set({ isLoading: true, message: '' });
     try {
-      const response = await axios.get('https://easygrocery-server.onrender.com/api/category/categories/');
+      const response = await axios.get(`${BASE_URL}/category/categories/`);
       set({ categories: response.data.results });
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -40,7 +42,7 @@ export const useProductStore = create<ProductStore>((set) => ({
     });
 
     try {
-      const response = await axios.post('https://easygrocery-server.onrender.com/api/product/products/', data, {
+      const response = await axios.post(`${BASE_URL}/product/products/`, data, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
@@ -60,7 +62,7 @@ export const useProductStore = create<ProductStore>((set) => ({
   fetchProducts: async () => {
     set({ isLoading: true });
     try {
-      const response = await axios.get('https://easygrocery-server.onrender.com/api/product/products/');
+      const response = await axios.get(`${BASE_URL}/product/products/`);
       set({ products: response.data.results });
     } catch (error) {
       console.error('Failed to fetch products:', error);
@@ -73,7 +75,7 @@ export const useProductStore = create<ProductStore>((set) => ({
   fetchProductById: async (productId: string) => {
     set({ isLoading: true, message: '' });
     try {
-      const response = await axios.get(`https://easygrocery-server.onrender.com/api/product/products/${productId}/`);
+      const response = await axios.get(`${BASE_URL}/product/products/${productId}/`);
       return response.data;
     } catch (error) {
       console.error('Failed to fetch product:', error);
