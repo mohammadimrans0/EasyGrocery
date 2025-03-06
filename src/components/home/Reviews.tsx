@@ -45,7 +45,7 @@ const reviews = [
 export default function ReviewCarousel() {
   return (
     <div className="w-full mx-auto px-4 text-center overflow-hidden">
-      <h2 className="text-3xl font-semibold text-gray-800 mb-8">
+      <h2 className="text-3xl font-semibold text-gray-800 mb-12">
         Customer Reviews
       </h2>
 
@@ -62,7 +62,7 @@ export default function ReviewCarousel() {
           }}
         >
           {[...reviews, ...reviews].map((review, index) => (
-            <div key={index} className="w-80 shrink-0 bg-white p-6 rounded-lg shadow-lg">
+            <div key={index} className="w-80 shrink-0 p-6 rounded-lg shadow-lg bg-lime-100">
               <div className="flex items-center space-x-4">
                 <Image
                   src={review.image}
@@ -78,7 +78,7 @@ export default function ReviewCarousel() {
                   <p className="text-gray-500">{review.role}</p>
                 </div>
               </div>
-              <p className="mt-4 text-gray-700">{review.review}</p>
+              <p className="mt-4 text-gray-700 text-start">{review.review}</p>
               <div className="mt-4 flex items-center space-x-1 text-yellow-500">
                 {[...Array(5)].map((_, idx) => (
                   <Star key={idx} fill="yellow"/>

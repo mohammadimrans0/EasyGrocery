@@ -101,10 +101,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
 
   fetchProfile: async () => {
     const userId = get().userId;
-    if (!userId){
-      console.error('User not found')
-      return;
-    } 
+    if (!userId) return;   
 
     try {
       const response = await axios.get(`${baseURL}/user/profiles/?user=${userId}`);

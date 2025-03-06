@@ -6,7 +6,7 @@ export default function ExtraInofPage() {
   return (
     <div>
       {/* Hero section */}
-      <section>
+      <section className="px-4">
         <div className="w-full mt-8 md:mt-0 relative">
           <Image
             src="/images/hero-image.webp"
@@ -39,14 +39,14 @@ export default function ExtraInofPage() {
       </section>
 
       {/* Review section */}
-      <section className="pt-16 bg-lime-100">
+      <section className="pt-16 mt-4">
         <ReviewPage/>
       </section>
 
       {/* Subscribe section */}
 
-      <section>
-        <div className="w-full bg-lime-100 p-6 md:px-12 md:py-16 rounded-lg shadow-lg">
+      <section className="px-4">
+        <div className="w-full p-6 md:px-12 md:py-12 rounded-lg mt-12 bg-lime-100">
           <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
             Subscribe to our emails
           </h2>
@@ -69,8 +69,8 @@ export default function ExtraInofPage() {
 
       {/* Features section */}
 
-      <section className="py-20 container mx-auto px-4">
-        <div className="flex flex-wrap items-center justify-around gap-6 bg-gradient-to-r from-green-200 via-sky-300 to-purple-400 p-8 rounded-lg shadow-xl">
+      <section className="py-20 px-4">
+        <div className="flex flex-wrap items-center justify-around gap-6 bg-lime-100 p-8 rounded-lg shadow-xl">
           {/* Quality Products */}
           <div className="flex items-center gap-4 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-64">
             <div className="text-green-500 text-4xl">

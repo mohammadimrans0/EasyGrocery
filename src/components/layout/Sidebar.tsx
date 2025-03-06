@@ -10,7 +10,7 @@ import {
 
 export default function Sidebar() {
   return (
-    <div className="bg-slate-100 md:h-screen p-8">
+    <div className="bg-slate-100 md:h-screen p-8 mt-16">
       <nav>
         <ul className="space-y-4">
           <li>

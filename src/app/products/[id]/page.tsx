@@ -31,14 +31,14 @@ const ProductPage = () => {
 
   if (isLoading)
     return (
-      <p className="text-center text-gray-500">Loading product details...</p>
+      <p className="text-center text-gray-500 h-screen">Loading product details...</p>
     );
   if (message) return <p className="text-center text-red-500">{message}</p>;
   if (!product)
     return <p className="text-center text-red-500">Product not found.</p>;
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-6 mt-16">
       <ToastContainer />
       <div className="flex flex-col md:flex-row gap-6 lg:gap-16 items-center justify-center">
         <Image

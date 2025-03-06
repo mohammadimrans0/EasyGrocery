@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { toast, ToastContainer } from 'react-toastify';
 import { useUserStore } from '@/app/stores/useUserStore';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -25,7 +26,6 @@ export default function Login() {
 
     try {
       await login({ username, password });
-
       setTimeout(() => {
         router.push('/dashboard/user/profile');
       }, 2000);
@@ -38,44 +38,58 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center py-16 px-6">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg border">
-        <h2 className="text-2xl font-semibold text-center text-gray-700">Login to your account</h2>
+    <div className="flex items-center justify-center bg-gray-100 px-6 mt-16 py-8">
+      <div className="flex bg-white rounded-lg shadow-lg overflow-hidden w-full max-w-4xl">
+        {/* Left Image Section */}
+        <div className="hidden md:block w-1/2">
+          <Image 
+            src="/images/login-image.png" 
+            alt="Login" 
+            width={600} 
+            height={600} 
+            className="h-full w-full object-cover" 
+          />
+        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-4">
-            <input
-              type="text"
-              placeholder="Type your username"
-              value={username}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
-              required
-              className="w-full border p-3 rounded border-green-500"
-            />
-            <input
-              type="password"
-              placeholder="Type your password"
-              value={password}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-              required
-              className="w-full border p-3 rounded border-green-500"
-            />
+        {/* Right Form Section */}
+        <div className="w-full md:w-1/2 p-8 space-y-6">
+          <h2 className="text-2xl font-semibold text-center text-gray-700">Login your account</h2>
+          
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-4">
+              <input
+                type="text"
+                placeholder="Type your username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                className="w-full border p-3 rounded border-green-500"
+              />
+              <input
+                type="password"
+                placeholder="Type your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="w-full border p-3 rounded border-green-500"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-green-500 text-white text-center p-3 rounded"
+              disabled={isLoading}
+            >
+              {isLoading ? 'Logging in...' : 'Login'}
+            </button>
+          </form>
+
+          <div className="text-center text-gray-600">
+            <p>
+              Don&apos;t have an account?{' '}
+              <Link href="/auth/signup" className="text-blue-500">Sign up</Link>
+            </p>
           </div>
-
-          <button
-            type="submit"
-            className="w-full bg-green-500 text-white text-center p-3 rounded"
-            disabled={isLoading}
-          >
-            {isLoading ? 'Logging in...' : 'Login'}
-          </button>
-        </form>
-
-        <div className="text-center text-gray-600">
-          <p>
-            Don&apos;t have an account?{' '}
-            <Link href="/auth/signup" className="text-blue-500">Sign up</Link>
-          </p>
         </div>
       </div>
 

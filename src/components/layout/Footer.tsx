@@ -8,7 +8,7 @@ export default function Footer() {
     <>
       <footer className="text-slate-500">
         {/* <!-- Main footer --> */}
-        <div className="text-sm border-t border-slate-200 bg-slate-100 p-8">
+        <div className="text-sm border-t border-slate-200 bg-slate-100 p-4 lg:p-8">
           <div className="container px-6 mx-auto">
             <div className="grid grid-cols-4 gap-6 md:grid-cols-8 lg:grid-cols-12">
               <div

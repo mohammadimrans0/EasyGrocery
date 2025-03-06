@@ -18,7 +18,7 @@ const Navbar = () => {
   }, [fetchProfile]);
 
   return (
-    <div className="relative z-20 w-full shadow-sm ">
+    <div className="fixed top-0 left-0 w-full bg-white shadow-sm z-50">
       <div className="container mx-auto px-4 lg:max-w-5xl xl:max-w-7xl">
         <nav className="flex items-center justify-between py-4">
           {/* Brand logo */}
@@ -120,6 +120,7 @@ const Navbar = () => {
                     onClick={async () => {
                       try {
                         await logout();
+                        setIsProfileOpen(false);
                       } catch (error) {
                         console.error("Logout error:", error);
                       }

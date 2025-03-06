@@ -32,7 +32,7 @@ export function BannerCarousel() {
   };
 
   return (
-    <div className="relative w-full h-[30vh] md:h-[50vh] overflow-hidden">
+    <div className="relative w-full h-[30vh] md:h-[50vh] lg:h-[60vh] overflow-hidden mt-16">
       <AnimatePresence>
         {groceryItems.map((item, i) =>
           i === index ? (

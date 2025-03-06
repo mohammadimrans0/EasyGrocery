@@ -11,7 +11,7 @@ const PurchasedList = () => {
   }, [fetchPurchasedList]);
 
   return (
-    <div className="p-6">
+    <div className="p-6 mt-16">
       <h2 className="text-2xl font-bold mb-6 text-gray-700">Purchased List:</h2>
       {isLoading ? (
         <p>Loading purchases...</p>

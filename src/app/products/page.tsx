@@ -1,96 +1,152 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useProductStore } from "../stores/useProductStore";
 import Link from "next/link";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ArrowRight } from "lucide-react";
 
 const AllProduct: React.FC = () => {
   const { categories, fetchCategories, isLoading, message } = useProductStore();
   const { products, fetchProducts } = useProductStore();
-  
+
   useEffect(() => {
     const fetchAndFilterProducts = async () => {
       fetchCategories();
       await fetchProducts();
     };
-  
     fetchAndFilterProducts();
   }, [fetchProducts, fetchCategories]);
 
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  // Handle category selection
   const handleSelectCategory = (categoryId: number | null) => {
     setSelectedCategory(categoryId);
+    if (window.innerWidth < 1024) {
+      setIsDrawerOpen(false); // Close the sheet on small screens
+    }
   };
 
-  // Filter products based on selected category
   const filteredProducts = selectedCategory
     ? products.filter((product) => product.category === selectedCategory)
     : products;
 
   return (
-    <div className="px-8 grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-6">
-      
-      {/* Sidebar - Category Filters */}
-      <div className="col-span-4 lg:col-span-3 my-8 p-6 bg-gray-100 rounded-md">
-        <h1 className="text-center text-2xl font-semibold my-6">Filter by Categories</h1>
-        <div className="space-y-3">
-          {/* All Categories Option */}
-          <div 
-            onClick={() => handleSelectCategory(null)} 
-            className={`border rounded-lg shadow-md text-center cursor-pointer py-3 transition ${
-              selectedCategory === null ? "bg-[#77b91e] text-white" : "hover:bg-gray-200"
-            }`}
-          >
-            All Products
-          </div>
+    <div className="px-4 py-8 lg:p-0 mt-16 grid grid-cols-1 lg:grid-cols-12 gap-6">
+      {/* Drawer for Mobile View */}
+      <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+    
+          <SheetTrigger className="lg:hidden">
+            <span className="flex items-center gap-x-2 w-48">
+            <h1 className="text-xl">Filter Products </h1>
+              <ArrowRight className="text-primary h-6 w-6" />
+            </span>
+          </SheetTrigger>
 
-          {/* Category List */}
-          {categories.length > 0 ? (
-            categories.map((category) => (
-              <div
+        <SheetContent className="p-6">
+          <h1 className="text-2xl font-semibold my-4">Filter by Categories</h1>
+          <div className="space-y-2">
+            <label className="flex items-center cursor-pointer">
+              <input
+                type="radio"
+                name="category"
+                value="null"
+                checked={selectedCategory === null}
+                onChange={() => handleSelectCategory(null)}
+                className="mr-3 text-primary w-5 h-5"
+              />
+              <span>All Products</span>
+            </label>
+            {categories.map((category) => (
+              <label
                 key={category.id}
-                onClick={() => handleSelectCategory(category.id)}
-                className={`border rounded-lg shadow-md text-center cursor-pointer py-3 transition ${
-                  selectedCategory === category.id ? "bg-[#77b91e] text-white" : "hover:bg-gray-200"
-                }`}
+                className="flex items-center cursor-pointer"
               >
-                {category.name}
-              </div>
-            ))
-          ) : (
-            <div className="text-center text-gray-600">No categories available.</div>
-          )}
+                <input
+                  type="radio"
+                  name="category"
+                  value={category.id.toString()}
+                  checked={selectedCategory === category.id}
+                  onChange={() => handleSelectCategory(category.id)}
+                  className="mr-3 text-primary w-5 h-5"
+                />
+                <span>{category.name}</span>
+              </label>
+            ))}
+          </div>
+        </SheetContent>
+      </Sheet>
+
+      {/* Sidebar for Larger Screens */}
+      <div className="hidden lg:block col-span-3 p-6 bg-gray-100">
+        <h1 className="text-xl font-semibold mb-4">Filter by Categories</h1>
+        <div className="space-y-4">
+          <label className="flex items-center cursor-pointer">
+            <input
+              type="radio"
+              name="category"
+              value="null"
+              checked={selectedCategory === null}
+              onChange={() => handleSelectCategory(null)}
+              className="mr-3 text-primary w-5 h-5"
+            />
+            <span className="text-xl">All Products</span>
+          </label>
+          {categories.map((category) => (
+            <label
+              key={category.id}
+              className="flex items-center cursor-pointer"
+            >
+              <input
+                type="radio"
+                name="category"
+                value={category.id.toString()}
+                checked={selectedCategory === category.id}
+                onChange={() => handleSelectCategory(category.id)}
+                className="mr-3 text-primary w-5 h-5"
+              />
+              <span className="text-xl">{category.name}</span>
+            </label>
+          ))}
         </div>
       </div>
 
       {/* Products Section */}
-      <div className="col-span-4 lg:col-span-9 p-8 mb-12">
-        {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="col-span-9 lg:p-6 mt-2">
+        {isLoading ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+            {Array.from({ length: 6 }).map((_, index) => (
+              <Skeleton
+                key={index}
+                className="h-64 w-full bg-gray-200 rounded-lg"
+              />
+            ))}
+          </div>
+        ) : filteredProducts.length > 0 ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
             {filteredProducts.map((product) => (
               <Link key={product.id} href={`/products/${product.id}`}>
-              <div
-                key={product.id}
-                className="rounded-lg shadow-md p-4 flex flex-col items-center bg-white hover:border hover:border-green-500 transition duration-200 h-[370px]"
-              >
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  width={160}
-                  height={160}
-                  className="object-cover rounded-md mb-4"
-                />
-                <h2 className="text-lg font-semibold mb-2">{product.name}</h2>
-                <p className="text-gray-700 mb-1">
-                  <span className="font-medium">Price:</span> ৳{product.price}
-                </p>
-                <p className="text-gray-700 mb-3">
-                  <span className="font-medium">Stock:</span> {product.stock}
-                </p>
-              </div>
+                <div className="rounded-lg shadow-md p-4 bg-white hover:border hover:border-green-500 transition duration-200 h-[230px] lg:h-[300px] flex flex-col items-center">
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    width={160}
+                    height={160}
+                    className="object-cover rounded-md mb-2 max-h-[130px] lg:max-h-[180px]"
+                  />
+                  <h2 className="text-lg font-semibold text-center">
+                    {product.name}
+                  </h2>
+                  <p className="text-gray-700 text-sm">
+                    <span className="font-medium">Price:</span> ৳{product.price}
+                  </p>
+                  <p className="text-gray-700 text-sm">
+                    <span className="font-medium">Stock:</span> {product.stock}
+                  </p>
+                </div>
               </Link>
             ))}
           </div>
@@ -98,7 +154,6 @@ const AllProduct: React.FC = () => {
           <p className="text-center text-gray-600">No products available</p>
         )}
       </div>
-
     </div>
   );
 };

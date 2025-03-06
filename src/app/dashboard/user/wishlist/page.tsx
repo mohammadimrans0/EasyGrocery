@@ -24,7 +24,7 @@ export default function MyWishlist() {
   if (wishlist.length === 0) return <div className="flex items-center justify-center h-screen text-4xl">No wishlist items available</div>;
 
   return (
-    <div className="w-full p-8">
+    <div className="w-full p-8 mt-16">
       <h1 className="text-2xl font-bold text-gray-700">My Wishlist</h1>
       <div className="mt-6 overflow-x-auto">
         <table className="min-w-full bg-white shadow-md rounded-lg">

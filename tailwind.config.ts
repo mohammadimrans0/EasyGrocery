@@ -1,18 +1,20 @@
 import type { Config } from "tailwindcss";
 
 export default {
-    darkMode: ["class"],
-    content: [
+  darkMode: ["class"],
+  content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-  	extend: {
+    extend: {
       colors: {
-        primary: '#77b91e',
+        primary: "#77b91e", // Set your custom primary color here
+        // Optionally, you can also set the foreground color if needed
+        "primary-foreground": "#ffffff", // For example, white text on primary color
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 } satisfies Config;
