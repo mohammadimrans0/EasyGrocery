@@ -21,7 +21,7 @@ const CreateCategory = () => {
     setMessage('');
 
     try {
-      const response = await axios.post('https://easygrocery-server.onrender.com/api/category/categories/', {
+      const response = await axios.post('https://easygrocery-server.vercel.app/api/category/categories/', {
         name: categoryName,
         slug: slug,
       });
