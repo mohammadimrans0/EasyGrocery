@@ -39,7 +39,7 @@ const ProductPage = () => {
 
   return (
     <div className="container mx-auto p-6">
-        <ToastContainer/>
+      <ToastContainer />
       <div className="flex flex-col md:flex-row gap-6 lg:gap-16 items-center justify-center">
         <Image
           src={product.image}
@@ -77,15 +77,21 @@ const ProductPage = () => {
         </div>
       </div>
 
-      <div>
-        <div className="flex gap-x-4">
-        <h1 className="text-xl mt-8 px-4 py-2 rounded-t-lg bg-primary w-36 text-white">Description</h1>
-        <h1 className="text-xl mt-8 px-4 py-2 rounded-t-lg bg-gray-500 w-28 text-white">Reviews</h1>
-        </div>
-      
+      <div className="mt-16">
+        <h1 className="text-xl px-4 py-2 rounded-t-lg bg-primary w-36 text-white">
+          Description
+        </h1>
         <div className="p-6 border rounded-b-lg rounded-r-lg">
-            <p className="">{product.description}</p>
+          <p className="">{product.description}</p>
         </div>
+
+        <h1 className="text-2xl mt-8 px-4 py-2 rounded-t-lg bg-gray-500 w-32 text-white">
+          Reviews
+        </h1>
+        <div className="p-6 border rounded-b-lg rounded-r-lg">
+          <p className="text-gray-500">No reviews available</p>
+        </div>
+
       </div>
     </div>
   );

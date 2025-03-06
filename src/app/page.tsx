@@ -23,7 +23,7 @@ export default function Home() {
         <h1 className="text-2xl font-semibold text-center mt-8 mb-4 text-gray-800">
           Filter Your Needs By Category
         </h1>
-        <div className="mb-4">
+        <div className="mb-8">
           <DisplayCategory onSelectCategory={handleSelectCategory} />
         </div>
       </div>

@@ -19,9 +19,9 @@ export default function MyWishlist() {
     fetchWishlist();
   }, [fetchWishlist]);
 
-  if (isLoading) return <div>Loading wishlist...</div>;
+  if (isLoading) return <div className="flex items-center justify-center h-screen text-2xl">Loading wishlist...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
-  if (wishlist.length === 0) return <div>No wishlist items available</div>;
+  if (wishlist.length === 0) return <div className="flex items-center justify-center h-screen text-4xl">No wishlist items available</div>;
 
   return (
     <div className="w-full p-8">

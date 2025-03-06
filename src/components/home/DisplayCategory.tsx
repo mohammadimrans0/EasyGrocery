@@ -23,7 +23,7 @@ const DisplayCategory: React.FC<DisplayCategoryProps> = ({ onSelectCategory }) =
   }
 
   return (
-    <div className="flex flex-wrap justify-center gap-4 p-4">
+    <div className="flex flex-wrap justify-center gap-6 p-4">
       {categories.length > 0 ? (
         categories.map((category) => (
           <div

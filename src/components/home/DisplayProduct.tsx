@@ -53,11 +53,11 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({
   return (
     <div className="p-4">
       {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredProducts.map((product) => (
             <div
               key={product.id}
-              className="rounded-lg drop-shadow-lg p-4 flex flex-col items-center bg-white hover:border-2 hover:border-primary transition duration-200 h-[480px]"
+              className="rounded-lg drop-shadow-lg p-4 flex flex-col items-center bg-white hover:border-2 hover:border-primary transition duration-200 h-[400px]"
             >
               {/* Link wraps only Image */}
               <Link href={`/products/${product.id}`} className="block">
@@ -66,7 +66,7 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({
                   alt={product.name}
                   width={160}
                   height={120}
-                  className="object-cover rounded-md mb-4"
+                  className="object-cover rounded-md mb-4 max-h-[180px]"
                 />
               </Link>
 
@@ -84,28 +84,30 @@ const DisplayProduct: React.FC<DisplayProductProps> = ({
                 <span className="font-medium">Stock:</span> {product.stock}
               </p>
 
-              <button
-                onClick={() => addToCart(product)}
-                className="px-6 py-3 mb-3 bg-[#77b91e] text-white rounded-full flex items-center gap-2 font-medium"
-              >
-                <span>Add to Cart</span>
-                <ShoppingCart className="w-5 h-5" />
-              </button>
+              <div className="flex items-center justify-center gap-x-6 mt-2">
+                <button
+                  onClick={() => addToCart(product)}
+                  className="px-6 py-3 bg-[#77b91e] flex items-center gap-x-2 text-white rounded-full font-medium"
+                >
+                  <span>Cart</span>
+                  <ShoppingCart className="w-5 h-5" />
+                </button>
 
-              <button
-                onClick={() => addToWishlist(product)}
-                className="px-6 py-3 rounded-full flex items-center gap-2 font-medium text-red-400 border"
-              >
-                <span>Add to Wishlist</span>
-                <Heart className="w-5 h-5 text-red-500" />
-              </button>
+                <button
+                  onClick={() => addToWishlist(product)}
+                  className="px-6 py-3 rounded-full flex items-center gap-x-2 font-medium text-red-400 border"
+                >
+                  <span>Wishlist</span>
+                  <Heart className="w-5 h-5 text-red-500" />
+                </button>
+              </div>
             </div>
           ))}
         </div>
       ) : (
         <p>No products available for this category</p>
       )}
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   );
 };
