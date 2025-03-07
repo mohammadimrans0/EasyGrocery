@@ -32,10 +32,11 @@ export default function ContactForm() {
           type="text"
           id="name"
           name="name"
+          placeholder="Enter your name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
-          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          className="mt-1 p-2 block w-full h-10 border border-gray-300 rounded-md shadow-sm  sm:text-sm"
         />
       </div>
       <div>
@@ -46,10 +47,11 @@ export default function ContactForm() {
           type="email"
           id="email"
           name="email"
+          placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          className="mt-1 p-2 block w-full h-10 border border-gray-300 rounded-md shadow-sm sm:text-sm"
         />
       </div>
       <div>
@@ -59,11 +61,12 @@ export default function ContactForm() {
         <textarea
           id="message"
           name="message"
+          placeholder="Enter your message"
           rows={4}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           required
-          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm sm:text-sm"
         ></textarea>
       </div>
       <div>

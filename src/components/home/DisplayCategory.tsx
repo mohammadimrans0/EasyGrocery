@@ -15,7 +15,16 @@ const DisplayCategory: React.FC<DisplayCategoryProps> = ({ onSelectCategory }) =
   }, [fetchCategories]);
 
   if (isLoading) {
-    return <div className="text-center text-gray-600">Loading categories...</div>;
+    return (
+      <div className="flex flex-wrap justify-center gap-6 p-4">
+        {[...Array(4)].map((_, index) => (
+          <div
+            key={index}
+            className="w-24 h-8 bg-gray-300 animate-pulse rounded-lg"
+          ></div>
+        ))}
+      </div>
+    );
   }
 
   if (message) {

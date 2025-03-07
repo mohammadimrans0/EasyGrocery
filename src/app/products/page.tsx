@@ -1,15 +1,14 @@
-"use client";
+'use client';
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useProductStore } from "../stores/useProductStore";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowRight } from "lucide-react";
 
 const AllProduct: React.FC = () => {
-  const { categories, fetchCategories, isLoading, message } = useProductStore();
+  const { categories, fetchCategories, isLoading } = useProductStore();
   const { products, fetchProducts } = useProductStore();
 
   useEffect(() => {
@@ -38,13 +37,12 @@ const AllProduct: React.FC = () => {
     <div className="px-4 py-8 lg:p-0 mt-16 grid grid-cols-1 lg:grid-cols-12 gap-6">
       {/* Drawer for Mobile View */}
       <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-    
-          <SheetTrigger className="lg:hidden">
-            <span className="flex items-center gap-x-2 w-48">
+        <SheetTrigger className="lg:hidden">
+          <span className="flex items-center gap-x-2 w-48">
             <h1 className="text-xl">Filter Products </h1>
-              <ArrowRight className="text-primary h-6 w-6" />
-            </span>
-          </SheetTrigger>
+            <ArrowRight className="text-primary h-6 w-6" />
+          </span>
+        </SheetTrigger>
 
         <SheetContent className="p-6">
           <h1 className="text-2xl font-semibold my-4">Filter by Categories</h1>
@@ -61,10 +59,7 @@ const AllProduct: React.FC = () => {
               <span>All Products</span>
             </label>
             {categories.map((category) => (
-              <label
-                key={category.id}
-                className="flex items-center cursor-pointer"
-              >
+              <label key={category.id} className="flex items-center cursor-pointer">
                 <input
                   type="radio"
                   name="category"
@@ -96,10 +91,7 @@ const AllProduct: React.FC = () => {
             <span className="text-xl">All Products</span>
           </label>
           {categories.map((category) => (
-            <label
-              key={category.id}
-              className="flex items-center cursor-pointer"
-            >
+            <label key={category.id} className="flex items-center cursor-pointer">
               <input
                 type="radio"
                 name="category"
@@ -118,13 +110,18 @@ const AllProduct: React.FC = () => {
       <div className="col-span-9 lg:p-6 mt-2">
         {isLoading ? (
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-            {Array.from({ length: 6 }).map((_, index) => (
-              <Skeleton
-                key={index}
-                className="h-64 w-full bg-gray-200 rounded-lg"
-              />
-            ))}
-          </div>
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div
+              key={index}
+              className="rounded-lg shadow-md p-4 bg-white h-[230px] lg:h-[300px] flex flex-col items-center animate-pulse"
+            >
+              <div className="w-40 h-[130px] lg:h-[180px] bg-gray-300 rounded-md mb-2"></div>
+              <div className="w-3/4 h-4 bg-gray-300 rounded-md mb-2"></div>
+              <div className="w-1/2 h-3 bg-gray-300 rounded-md mb-1"></div>
+              <div className="w-2/3 h-3 bg-gray-300 rounded-md"></div>
+            </div>
+          ))}
+        </div>
         ) : filteredProducts.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
             {filteredProducts.map((product) => (
