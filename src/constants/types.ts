@@ -10,11 +10,12 @@ export interface Product {
   }
   
 // User Profile interface
-interface Profile {
+export interface Profile {
   name: string;
   image: string;
   contact_info: string;
   shopping_preferences: string;
+  role: "buyer" | "seller";
 }
 
 export interface UserProfile {

@@ -8,7 +8,6 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ArrowRight, Search } from "lucide-react";
 import { ToastContainer } from "react-toastify";
 import ProductCard from "@/components/home/ProductCard";
-// import { Button } from "@/components/ui/button";
 
 const ITEMS_PER_PAGE = 6;
 
