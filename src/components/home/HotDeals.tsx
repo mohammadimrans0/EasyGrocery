@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useProductStore } from "@/app/stores/useProductStore";
 import ProductCard from "./ProductCard";
 
-const DisplayProduct = () => {
+const HotDeals = () => {
   const { products, fetchProducts, isLoading, message } = useProductStore();
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const DisplayProduct = () => {
   if (isLoading) {
     return (
       <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {[...Array(8)].map((_, index) => (
+        {[...Array(4)].map((_, index) => (
           <div
             key={index}
             className="rounded-lg drop-shadow-lg p-4 flex flex-col items-center bg-white animate-pulse h-[400px]"
@@ -39,11 +39,17 @@ const DisplayProduct = () => {
     return <div className="text-center text-red-500">{message}</div>;
   }
 
+  // Select 4 random products
+  const randomProducts =
+    products.length > 4
+      ? [...products].sort(() => Math.random() - 0.5).slice(0, 4)
+      : products;
+
   return (
     <div className="px-8">
-      {products.length > 0 ? (
+      {randomProducts.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {products.map((product) => (
+          {randomProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
@@ -55,4 +61,4 @@ const DisplayProduct = () => {
   );
 };
 
-export default DisplayProduct;
+export default HotDeals;

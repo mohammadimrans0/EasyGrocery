@@ -1,20 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import { useProductStore } from "../stores/useProductStore";
-import Link from "next/link";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { ArrowRight, Heart, Search, ShoppingCart, Star } from "lucide-react";
-import { useOrderStore } from "../stores/useOrderStore";
-import { useUserStore } from "../stores/useUserStore";
-import { ToastContainer } from "react-toastify";
 
-const AllProduct: React.FC = () => {
+import { useProductStore } from "../stores/useProductStore";
+
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { ArrowRight, Search } from "lucide-react";
+import { ToastContainer } from "react-toastify";
+import ProductCard from "@/components/home/ProductCard";
+// import { Button } from "@/components/ui/button";
+
+const ITEMS_PER_PAGE = 6;
+
+const AllProduct = () => {
   const { categories, fetchCategories, isLoading } = useProductStore();
   const { products, fetchProducts } = useProductStore();
-  const { addToCart } = useOrderStore();
-    const { addToWishlist } = useUserStore();
 
   useEffect(() => {
     const fetchAndFilterProducts = async () => {
@@ -27,10 +27,12 @@ const AllProduct: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleSelectCategory = (categoryId: number | null) => {
     setSelectedCategory(categoryId);
     setSearchQuery("");
+    setCurrentPage(1);
     if (window.innerWidth < 1024) {
       setIsDrawerOpen(false);
     }
@@ -49,6 +51,13 @@ const AllProduct: React.FC = () => {
     return matchesCategory && matchesSearch;
   });
 
+  // Pagination logic
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+  const paginatedProducts = filteredProducts.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
   return (
     <div className="px-4 py-8 lg:p-0 mt-16 grid grid-cols-1 lg:grid-cols-12 gap-6">
       {/* Sidebar for Larger Screens */}
@@ -59,7 +68,6 @@ const AllProduct: React.FC = () => {
             <input
               type="radio"
               name="category"
-              value="null"
               checked={selectedCategory === null}
               onChange={() => handleSelectCategory(null)}
               className="mr-3 text-primary w-5 h-5"
@@ -74,7 +82,6 @@ const AllProduct: React.FC = () => {
               <input
                 type="radio"
                 name="category"
-                value={category.id.toString()}
                 checked={selectedCategory === category.id}
                 onChange={() => handleSelectCategory(category.id)}
                 className="mr-3 text-primary w-5 h-5"
@@ -101,7 +108,6 @@ const AllProduct: React.FC = () => {
               <input
                 type="radio"
                 name="category"
-                value="null"
                 checked={selectedCategory === null}
                 onChange={() => handleSelectCategory(null)}
                 className="mr-3 text-primary w-5 h-5"
@@ -116,7 +122,6 @@ const AllProduct: React.FC = () => {
                 <input
                   type="radio"
                   name="category"
-                  value={category.id.toString()}
                   checked={selectedCategory === category.id}
                   onChange={() => handleSelectCategory(category.id)}
                   className="mr-3 text-primary w-5 h-5"
@@ -140,83 +145,69 @@ const AllProduct: React.FC = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full p-2 mb-4 border-2 rounded-lg pr-10"
             />
-            <button
-              className="absolute right-3 top-5 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-            >
+            <button className="absolute right-3 top-5 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
               <Search className="w-5 h-5" />
             </button>
           </div>
         </div>
 
         {isLoading ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-8">
-            {Array.from({ length: 6 }).map((_, index) => (
+          <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[...Array(8)].map((_, index) => (
               <div
                 key={index}
-                className="rounded-lg shadow-md p-4 bg-white h-[230px] lg:h-[300px] flex flex-col items-center animate-pulse"
+                className="rounded-lg drop-shadow-lg p-4 flex flex-col items-center bg-white animate-pulse h-[400px]"
               >
-                <div className="w-40 h-[130px] lg:h-[180px] bg-gray-300 rounded-md mb-2"></div>
-                <div className="w-3/4 h-4 bg-gray-300 rounded-md mb-2"></div>
-                <div className="w-1/2 h-3 bg-gray-300 rounded-md mb-1"></div>
-                <div className="w-2/3 h-3 bg-gray-300 rounded-md"></div>
-              </div>
-            ))}
-          </div>
-        ) : filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-8">
-            {filteredProducts.map((product) => (
-              <div
-              key={product.id}
-              className="relative rounded-lg shadow-sm border p-4 flex flex-col items-center bg-white hover:border-2 hover:border-primary transition duration-200 h-[400px] group"
-            >
-              <div className="relative w-full">
-                <Link href={`/products/${product.id}`} className="block">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    width={100}
-                    height={120}
-                    className="object-contain rounded-md mb-4 max-h-[220px] w-full transition duration-300 group-hover:opacity-75 scale-60"
-                  />
-                </Link>
-                <div className="absolute inset-0 flex items-center justify-center gap-x-4 opacity-0 group-hover:opacity-100 transition duration-300">
-                  <button
-                    onClick={() => addToCart(product)}
-                    className="p-3 bg-[#77b91e] text-white rounded-full shadow-md"
-                  >
-                    <ShoppingCart className="w-6 h-6" />
-                  </button>
-                  <button
-                    onClick={() => addToWishlist(product)}
-                    className="p-3 bg-white text-red-500 rounded-full shadow-md border"
-                  >
-                    <Heart className="w-6 h-6" />
-                  </button>
+                <div className="w-[160px] h-[120px] bg-gray-300 rounded-md mb-4"></div>
+                <div className="h-6 w-3/4 bg-gray-300 rounded mb-2"></div>
+                <div className="h-4 w-1/2 bg-gray-300 rounded mb-1"></div>
+                <div className="h-4 w-1/4 bg-gray-300 rounded mb-3"></div>
+                <div className="flex items-center justify-center gap-x-6 mt-2">
+                  <div className="px-6 py-3 bg-gray-300 rounded-full w-[100px] h-10"></div>
+                  <div className="px-6 py-3 bg-gray-300 rounded-full w-[100px] h-10"></div>
                 </div>
               </div>
-              
-              <Link href={`/products/${product.id}`} className="block">
-                <h2 className="text-lg font-semibold mb-2 hover:text-2xl hover:text-primary">
-                  {product.name}
-                </h2>
-              </Link>
-          
-              <p className="text-gray-700 mb-1">
-                <span className="font-medium">Price:</span> ৳{product.price}
-              </p>
-          
-              <p className="text-gray-700 mb-3">
-                <span className="font-medium">Stock:</span> {product.stock}
-              </p>
-          
-              <div className="flex items-center space-x-1 text-yellow-500">
-                {[...Array(5)].map((_, idx) => (
-                  <Star key={idx} fill="yellow"/>
-                ))}
-              </div>
-            </div>
             ))}
           </div>
+        ) : paginatedProducts.length > 0 ? (
+          <>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-8">
+              {paginatedProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+
+            {/* Pagination Controls */}
+            <div className="flex justify-center mt-6 space-x-3 items-center">
+              <button
+                className={`px-4 py-2 rounded-lg shadow-md font-medium transition ${
+                  currentPage === 1
+                    ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    : "bg-primary text-white hover:bg-primary/80"
+                }`}
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage(currentPage - 1)}
+              >
+                ← Previous
+              </button>
+
+              <span className="px-4 py-2 border rounded-lg text-lg font-semibold bg-gray-100 shadow">
+                {currentPage} / {totalPages}
+              </span>
+
+              <button
+                className={`px-4 py-2 rounded-lg shadow-md font-medium transition ${
+                  currentPage === totalPages
+                    ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    : "bg-primary text-white hover:bg-primary/80"
+                }`}
+                disabled={currentPage === totalPages}
+                onClick={() => setCurrentPage(currentPage + 1)}
+              >
+                Next →
+              </button>
+            </div>
+          </>
         ) : (
           <p className="text-center text-gray-600 mt-6">
             No products available

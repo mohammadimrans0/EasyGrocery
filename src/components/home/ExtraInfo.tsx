@@ -6,7 +6,7 @@ export default function ExtraInofPage() {
   return (
     <div>
       {/* Hero section */}
-      <section className="px-4">
+      <section className="px-8">
         <div className="w-full mt-8 md:mt-0 relative">
           <Image
             src="/images/hero-image.webp"
@@ -39,13 +39,13 @@ export default function ExtraInofPage() {
       </section>
 
       {/* Review section */}
-      <section className="pt-16">
+      <section className="pt-16 px-8">
         <ReviewPage />
       </section>
 
       {/* Subscribe section */}
 
-      <section className="px-4">
+      <section className="px-8">
         <div className="w-full p-6 md:px-12 md:py-12 rounded-lg mt-12 bg-lime-100">
           <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
             Subscribe to our emails
@@ -69,14 +69,14 @@ export default function ExtraInofPage() {
 
       {/* Features section */}
 
-      <section className="py-20 px-4">
-        <div className="bg-lime-100 p-8 rounded-lg shadow-sm">
-          <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
+      <section className="py-16 px-8">
+        <div>
+          <h2 className="text-3xl font-semibold text-center mb-8 text-gray-800">
             Our Commitment to You
           </h2>
-          <div className="flex flex-wrap items-center justify-around gap-6 ">
+          <div className="flex flex-wrap items-center justify-between gap-6 w-full">
             {/* Quality Products */}
-            <div className="flex items-center gap-4 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-64">
+            <div className="flex items-center gap-4 bg-lime-100 p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-72">
               <div className="text-green-500 text-4xl">
                 <Leaf size={32} />
               </div>
@@ -89,7 +89,7 @@ export default function ExtraInofPage() {
             </div>
 
             {/* 24/7 Support */}
-            <div className="flex items-center gap-4 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-64">
+            <div className="flex items-center gap-4 bg-lime-100 p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-72">
               <div className="text-blue-500 text-4xl">
                 <Headphones size={32} />
               </div>
@@ -102,7 +102,7 @@ export default function ExtraInofPage() {
             </div>
 
             {/* Secure Payment */}
-            <div className="flex items-center gap-4 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-64">
+            <div className="flex items-center gap-4 bg-lime-100 p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-72">
               <div className="text-yellow-500 text-4xl">
                 <Lock size={32} />
               </div>
@@ -115,7 +115,7 @@ export default function ExtraInofPage() {
             </div>
 
             {/* Free Shipping */}
-            <div className="flex items-center gap-4 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-64">
+            <div className="flex items-center gap-4 bg-lime-100 p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-72">
               <div className="text-purple-500 text-4xl">
                 <Truck size={32} />
               </div>

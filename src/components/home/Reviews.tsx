@@ -44,7 +44,7 @@ const reviews = [
 
 export default function ReviewCarousel() {
   return (
-    <div className="w-full mx-auto px-4 text-center overflow-hidden">
+    <div className="w-full mx-auto text-center overflow-hidden">
       <h2 className="text-3xl font-semibold text-gray-800 mb-12">
         Customer Reviews
       </h2>
