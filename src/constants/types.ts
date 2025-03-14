@@ -10,18 +10,18 @@ export interface Product {
   }
   
 // User Profile interface
-export interface UserProfile {
-  id: number;
-  user: {
-    id: number;
-    username: string;
-    email: string;
-  };
+interface Profile {
   name: string;
   image: string;
   contact_info: string;
   shopping_preferences: string;
-} 
+}
+
+export interface UserProfile {
+  username: string;
+  email: string;
+  profile: Profile;
+}
 
 
 export interface Category {

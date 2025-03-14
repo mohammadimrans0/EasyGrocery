@@ -104,8 +104,10 @@ export const useUserStore = create<UserStore>((set, get) => ({
     if (!userId) return;   
 
     try {
-      const response = await axios.get(`${baseURL}/user/profiles/?user=${userId}`);
-      set({ profile: response.data.results[0] });
+      const response = await axios.get(`${baseURL}/user/profile/${userId}`, {
+        headers: { Authorization: `Token ${get().authToken}` },
+      });
+      set({ profile: response.data});
     } catch (error: any) {
       console.error('Error fetching profile:', error.response?.data || error.message);
     }
@@ -113,10 +115,17 @@ export const useUserStore = create<UserStore>((set, get) => ({
 
   updateProfile: async (data) => {
     const userId = get().userId;
-    if (!userId) return;
+    const authToken = get().authToken;
+    if (!userId || !authToken) return;
 
     try {
-      const response = await axios.put(`${baseURL}/user/profiles/${userId}/`, data);
+      const response = await axios.put(
+        `${baseURL}/user/profile/${userId}/`,
+        data,
+        {
+          headers: { Authorization: `Token ${authToken}` },
+        }
+      );
       set({ profile: response.data });
       toast.success('Profile updated successfully.');
     } catch (error: any) {
@@ -124,6 +133,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
       toast.error(error.response?.data?.detail || 'Failed to update profile.');
     }
   },
+
 
   addToWishlist: async (product: Product) => {
     const { userId } = useUserStore.getState();
@@ -200,12 +210,3 @@ export const useUserStore = create<UserStore>((set, get) => ({
     }
   },
 }));
-
-
-/***
- * 
- * {
-"username": "rahims0",
-"password": "rahi1234"
-}
- */

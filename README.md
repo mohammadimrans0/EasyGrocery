@@ -41,17 +41,6 @@
 
 ---
 
-## 📷 Screenshots
-
-🔹 *Home Page*  
-🔹 *Product Listing*  
-🔹 *Cart & Checkout*  
-🔹 *Admin Dashboard*  
-
-(*Add relevant images here*)
-
----
-
 ## 📦 Installation & Setup
 
 ### **1️⃣ Clone the repository**

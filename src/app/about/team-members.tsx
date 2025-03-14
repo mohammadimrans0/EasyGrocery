@@ -19,7 +19,7 @@ export default function TeamMembers() {
               alt={member.name}
               width={300} // Replace with appropriate width
               height={500} // Replace with appropriate height
-              className="w-full h-48 object-cover"
+              className="w-full h-48"
             />
             <div className="p-4">
               <h3 className="text-xl font-semibold text-gray-900">{member.name}</h3>

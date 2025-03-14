@@ -18,18 +18,11 @@ export default function Home() {
       {/* Banner Carousel */}
       <BannerCarousel />
 
-      {/* Category Section */}
-      <div>
-        <h1 className="text-2xl font-semibold text-center mt-8 mb-4 text-gray-800">
-          Filter Your Needs By Category
-        </h1>
-        <div className="mb-8">
-          <DisplayCategory onSelectCategory={handleSelectCategory} />
-        </div>
-      </div>
-
       {/* Home Section */}
       <div className="mb-12">
+      <h1 className="text-2xl font-semibold text-center my-12 text-gray-800">
+          All Your Daily Needs Available Here
+        </h1>
           <DisplayProduct selectedCategory={selectedCategory}/>
       </div>
 

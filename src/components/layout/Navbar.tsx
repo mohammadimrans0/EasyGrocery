@@ -63,9 +63,9 @@ const Navbar = () => {
                 <li className="flex items-center gap-8">
                   <button onClick={() => setIsProfileOpen(!isProfileOpen)}>
                     <Image
-                      src={profile.image}
+                      src={profile.profile.image || "/images/avatar.png"}
                       alt="User Profile"
-                      title={profile.name}
+                      title={profile.username}
                       width={36}
                       height={36}
                       className="border-2 border-slate-500 rounded-full"

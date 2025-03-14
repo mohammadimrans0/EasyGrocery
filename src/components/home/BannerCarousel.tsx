@@ -7,10 +7,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const groceryItems = [
-  { id: 1, name: 'Fresh Fruits', image: '/images/banner-carousel/img1.png', link: '/' },
-  { id: 2, name: 'Vegetables', image: '/images/banner-carousel/img2.png', link: '/' },
-  { id: 3, name: 'Bakery Items', image: '/images/banner-carousel/img3.jpeg', link: '/' },
-  { id: 4, name: 'Meat & Poultry', image: '/images/banner-carousel/img4.png', link: '/' },
+  { id: 1, name: 'Fresh Fruits', image: '/images/banner-carousel/img1.jpg', link: '/' },
+  { id: 2, name: 'Vegetables', image: '/images/banner-carousel/img2.jpg', link: '/' },
+  { id: 3, name: 'Bakery Items', image: '/images/banner-carousel/img3.jpg', link: '/' },
+  { id: 4, name: 'Meat & Poultry', image: '/images/banner-carousel/img4.jpg', link: '/' },
 ];
 
 export function BannerCarousel() {
@@ -32,7 +32,7 @@ export function BannerCarousel() {
   };
 
   return (
-    <div className="relative w-full h-[30vh] md:h-[50vh] lg:h-[60vh] overflow-hidden mt-16">
+    <div className="relative w-full h-[30vh] md:h-[50vh] lg:h-[60vh] overflow-hidden mt-[65px]">
       <AnimatePresence>
         {groceryItems.map((item, i) =>
           i === index ? (

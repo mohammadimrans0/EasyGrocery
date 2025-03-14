@@ -1,4 +1,4 @@
-import { Leaf, Headphones, Lock, Truck} from "lucide-react";
+import { Leaf, Headphones, Lock, Truck } from "lucide-react";
 import Image from "next/image";
 import ReviewPage from "./Reviews";
 
@@ -11,7 +11,7 @@ export default function ExtraInofPage() {
           <Image
             src="/images/hero-image.webp"
             alt="Fresh Groceries"
-            className="w-full h-full rounded-lg shadow-xl"
+            className="w-full h-full rounded-lg shadow-sm"
             width={1200}
             height={600}
           />
@@ -39,15 +39,15 @@ export default function ExtraInofPage() {
       </section>
 
       {/* Review section */}
-      <section className="pt-16 mt-4">
-        <ReviewPage/>
+      <section className="pt-16">
+        <ReviewPage />
       </section>
 
       {/* Subscribe section */}
 
       <section className="px-4">
         <div className="w-full p-6 md:px-12 md:py-12 rounded-lg mt-12 bg-lime-100">
-          <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
+          <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
             Subscribe to our emails
           </h2>
           <p className="text-center mb-8">
@@ -70,52 +70,61 @@ export default function ExtraInofPage() {
       {/* Features section */}
 
       <section className="py-20 px-4">
-        <div className="flex flex-wrap items-center justify-around gap-6 bg-lime-100 p-8 rounded-lg shadow-xl">
-          {/* Quality Products */}
-          <div className="flex items-center gap-4 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-64">
-            <div className="text-green-500 text-4xl">
-              <Leaf size={32}/>
+        <div className="bg-lime-100 p-8 rounded-lg shadow-sm">
+          <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
+            Our Commitment to You
+          </h2>
+          <div className="flex flex-wrap items-center justify-around gap-6 ">
+            {/* Quality Products */}
+            <div className="flex items-center gap-4 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-64">
+              <div className="text-green-500 text-4xl">
+                <Leaf size={32} />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold text-gray-700">
+                  Fresh Products
+                </h1>
+                <p className="text-gray-500">100% Organic</p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-xl font-bold text-gray-700">
-                Fresh Products
-              </h1>
-              <p className="text-gray-500">100% Organic</p>
-            </div>
-          </div>
 
-          {/* 24/7 Support */}
-          <div className="flex items-center gap-4 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-64">
-            <div className="text-blue-500 text-4xl">
-              <Headphones size={32}/>
+            {/* 24/7 Support */}
+            <div className="flex items-center gap-4 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-64">
+              <div className="text-blue-500 text-4xl">
+                <Headphones size={32} />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold text-gray-700">
+                  24/7 Support
+                </h1>
+                <p className="text-gray-500">Customer Service</p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-xl font-bold text-gray-700">24/7 Support</h1>
-              <p className="text-gray-500">Customer Service</p>
-            </div>
-          </div>
 
-          {/* Secure Payment */}
-          <div className="flex items-center gap-4 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-64">
-            <div className="text-yellow-500 text-4xl">
-              <Lock size={32}/>
+            {/* Secure Payment */}
+            <div className="flex items-center gap-4 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-64">
+              <div className="text-yellow-500 text-4xl">
+                <Lock size={32} />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold text-gray-700">
+                  Secure Payment
+                </h1>
+                <p className="text-gray-500">Safe & Fast</p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-xl font-bold text-gray-700">
-                Secure Payment
-              </h1>
-              <p className="text-gray-500">Safe & Fast</p>
-            </div>
-          </div>
 
-          {/* Free Shipping */}
-          <div className="flex items-center gap-4 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-64">
-            <div className="text-purple-500 text-4xl">
-              <Truck size={32}/>
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-gray-700">Free Shipping</h1>
-              <p className="text-gray-500">Worldwide</p>
+            {/* Free Shipping */}
+            <div className="flex items-center gap-4 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-64">
+              <div className="text-purple-500 text-4xl">
+                <Truck size={32} />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold text-gray-700">
+                  Free Shipping
+                </h1>
+                <p className="text-gray-500">Worldwide</p>
+              </div>
             </div>
           </div>
         </div>

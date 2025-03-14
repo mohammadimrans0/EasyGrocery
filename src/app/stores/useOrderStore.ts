@@ -160,7 +160,7 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
 
       setTimeout(() => permanentRedirect(response.data.payment_url), 2000);
   
-      toast.success('Checkout successful! Redirecting...');
+      toast.success('Checkout ongoing! Redirecting to payment gateway...');
   
       return response.data;
     } catch (error: any) {
